@@ -1,3 +1,2 @@
 # Waffle Bot
-Off with his head! 🩸 <br>
-Slack Bot that oversees the coronation of a new WaffleKing 🧇👑
+🧇👑 Slack Bot that oversees the coronation of a new WaffleKing 
