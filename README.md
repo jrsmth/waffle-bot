@@ -1,2 +1,2 @@
 # Waffle Bot
-🤖 Slack Bot to crown a new WaffleKing 🧇👑
+Slack 🤖 to crown a new WaffleKing 🧇👑
