@@ -1,6 +1,9 @@
 FROM python:3.11-slim
-WORKDIR ./src
+WORKDIR /code
+COPY src/requirements.txt /code
 RUN pip3 install -r requirements.txt --no-cache-dir
+COPY . /code
 ENV PYTHONUNBUFFERED=0
-EXPOSE 3000
-ENTRYPOINT ["python3", "app.py"]
+ENV ENV=prod
+EXPOSE 8080
+ENTRYPOINT ["python3", "src/app.py"]
