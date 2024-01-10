@@ -24,7 +24,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"channel\":\"#bot-tester\",\r\n    \"text\":\"This is the last will and testament of J. R. Smith\"\r\n    }",
+					"raw": "{\r\n    \"channel\":\"#bot-tester\",\r\n    \"text\":\"This is the last will and testament of J. R. Smith\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -41,6 +41,46 @@
 					"path": [
 						"api",
 						"chat.postMessage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Single Message",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{BOT_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://slack.com/api/conversations.history?channel=C06D1J4T54J&inclusive=true&limit=1",
+					"protocol": "https",
+					"host": [
+						"slack",
+						"com"
+					],
+					"path": [
+						"api",
+						"conversations.history"
+					],
+					"query": [
+						{
+							"key": "channel",
+							"value": "C06D1J4T54J"
+						},
+						{
+							"key": "inclusive",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						}
 					]
 				}
 			},
