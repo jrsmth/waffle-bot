@@ -9,6 +9,7 @@ app = App(token=SLACK_BOT_TOKEN, signing_secret=SLACK_SIGNING_SECRET)
 
 onboarding_tutorials_sent = {}
 
+
 def start_onboarding(user_id: str, channel: str, client: WebClient):
     # Create a new onboarding tutorial.
     onboarding_tutorial = OnboardingTutorial(channel)
@@ -30,6 +31,8 @@ def start_onboarding(user_id: str, channel: str, client: WebClient):
     onboarding_tutorials_sent[channel][user_id] = onboarding_tutorial
 
     # ================ Team Join Event =============== #
+
+
 # When the user first joins a team, the type of the event will be 'team_join'.
 # Here we'll link the onboarding_message callback to the 'team_join' event.
 
@@ -120,7 +123,6 @@ def message(event, client):
 
     if text and text.lower() == "start":
         return start_onboarding(user_id, channel_id, client)
-    
 
 
 if __name__ == "__main__":
