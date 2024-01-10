@@ -1,11 +1,10 @@
+import os
 import logging
 from slack_bolt import App
 from slack_sdk.web import WebClient
 from onboarding_tutorial import OnboardingTutorial
-from constants import SLACK_BOT_TOKEN
-from constants import SLACK_SIGNING_SECRET
 
-app = App(token=SLACK_BOT_TOKEN, signing_secret=SLACK_SIGNING_SECRET)
+app = App(token=os.environ['BOT_TOKEN'], signing_secret=os.environ['SLACK_SIGNING_SECRET'])
 
 onboarding_tutorials_sent = {}
 
