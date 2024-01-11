@@ -6,4 +6,4 @@ COPY . /code
 ENV PYTHONUNBUFFERED=0
 ENV ENV=prod
 EXPOSE 8080
-ENTRYPOINT ["python3", "src/app.py"]
+ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:3000", "-k", "gevent", "-w", "1", "--chdir", "src", "app:app"]
