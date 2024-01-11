@@ -1,7 +1,7 @@
+import json
 import os
 import logging
 from flask import Flask, Response
-from flask import request as flask_request
 from slack import WebClient
 from slackeventsapi import SlackEventAdapter
 
@@ -22,19 +22,23 @@ slack_events_adapter = SlackEventAdapter(secret, "/slack/events", app)
 
 @app.route("/", methods=['GET'])
 def hello():
-    """ Test request for spinning server up after inactivity """
+    """ Test request (for spinning server up after inactivity) """
     return Response("Hello, World!"), 200
 
 
-@app.route('/challenge', methods=['POST'])
-def challenge():
-    """ Authentication challenge from Slack """
-    payload = flask_request.get_json()
+@app.route('/event', methods=['POST'])
+def handleEvent(request):
+    """ Handle event request from Slack """
+    json_dict = json.loads(request.body.decode("utf-8"))
+    if json_dict["token"] != token:
+        return {"status": 403}
 
-    print(str(payload))
-
-    if payload:
-        return Response(payload['challenge']), 200
+    if "type" in json_dict:
+        if json_dict["type"] == "url_verification":
+            response_dict = {"challenge": json_dict["challenge"]}
+            return response_dict
+        return {"status": 500}
+    return
 
 
 @slack_events_adapter.on("pin_added")
