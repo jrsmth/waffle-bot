@@ -1,9 +1,9 @@
-import json
 import os
 import logging
 from flask import Flask, Response
 from slack import WebClient
 from slackeventsapi import SlackEventAdapter
+from flask import request as flask_request
 
 
 # Initialise config
@@ -27,15 +27,15 @@ def hello():
 
 
 @app.route('/event', methods=['POST'])
-def handleEvent(request):
+def handleEvent():
     """ Handle event request from Slack """
-    json_dict = json.loads(request.body.decode("utf-8"))
-    if json_dict["token"] != token:
+    payload = flask_request.get_json()
+    if payload["token"] != token:
         return {"status": 403}
 
-    if "type" in json_dict:
-        if json_dict["type"] == "url_verification":
-            response_dict = {"challenge": json_dict["challenge"]}
+    if "type" in payload:
+        if payload["type"] == "url_verification":
+            response_dict = {"challenge": payload["challenge"]}
             return response_dict
         return {"status": 500}
     return
