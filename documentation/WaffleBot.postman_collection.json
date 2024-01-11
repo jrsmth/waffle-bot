@@ -120,14 +120,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/verify",
+					"raw": "http://localhost:3000/challenge",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"verify"
+						"challenge"
 					]
 				}
 			},
