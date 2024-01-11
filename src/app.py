@@ -31,6 +31,8 @@ def challenge():
     """ Authentication challenge from Slack """
     payload = flask_request.get_json()
 
+    print(str(payload))
+
     if payload:
         return Response(payload['challenge']), 200
 
