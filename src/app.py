@@ -102,6 +102,7 @@ def handle_message(event):
             # result = slack_client.users_info(user=user_id)
             # logger.info(result)
             result = requests.get(slack_api.format("user.info?user="+user_id), headers={'Authorization': auth})
+            print(str(result.json()))
             user = result.json().get("user").get("real_name").split()[0]
         except SlackApiError as e:
             print("Error fetching user")
