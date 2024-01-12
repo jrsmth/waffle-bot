@@ -7,7 +7,8 @@ from flask import request as flask_request
 
 
 # Initialise config
-token = os.environ['BOT_TOKEN']
+bot_token = os.environ['BOT_TOKEN']
+verify_token = os.environ['VERIFICATION_TOKEN']
 secret = os.environ['SLACK_SIGNING_SECRET']
 
 
@@ -16,7 +17,7 @@ app = Flask(__name__)
 
 
 # Initialise slack
-slack_client = WebClient(token)
+slack_client = WebClient(bot_token)
 slack_events_adapter = SlackEventAdapter(secret, "/slack/events", app)
 
 
@@ -32,13 +33,13 @@ def handleEvent():
     payload = flask_request.get_json()
     print(str(payload))
 
-    if payload["token"] != token:
-        return {"status": 403}
+    if payload["token"] != verify_token:
+        return Response("Invalid Token!"), 403
 
     if "type" in payload:
         if payload["type"] == "url_verification":
             return Response(payload['challenge']), 200
-        return {"status": 500}
+        return Response("Internal Error!"), 500
     return
 
 
