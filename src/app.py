@@ -24,23 +24,24 @@ slack_events_adapter = SlackEventAdapter(secret, "/slack/events", app)
 @app.route("/", methods=['GET'])
 def hello():
     """ Test request (for spinning server up after inactivity) """
-    return Response("Hello, World!"), 200
+    return Response("Hello, World!", status=200)
 
 
 @app.route('/event', methods=['POST'])
-def handleEvent():
+def handle_event():
     """ Handle event request from Slack """
     payload = flask_request.get_json()
     print(str(payload))
 
     if payload["token"] != verify_token:
-        return Response("Invalid Token!"), 403
+        return Response("Invalid Token!", status=403)
 
     if "type" in payload:
         if payload["type"] == "url_verification":
-            return Response(payload['challenge']), 200
-        return Response("Internal Error!"), 500
-    return
+            return Response(payload['challenge'], status=200)
+
+        # return Response("Internal Error!", status=500)
+    return Response(status=200)
 
 
 @slack_events_adapter.on("pin_added")
