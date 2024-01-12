@@ -1,7 +1,7 @@
 import os
 import logging
 from flask import Flask, Response
-from slack import WebClient
+from slack_sdk import WebClient
 from slackeventsapi import SlackEventAdapter
 from flask import request as flask_request
 
@@ -47,6 +47,7 @@ def handle_event():
 @slack_events_adapter.on("pin_added")
 def handle_pin_added(event):
     print("hit 1")
+    print(str(event))
 
     channel_id = event.get("channel_id")
     user_id = event.get("user")
