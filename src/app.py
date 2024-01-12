@@ -140,15 +140,15 @@ def handle_message(event):
         streak = [elem for elem in elements if ('text' in elem and "streak" in elem.get("text"))][0]
         streak = str(streak.get("text").split(" ")[2].split("\\")[0])
         print(str(streak))
-        player = Player({"user": user, "streak": streak})
-        group = Group({"name": "#bot-tester", "players": [player]})
-        file.write(group)
+        # player = Player({"user": user, "streak": streak})
+        # group = Group({"name": "#bot-tester", "players": [player]})
+        # file.write(group)
+        #
+        # print(str(file.read()))
 
-        print(str(file.read()))
-
-        text = "Long live {}!".format(user)
+        text = "Long live {}! Your streak is {}".format(user, streak)
         if ":broken_heart: streak: 0" in str(event):
-            text = "The time has come to crown a new King"
+            text = "Unlucky {}! The time has come to crown a new King".format(user)
 
         message = {"channel": "#bot-tester", "text": text}
         res = requests.post(slack_api.format("chat.postMessage"), headers={'Authorization': auth}, json=message)
