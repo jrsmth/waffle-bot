@@ -132,6 +132,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Challenge (prod)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"{{BOT_TOKEN}}\",\n    \"challenge\": \"3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P\",\n    \"type\": \"url_verification\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://waffle-bot.onrender.com/event",
+					"protocol": "https",
+					"host": [
+						"waffle-bot",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"event"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -37,8 +37,7 @@ def handleEvent():
 
     if "type" in payload:
         if payload["type"] == "url_verification":
-            response_dict = {"challenge": payload["challenge"]}
-            return response_dict
+            return Response(payload['challenge']), 200
         return {"status": 500}
     return
 
