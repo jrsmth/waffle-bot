@@ -21,7 +21,7 @@ app = Flask(__name__)
 
 # Initialise slack
 slack_client = WebClient(token=bot_token)
-slack_events_adapter = SlackEventAdapter(secret, "/event", slack_client)
+slack_events_adapter = SlackEventAdapter(secret, "/event", app)
 
 
 @app.route("/", methods=['GET'])
