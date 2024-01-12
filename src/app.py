@@ -133,8 +133,10 @@ def handle_message(event):
             print("Error fetching user")
             # logger.error("Error fetching user: {}".format(e))
 
-        elements = event.get("event").get("item").get("message").get("blocks")[0].get("elements")[0].get("elements")
-        streak = str([x for x in elements if ("streak" in x)][0]).split(" ")[1]
+        blocks = event.get("event").get("item").get("message").get("blocks")
+        elements = blocks[0].get("elements")
+        elements = elements[0].get("elements")
+        streak = str([x for x in elements if ("streak" in x.get("text"))][0].get("text")).split(" ")[1].split("\\")[0]
         player = Player({"user": user, "streak": streak})
         group = Group({"name": "#bot-tester", "players": [player]})
         file.write(group)
