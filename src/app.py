@@ -45,7 +45,7 @@ def handle_event():
 
 
 @slack_events_adapter.on("pin_added")
-def handle_pin_added(event, client):
+def handle_pin_added(event):
     print("hit 1")
 
     channel_id = event.get("channel_id")
@@ -69,7 +69,7 @@ def handle_pin_added(event, client):
         ],
     }
 
-    client.chat_update(**message)
+    slack_client.chat_update(**message)
     print("hit 2")
 
     return Response(status=200)
