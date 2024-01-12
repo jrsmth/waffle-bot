@@ -133,7 +133,7 @@ def handle_message(event):
             print("Error fetching user")
             # logger.error("Error fetching user: {}".format(e))
 
-        blocks = event.get("event").get("item").get("message").get("blocks")
+        blocks = event.get("event").get("blocks")
         elements = blocks[0].get("elements")
         elements = elements[0].get("elements")
         streak = str([x for x in elements if ("streak" in x.get("text"))][0].get("text")).split(" ")[1].split("\\")[0]
