@@ -100,6 +100,7 @@ def handle_message(event):
             # logger.info(result)
             user = result.get("user").get("real_name").split()[0]
         except SlackApiError as e:
+            print("Error fetching user")
             # logger.error("Error fetching user: {}".format(e))
 
         text = "Long live {}!".format(user)
