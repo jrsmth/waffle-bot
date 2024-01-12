@@ -92,13 +92,16 @@ def handle_message(event):
     user_id = event.get("user")
     event_string = str(event)
     print(event_string) # TODO :: implement logging
+    auth = 'Bearer ' + bot_token
+    slack_api = 'https://slack.com/api/{}'
 
     if "#waffle" in event_string:
-        user = 'The King!'
+        user = 'the King'
         try:
-            result = slack_client.users_info(user=user_id)
+            # result = slack_client.users_info(user=user_id)
             # logger.info(result)
-            user = result.get("user").get("real_name").split()[0]
+            result = requests.get(slack_api.format("user.info?user="+user_id), headers={'Authorization': auth})
+            user = result.json().get("user").get("real_name").split()[0]
         except SlackApiError as e:
             print("Error fetching user")
             # logger.error("Error fetching user: {}".format(e))
@@ -107,10 +110,8 @@ def handle_message(event):
         if ":broken_heart: streak: 0" in str(event):
             text = "The time has come to crown a new King"
 
-        auth = 'Bearer ' + bot_token
-        slack_api = 'https://slack.com/api/chat.postMessage'
         message = {"channel": "#bot-tester", "text": text}
-        res = requests.post(slack_api, headers={'Authorization': auth}, json=message)
+        res = requests.post(slack_api.format("chat.postMessage"), headers={'Authorization': auth}, json=message)
 
     return Response(status=200)
 
