@@ -7,13 +7,16 @@ from slack_sdk import WebClient
 from slackeventsapi import SlackEventAdapter
 from flask import request as flask_request
 
+
 # Initialise config
 bot_token = os.environ['BOT_TOKEN']
 verify_token = os.environ['VERIFICATION_TOKEN']
 secret = os.environ['SLACK_SIGNING_SECRET']
 
+
 # Initialise flask
 app = Flask(__name__)
+
 
 # Initialise slack
 slack_client = WebClient(bot_token)
@@ -85,18 +88,18 @@ def handle_pin_added(event):
 
 @slack_events_adapter.on("message")
 def handle_message(event):
-    print("hit 1")
-    print(str(event))
+    event_string = str(event)
+    print(event_string) # TODO :: implement logging
 
-    text = "Long live the King!"
-    if ":broken_heart: streak: 0" in str(event):
-        text = "The time has come to crown a new King"
+    if "#waffle" in event_string:
+        text = "Long live the King!"
+        if ":broken_heart: streak: 0" in str(event):
+            text = "The time has come to crown a new King"
 
-    auth = 'Bearer ' + bot_token
-    slack_api = 'https://slack.com/api/chat.postMessage'
-    message = {"channel": "#bot-tester", "text": text}
-
-    res = requests.post(slack_api, headers={'Authorization': auth}, json=message)
+        auth = 'Bearer ' + bot_token
+        slack_api = 'https://slack.com/api/chat.postMessage'
+        message = {"channel": "#bot-tester", "text": text}
+        res = requests.post(slack_api, headers={'Authorization': auth}, json=message)
 
     return Response(status=200)
 
