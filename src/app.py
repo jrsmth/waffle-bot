@@ -94,6 +94,7 @@ def handle_message(event):
     print(event_string) # TODO :: implement logging
     auth = 'Bearer ' + bot_token
     slack_api = 'https://slack.com/api/{}'
+    print(user_id)
 
     if "#waffle" in event_string:
         user = 'the King'
