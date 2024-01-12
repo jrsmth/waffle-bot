@@ -4,6 +4,7 @@ import logging
 import requests
 from flask import Flask, Response
 from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
 from slackeventsapi import SlackEventAdapter
 from flask import request as flask_request
 
@@ -19,8 +20,8 @@ app = Flask(__name__)
 
 
 # Initialise slack
-slack_client = WebClient(bot_token)
-slack_events_adapter = SlackEventAdapter(secret, "/event", app)
+slack_client = WebClient(token=bot_token)
+slack_events_adapter = SlackEventAdapter(secret, "/event", slack_client)
 
 
 @app.route("/", methods=['GET'])
@@ -88,11 +89,20 @@ def handle_pin_added(event):
 
 @slack_events_adapter.on("message")
 def handle_message(event):
+    user_id = event.get("user")
     event_string = str(event)
     print(event_string) # TODO :: implement logging
 
     if "#waffle" in event_string:
-        text = "Long live the King!"
+        user = 'The King!'
+        try:
+            result = slack_client.users_info(user=user_id)
+            logger.info(result)
+            user = result.get("user").get("real_name").split()[0]
+        except SlackApiError as e:
+            logger.error("Error fetching user: {}".format(e))
+
+        text = "Long live {}!".format(user)
         if ":broken_heart: streak: 0" in str(event):
             text = "The time has come to crown a new King"
 
