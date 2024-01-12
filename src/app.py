@@ -7,21 +7,46 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 from slackeventsapi import SlackEventAdapter
 from flask import request as flask_request
+from src.config.config import Config, DevConfig, ProductionConfig
+from src.model.group import Group
+from src.model.player import Player
+from src.util.file import File
+from src.util.redis import Redis
+
+
+# Initialise app
+app = Flask(__name__)
 
 
 # Initialise config
 bot_token = os.environ['BOT_TOKEN']
 verify_token = os.environ['VERIFICATION_TOKEN']
 secret = os.environ['SLACK_SIGNING_SECRET']
+env = os.environ.get("FLASK_ENV")
 
-
-# Initialise flask
-app = Flask(__name__)
+if not env:
+    raise ValueError("Start-up failed: no environment specified!")
+elif env == "local":
+    app.config.from_object(Config())
+elif env == "dev":
+    app.config.from_object(DevConfig())
+elif env == "prod":
+    app.config.from_object(ProductionConfig())
+print(f"Starting app in [{env}] mode")
+app.app_context().push()
 
 
 # Initialise slack
 slack_client = WebClient(token=bot_token)
 slack_events_adapter = SlackEventAdapter(secret, "/event", app)
+
+
+# Initialise redis
+# redis = Redis(app)
+
+
+# Initialise file
+file = File("../data.json")
 
 
 @app.route("/", methods=['GET'])
@@ -107,6 +132,14 @@ def handle_message(event):
         except SlackApiError as e:
             print("Error fetching user")
             # logger.error("Error fetching user: {}".format(e))
+
+        elements = event.get("event").get("item").get("message").get("blocks")[0].get("elements")[0].get("elements")
+        streak = str([x for x in elements if ("streak" in x)][0]).split(" ")[1]
+        player = Player({"user": user, "streak": streak})
+        group = Group({"name": "#bot-tester", "players": [player]})
+        file.write(group)
+
+        print(str(file.read()))
 
         text = "Long live {}!".format(user)
         if ":broken_heart: streak: 0" in str(event):

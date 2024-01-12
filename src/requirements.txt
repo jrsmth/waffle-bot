@@ -1,9 +1,12 @@
+Flask_redis
 Flask~=3.0.0
 Gunicorn~=21.2.0
-gevent
-slack_sdk>=3.0
-slack_bolt>=1.6.1
-slackeventsapi
-certifi
+Redis~=5.0.1
 aiohttp
+certifi
+gevent
 requests
+slack_bolt>=1.6.1
+slack_sdk>=3.0
+slackeventsapi
+jsons
