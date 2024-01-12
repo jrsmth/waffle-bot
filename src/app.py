@@ -136,7 +136,11 @@ def handle_message(event):
         blocks = event.get("event").get("blocks")
         elements = blocks[0].get("elements")
         elements = elements[0].get("elements")
-        streak = str([x for x in elements if ("streak" in x.get("text"))][0].get("text")).split(" ")[1].split("\\")[0]
+        print(str(elements))
+        streak = [x for x in elements if ("streak" in x.get("text"))][0]
+        print(str(streak))
+        streak = str(streak.get("text").split(" ")[1].split("\\")[0])
+        print(str(streak))
         player = Player({"user": user, "streak": streak})
         group = Group({"name": "#bot-tester", "players": [player]})
         file.write(group)
