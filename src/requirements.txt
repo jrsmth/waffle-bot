@@ -6,3 +6,4 @@ slack_bolt>=1.6.1
 slackeventsapi
 certifi
 aiohttp
+requests

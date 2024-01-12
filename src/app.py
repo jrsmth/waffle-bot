@@ -1,20 +1,19 @@
 import os
 import logging
+
+import requests
 from flask import Flask, Response
 from slack_sdk import WebClient
 from slackeventsapi import SlackEventAdapter
 from flask import request as flask_request
-
 
 # Initialise config
 bot_token = os.environ['BOT_TOKEN']
 verify_token = os.environ['VERIFICATION_TOKEN']
 secret = os.environ['SLACK_SIGNING_SECRET']
 
-
 # Initialise flask
 app = Flask(__name__)
-
 
 # Initialise slack
 slack_client = WebClient(bot_token)
@@ -70,11 +69,16 @@ def handle_pin_added(event):
         ],
     }
 
-    slack_client.chat_postMessage(
-        channel=channel_id,
-        text="Hello from Render, you son of a b*tch"
-    )
+    # slack_client.chat_postMessage(
+    #     channel=channel_id,
+    #     text="Hello from Render, you son of a b*tch"
+    # )
+    auth = 'Bearer ' + bot_token
+    slack_api = 'https://slack.com/api/chat.postMessage'
+    message = {"channel": "#bot-tester", "text": "Hello from Render, you son of a b*tch"}
     print("hit 2")
+    res = requests.post(slack_api, headers={'Authorization': auth}, json=message)
+    print(str(res.json()))
 
     return Response(status=200)
 
