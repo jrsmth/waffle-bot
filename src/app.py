@@ -30,6 +30,8 @@ def hello():
 def handleEvent():
     """ Handle event request from Slack """
     payload = flask_request.get_json()
+    print(str(payload))
+
     if payload["token"] != token:
         return {"status": 403}
 
