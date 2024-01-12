@@ -83,6 +83,24 @@ def handle_pin_added(event):
     return Response(status=200)
 
 
+@slack_events_adapter.on("message")
+def handle_message(event):
+    print("hit 1")
+    print(str(event))
+
+    text = "Long live the King!"
+    if ":broken_heart: streak: 0" in str(event):
+        text = "The time has come to crown a new King"
+
+    auth = 'Bearer ' + bot_token
+    slack_api = 'https://slack.com/api/chat.postMessage'
+    message = {"channel": "#bot-tester", "text": text}
+
+    res = requests.post(slack_api, headers={'Authorization': auth}, json=message)
+
+    return Response(status=200)
+
+
 if __name__ == "__main__":
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
