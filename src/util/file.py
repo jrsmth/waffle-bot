@@ -13,4 +13,4 @@ class File:
 
     def write(self, content):
         with open(self.file_path, 'w') as outfile:
-            json.dump(content, outfile)
+            json.dump(dict(content), outfile)
