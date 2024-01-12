@@ -89,7 +89,7 @@ def handle_pin_added(event):
 
 @slack_events_adapter.on("message")
 def handle_message(event):
-    user_id = event.get("user")
+    user_id = event.get("event").get("user")
     event_string = str(event)
     print(event_string) # TODO :: implement logging
     auth = 'Bearer ' + bot_token
