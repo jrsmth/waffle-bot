@@ -69,7 +69,10 @@ def handle_pin_added(event):
         ],
     }
 
-    slack_client.chat_update(**message)
+    slack_client.chat_postMessage(
+        channel=channel_id,
+        text="Hello from Render, you son of a b*tch"
+    )
     print("hit 2")
 
     return Response(status=200)
