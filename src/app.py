@@ -97,7 +97,7 @@ def handle_message(event):
         user = 'The King!'
         try:
             result = slack_client.users_info(user=user_id)
-            logger.info(result)
+            # logger.info(result)
             user = result.get("user").get("real_name").split()[0]
         except SlackApiError as e:
             logger.error("Error fetching user: {}".format(e))
