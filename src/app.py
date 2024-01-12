@@ -137,7 +137,7 @@ def handle_message(event):
         elements = blocks[0].get("elements")
         elements = elements[0].get("elements")
         print(str(elements))
-        streak = [x for x in elements if ("streak" in x.get("text"))][0]
+        streak = [elem for elem in elements if (hasattr(elem, 'text') and "streak" in elem.get("text"))][0]
         print(str(streak))
         streak = str(streak.get("text").split(" ")[1].split("\\")[0])
         print(str(streak))
