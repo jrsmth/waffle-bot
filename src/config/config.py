@@ -10,4 +10,4 @@ class DevConfig(Config):
 
 class ProductionConfig(Config):
     ENV = "prod"
-    REDIS_URL = 'redis://red-cklv99jj89us738u33i0:6379'
+    REDIS_URL = 'redis://red-cmh8taf109ks739cbat0:6379'
