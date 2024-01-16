@@ -23,6 +23,7 @@ bot_token = os.environ['BOT_TOKEN']
 verify_token = os.environ['VERIFICATION_TOKEN']
 secret = os.environ['SLACK_SIGNING_SECRET']
 env = os.environ.get("FLASK_ENV")
+redis_token = os.environ.get("REDIS_TOKEN")
 
 if not env:
     raise ValueError("Start-up failed: no environment specified!")
@@ -42,8 +43,9 @@ slack_events_adapter = SlackEventAdapter(secret, "/event", app)
 
 
 # Initialise redis
-redis = Redis(app)
-
+# redis = Redis(app)
+redis = Redis(url="https://eu2-outgoing-serval-31648.upstash.io", token=redis_token)
+redis.set("foo", "bar")
 
 # Initialise file
 file = File("../data.json")

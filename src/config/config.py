@@ -10,4 +10,4 @@ class DevConfig(Config):
 
 class ProductionConfig(Config):
     ENV = "prod"
-    REDIS_URL = 'rediss://red-cmh8taf109ks739cbat0:BIArk34HfcaPk1RN3cucRIbjOZhQ8vNV@frankfurt-redis.render.com:6379'
+    REDIS_URL = 'https://eu2-outgoing-serval-31648.upstash.io'
