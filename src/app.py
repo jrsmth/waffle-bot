@@ -42,7 +42,7 @@ slack_events_adapter = SlackEventAdapter(secret, "/event", app)
 
 
 # Initialise redis
-# redis = Redis(app)
+redis = Redis(app)
 
 
 # Initialise file
@@ -52,7 +52,8 @@ file = File("../data.json")
 @app.route("/", methods=['GET'])
 def hello():
     """ Test request (for spinning server up after inactivity) """
-    return Response("Hello, World!", status=200)
+    redis.set("bing", "bong")
+    return Response(redis.get("bing"), status=200)
 
 
 @app.route('/event', methods=['POST'])
