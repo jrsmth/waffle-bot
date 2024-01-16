@@ -40,6 +40,9 @@ class RedisClient:
     def get_complex(self, key):
         # json_value = self.client.get(key).decode('utf-8')
         json_value = self.client.get(key)
+        if json_value is None:
+            return None
+
         try:
             return jsons.loads(standardise(json_value))
         except JSONDecodeError:
