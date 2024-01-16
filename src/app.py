@@ -2,7 +2,7 @@ import os
 import logging
 
 import requests
-from flask import Flask, Response, current_app
+from flask import Flask, Response
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 from slackeventsapi import SlackEventAdapter
@@ -10,7 +10,6 @@ from flask import request as flask_request
 from src.config.config import Config, DevConfig, ProductionConfig
 from src.model.group import Group
 from src.model.player import Player
-from src.util.file import File
 from src.util.redis import RedisClient
 
 
@@ -47,14 +46,10 @@ slack_events_adapter = SlackEventAdapter(secret, "/event", app)
 # Initialise redis
 redis = RedisClient(app)
 
-# Initialise file
-file = File("../data.json")
-
 
 @app.route("/", methods=['GET'])
 def hello():
     """ Test request (for spinning server up after inactivity) """
-    redis.set("bing", "bong")
     return Response(str(redis.get_complex("T06DQBGR53J")), status=200)
 
 
@@ -71,63 +66,11 @@ def handle_event():
         if payload["type"] == "url_verification":
             return Response(payload['challenge'], status=200)
 
-        # return Response("Internal Error!", status=500)
-    return Response(status=200)
-
-
-@slack_events_adapter.on("pin_added")
-def handle_pin_added(event):
-    print("hit 1")
-    print(str(event))
-
-    channel_id = event.get("channel_id")
-    user_id = event.get("user")
-    message = {
-        "ts": '',
-        "channel": channel_id,
-        "username": user_id,
-        "icon_emoji": ":robot_face:",
-        "blocks": [
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": (
-                        "Welcome to Slack! :wave: We're so glad you're here. :blush:\n\n"
-                        "*Get started by completing the steps below:*"
-                    ),
-                },
-            }
-        ],
-    }
-
-    # slack_client.chat_postMessage(
-    #     channel=channel_id,
-    #     text="Hello from Render, you son of a b*tch"
-    # )
-    auth = 'Bearer ' + bot_token
-    slack_api = 'https://slack.com/api/chat.postMessage'
-    message = {"channel": "#bot-tester", "text": "Hello from Render, you son of a b*tch"}
-    print("hit 2")
-    res = requests.post(slack_api, headers={'Authorization': auth}, json=message)
-    print(str(res.json()))
-
     return Response(status=200)
 
 
 @slack_events_adapter.on("message")
 def handle_message(event):
-    # Is this a viable message?
-        # Get the team id
-            # If new id, set new team
-        # Get the user
-            # If new user to group, set the new player
-        # Get the streak
-        # Update the player streak
-        # If streak is zero and this player is king, crown new King as next highest streak
-        # If streak is highest, crown this player as King
-        # Save the group and return an appropriate message...
-
     if is_waffle_event(event):
         group = get_group(event)
         player = get_player(event, group)
@@ -147,7 +90,7 @@ def handle_message(event):
             group["king"] = king
 
         redis.set_complex(group["name"], group)
-        message = {"channel": "#bot-tester", "text": text}
+        message = build_message(text)
         res = requests.post(slack_api.format("chat.postMessage"), headers={'Authorization': slack_auth}, json=message)
         print(res)
 
@@ -201,6 +144,28 @@ def get_streak(event):
 def get_king_streak(group):
     king = group["king"]
     return [p for p in group["players"] if p["name"] == king][0]["streak"]
+
+
+def build_message(text):
+    channel_id = '#bot-tester'
+    message = {
+        "ts": '',
+        "channel": channel_id,
+        "icon_emoji": ":robot_face:",
+        "blocks": [
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": (
+                        text + ":blush:\n\n"
+                        "*I am under development*"
+                    ),
+                },
+            }
+        ],
+    }
+    return message
 
 
 if __name__ == "__main__":

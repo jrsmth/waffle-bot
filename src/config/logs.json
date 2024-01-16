@@ -12,7 +12,7 @@
         },
         "file": {
             "class": "logging.FileHandler",
-            "filename": "ultima.log",
+            "filename": "waffle-bot.log",
             "formatter": "default"
         }
     },
