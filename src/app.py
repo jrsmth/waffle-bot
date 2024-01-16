@@ -136,7 +136,7 @@ def get_streak(event):
     elements = blocks[0].get("elements")
     elements = elements[0].get("elements")
     streak = [elem for elem in elements if ('text' in elem and "streak" in elem.get("text"))][0]
-    streak = str(streak.get("text").split(" ")[2].split("\\n")[0])
+    streak = str(streak.get("text").split(" ")[2][:-2])
     print(streak)
     return streak
 
