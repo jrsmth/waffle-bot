@@ -1,15 +1,22 @@
 import logging
+import os
 from json import JSONDecodeError
 import jsons
-from flask_redis import FlaskRedis
+from flask import current_app
+# from flask_redis import FlaskRedis
+from upstash_redis import Redis
 
 
 # Wrapper functionality for the Flask Redis Client
-class Redis:
+class RedisClient:
 
     def __init__(self, app):
-        self.client = FlaskRedis(app)
+        # self.client = FlaskRedis(app)
         self.log = logging.getLogger(__name__)
+        self.client = Redis(
+            url=current_app.config.get("REDIS_URL"),
+            token=os.environ.get("REDIS_TOKEN")
+        )
 
     def get_client(self):
         return self.client

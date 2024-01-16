@@ -2,7 +2,7 @@ import os
 import logging
 
 import requests
-from flask import Flask, Response
+from flask import Flask, Response, current_app
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 from slackeventsapi import SlackEventAdapter
@@ -11,8 +11,7 @@ from src.config.config import Config, DevConfig, ProductionConfig
 from src.model.group import Group
 from src.model.player import Player
 from src.util.file import File
-# from src.util.redis import Redis
-from upstash_redis import Redis
+from src.util.redis import RedisClient
 
 
 # Initialise app
@@ -44,9 +43,7 @@ slack_events_adapter = SlackEventAdapter(secret, "/event", app)
 
 
 # Initialise redis
-# redis = Redis(app)
-redis = Redis(url="https://eu2-outgoing-serval-31648.upstash.io", token=redis_token)
-redis.set("foo", "bar")
+redis = RedisClient(app)
 
 # Initialise file
 file = File("../data.json")
@@ -56,7 +53,7 @@ file = File("../data.json")
 def hello():
     """ Test request (for spinning server up after inactivity) """
     redis.set("bing", "bong")
-    return Response(redis.get("bing"), status=200)
+    return Response(str(redis.get_complex("T06DQBGR53J")), status=200)
 
 
 @app.route('/event', methods=['POST'])
@@ -126,6 +123,13 @@ def handle_message(event):
     print(user_id)
 
     if "#waffle" in event_string:
+        group_id = event.get("team_id")
+        if redis.get(group_id) is None:
+            group = Group()
+            group.name = group_id
+            redis.set_complex(group_id, group)
+
+        group = redis.get(group_id)
         user = 'the King'
         try:
             # result = slack_client.users_info(user=user_id)
@@ -149,6 +153,13 @@ def handle_message(event):
         # file.write(group)
         #
         # print(str(file.read()))
+
+        group["king"] = user
+        player = Player()
+        player.name = user
+        player.streak = streak
+        group["players"].append(player)
+        redis.set_complex(group_id, group)
 
         text = "Long live {}! Your streak is {}".format(user, streak)
         if ":broken_heart: streak: 0" in str(event):
