@@ -175,7 +175,7 @@ def get_player(event, group):
     try:
         result = requests.get(slack_api.format("users.info?user="+user_id), headers={'Authorization': slack_auth})
         user = result.json().get("user").get("real_name").split()[0]
-        filtered_players = [p for p in group["players"] if p.name == user]
+        filtered_players = [p for p in group["players"] if p["name"] == user]
         if len(filtered_players) == 0:
             player = Player()
             player.name = user
@@ -200,7 +200,7 @@ def get_streak(event):
 
 def get_king_streak(group):
     king = group["king"]
-    return [p for p in group["players"] if p.name == king][0][["streak"]]
+    return [p for p in group["players"] if p["name"] == king][0][["streak"]]
 
 
 if __name__ == "__main__":
