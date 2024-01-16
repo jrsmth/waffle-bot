@@ -136,7 +136,9 @@ def get_streak(event):
     elements = blocks[0].get("elements")
     elements = elements[0].get("elements")
     streak = [elem for elem in elements if ('text' in elem and "streak" in elem.get("text"))][0]
-    streak = str(streak.get("text").split(" ")[2])[:-2]
+    print(streak  + '!') # Remove
+    streak = str(streak.get("text").split(" ")[2])
+    print(streak[:-2] + '!') # Remove
     print(streak)
     return streak
 
@@ -158,7 +160,7 @@ def build_message(text):
                 "text": {
                     "type": "mrkdwn",
                     "text": (
-                        text + ":blush:\n\n"
+                        text + " :blush:\n\n"
                         "*I am under development*"
                     ),
                 },
