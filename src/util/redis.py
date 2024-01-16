@@ -23,7 +23,8 @@ class RedisClient:
 
     # Get an element by its key and decode in utf-8 format
     def get(self, key):
-        return self.client.get(key).decode('utf-8')
+        # return self.client.get(key).decode('utf-8')
+        return self.client.get(key)
 
     # Set a key-value element
     def set(self, key, value):
@@ -37,7 +38,8 @@ class RedisClient:
 
     # Get a complex key-value element by converting from json string
     def get_complex(self, key):
-        json_value = self.client.get(key).decode('utf-8')
+        # json_value = self.client.get(key).decode('utf-8')
+        json_value = self.client.get(key)
         try:
             return jsons.loads(standardise(json_value))
         except JSONDecodeError:
