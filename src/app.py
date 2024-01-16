@@ -11,7 +11,8 @@ from src.config.config import Config, DevConfig, ProductionConfig
 from src.model.group import Group
 from src.model.player import Player
 from src.util.file import File
-from src.util.redis import Redis
+# from src.util.redis import Redis
+from upstash_redis import Redis
 
 
 # Initialise app
