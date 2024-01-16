@@ -24,6 +24,8 @@ verify_token = os.environ['VERIFICATION_TOKEN']
 secret = os.environ['SLACK_SIGNING_SECRET']
 env = os.environ.get("FLASK_ENV")
 redis_token = os.environ.get("REDIS_TOKEN")
+slack_auth = 'Bearer ' + bot_token
+slack_api = 'https://slack.com/api/{}'
 
 if not env:
     raise ValueError("Start-up failed: no environment specified!")
@@ -115,60 +117,90 @@ def handle_pin_added(event):
 
 @slack_events_adapter.on("message")
 def handle_message(event):
-    user_id = event.get("event").get("user")
-    event_string = str(event)
-    print(event_string) # TODO :: implement logging
-    auth = 'Bearer ' + bot_token
-    slack_api = 'https://slack.com/api/{}'
-    print(user_id)
+    # Is this a viable message?
+        # Get the team id
+            # If new id, set new team
+        # Get the user
+            # If new user to group, set the new player
+        # Get the streak
+        # Update the player streak
+        # If streak is zero and this player is king, crown new King as next highest streak
+        # If streak is highest, crown this player as King
+        # Save the group and return an appropriate message...
 
-    if "#waffle" in event_string:
-        group_id = event.get("team_id")
-        if redis.get_complex(group_id) is None:
-            group = Group()
-            group.name = group_id
-            redis.set_complex(group_id, group)
+    if is_waffle_event(event):
+        group = get_group(event)
+        player = get_player(event, group)
+        streak = get_streak(event)
+        king_streak = get_king_streak(group)
 
-        group = redis.get_complex(group_id)
-        user = 'the King'
-        try:
-            # result = slack_client.users_info(user=user_id)
-            # logger.info(result)
-            result = requests.get(slack_api.format("users.info?user="+user_id), headers={'Authorization': auth})
-            print(str(result.json()))
-            user = result.json().get("user").get("real_name").split()[0]
-        except SlackApiError as e:
-            print("Error fetching user")
-            # logger.error("Error fetching user: {}".format(e))
+        player["streak"] = streak
+        text = 'Another battlefield conquered, well done {}!'.format(player["name"])
 
-        blocks = event.get("event").get("blocks")
-        elements = blocks[0].get("elements")
-        elements = elements[0].get("elements")
-        print(str(elements))
-        streak = [elem for elem in elements if ('text' in elem and "streak" in elem.get("text"))][0]
-        streak = str(streak.get("text").split(" ")[2].split("\\")[0])
-        print(str(streak))
-        # player = Player({"user": user, "streak": streak})
-        # group = Group({"name": "#bot-tester", "players": [player]})
-        # file.write(group)
-        #
-        # print(str(file.read()))
+        if streak == '0':
+            text = "Unlucky {}! The time has come to crown a new King".format(player["name"])
+            king = ''
+            group["king"] = king
+        if int(king_streak) < int(streak):
+            text = "Vive Rex! The WaffleCrown now rests on your head {}".format(player["name"])
+            king = player["name"]
+            group["king"] = king
 
-        group["king"] = user
-        player = Player()
-        player.name = user
-        player.streak = streak
-        group["players"].append(player)
-        redis.set_complex(group_id, group)
-
-        text = "Long live {}! Your streak is {}".format(user, streak)
-        if ":broken_heart: streak: 0" in str(event):
-            text = "Unlucky {}! The time has come to crown a new King".format(user)
-
+        redis.set_complex(group["name"], group)
         message = {"channel": "#bot-tester", "text": text}
-        res = requests.post(slack_api.format("chat.postMessage"), headers={'Authorization': auth}, json=message)
+        res = requests.post(slack_api.format("chat.postMessage"), headers={'Authorization': slack_auth}, json=message)
+        print(res)
 
     return Response(status=200)
+
+
+def is_waffle_event(event):
+    event_string = str(event)
+    key_word = "#waffle"
+    return key_word in event_string
+
+
+def get_group(event):
+    group_id = event.get("team_id")
+    if redis.get_complex(group_id) is None:
+        group = Group()
+        group.name = group_id
+        redis.set_complex(group_id, group)
+
+    return redis.get_complex(group_id)
+
+
+def get_player(event, group):
+    user_id = event.get("event").get("user")
+    try:
+        result = requests.get(slack_api.format("users.info?user="+user_id), headers={'Authorization': slack_auth})
+        user = result.json().get("user").get("real_name").split()[0]
+        filtered_players = [p for p in group["players"] if p.name == user]
+        if len(filtered_players) == 0:
+            player = Player()
+            player.name = user
+            group["players"].append(player)
+            redis.set_complex(group["name"], group)
+            return player
+        else:
+            return filtered_players[0]
+    except SlackApiError as e:
+        print("Error fetching user")
+
+
+def get_streak(event):
+    blocks = event.get("event").get("blocks")
+    elements = blocks[0].get("elements")
+    elements = elements[0].get("elements")
+    streak = [elem for elem in elements if ('text' in elem and "streak" in elem.get("text"))][0]
+    streak = str(streak.get("text").split(" ")[2].split("\\n")[0])
+    print(streak)
+    return streak
+
+
+def get_king_streak(group):
+    king = group["king"]
+    return [p for p in group["players"] if p.name == king][0][["streak"]]
 
 
 if __name__ == "__main__":
