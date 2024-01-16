@@ -200,7 +200,7 @@ def get_streak(event):
 
 def get_king_streak(group):
     king = group["king"]
-    return [p for p in group["players"] if p["name"] == king][0][["streak"]]
+    return [p for p in group["players"] if p["name"] == king][0]["streak"]
 
 
 if __name__ == "__main__":
