@@ -124,12 +124,12 @@ def handle_message(event):
 
     if "#waffle" in event_string:
         group_id = event.get("team_id")
-        if redis.get(group_id) is None:
+        if redis.get_complex(group_id) is None:
             group = Group()
             group.name = group_id
             redis.set_complex(group_id, group)
 
-        group = redis.get(group_id)
+        group = redis.get_complex(group_id)
         user = 'the King'
         try:
             # result = slack_client.users_info(user=user_id)
