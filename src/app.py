@@ -82,7 +82,9 @@ def handle_message(event):
 
         if streak == '0':
             text = "Unlucky {}! The time has come to crown a new King".format(player["name"])
-            king = ''
+            remove_current_king(group, player)
+            king = set_new_king(group)
+            # king = ''
             group["king"] = king
         if int(king_streak) < int(streak):
             text = "Vive Rex! The WaffleCrown now rests on your head {}".format(player["name"])
@@ -144,6 +146,20 @@ def get_streak(event):
 def get_king_streak(group):
     king = group["king"]
     return [p for p in group["players"] if p["name"] == king][0]["streak"]
+
+def remove_current_king(group, player):
+    for p in group["players"]:
+        if p == player:
+            player["streak"] = 0
+
+def set_new_king(group):
+    new_king = Player()
+    for p in group["players"]:
+        if p.streak > new_king.streak:
+            p = new_king
+    return new_king
+
+                
 
 
 def build_message(text):
