@@ -77,7 +77,7 @@ def handle_message(event):
         streak = get_streak(event)
         king_streak = group["king"]["streak"]
 
-        player["streak"] = streak
+        player.streak = streak
         text = 'Another battlefield conquered, well done {}!'.format(player["name"])
 
         if streak == 0 and player_is_king(player, group):
