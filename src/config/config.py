@@ -1,6 +1,6 @@
 class Config(object):
     ENV = "local"
-    REDIS_URL = "redis://@localhost:6379/0"
+    REDIS_URL = "redis://@redis:6379/0"
 
 
 class DevConfig(Config):

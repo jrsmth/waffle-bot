@@ -1,0 +1,16 @@
+services:
+
+  waffle-bot:
+    container_name: "waffle-bot"
+    image: waffle-bot:latest
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+      - "8080:8080"
+
+  redis:
+    container_name: "redis"
+    image: redis:latest
+    ports:
+      - "6379:6379"
