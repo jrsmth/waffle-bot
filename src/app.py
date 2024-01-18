@@ -87,7 +87,7 @@ def handle_message(event):
         elif streak == 0:
             text = "Unlucky {}! Your kingdom must rebuild!".format(player.name)
             
-        if int(king_streak) < int(streak):
+        elif int(king_streak) < int(streak):
             text = "Vive Rex! The WaffleCrown now rests on your head {}".format(player.name)
             king_streak = player.streak
             group["king"] = player
@@ -166,7 +166,7 @@ def set_new_king(group):
     new_king = Player({"streak": -1})
     for p in group["players"]:
         if p["streak"] > new_king.streak:
-            p = new_king
+            new_king = Player(p)
     return new_king
 
 def build_message(text):
