@@ -84,7 +84,6 @@ def handle_message(event):
             text = "Unlucky {}! The time has come to crown a new King".format(player["name"])
             remove_current_king(group, player)
             king = set_new_king(group)
-            # king = ''
             group["king"] = king
         if int(king_streak) < int(streak):
             text = "Vive Rex! The WaffleCrown now rests on your head {}".format(player["name"])
@@ -157,7 +156,7 @@ def set_new_king(group):
     for p in group["players"]:
         if p.streak > new_king.streak:
             p = new_king
-    return new_king
+    return new_king.name
 
                 
 
