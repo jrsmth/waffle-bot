@@ -131,7 +131,7 @@ def get_player(event, group):
             print("New player, {}, added to the system".format(user))
             return new_player(user, group)
         else:
-            return filtered_player
+            return Player(filtered_player)
     except SlackApiError as e:
         print("Error fetching user")
 
