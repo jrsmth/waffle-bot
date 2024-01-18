@@ -80,11 +80,11 @@ def handle_message(event):
         player["streak"] = streak
         text = 'Another battlefield conquered, well done {}!'.format(player["name"])
 
-        if streak == '0' and player_is_king(player, group):
+        if streak == 0 and player_is_king(player, group):
             text = "Unlucky {}! The time has come to crown a new King".format(player["name"])
             
             group["king"] = set_new_king(group)
-        elif streak == '0':
+        elif streak == 0:
             text = "Unlucky {}! Your kingdom must rebuild!".format(player["name"])
             
         if int(king_streak) < int(streak):
@@ -163,14 +163,11 @@ def remove_current_king(group, player):
 
 def set_new_king(group):
     remove_current_king(group, group["king"])
-    new_king = Player(streak = -1)
+    new_king = Player({"streak": -1})
     for p in group["players"]:
         if p["streak"] > new_king["streak"]:
             p = new_king
     return new_king
-
-                
-
 
 def build_message(text):
     channel_id = '#bot-tester'
