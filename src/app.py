@@ -165,7 +165,7 @@ def set_new_king(group):
     remove_current_king(group, group["king"])
     new_king = Player({"streak": -1})
     for p in group["players"]:
-        if p["streak"] > new_king["streak"]:
+        if p["streak"] > new_king.streak:
             p = new_king
     return new_king
 
