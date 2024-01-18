@@ -75,20 +75,22 @@ def handle_message(event):
         group = get_group(event)
         player = get_player(event, group)
         streak = get_streak(event)
-        king_streak = get_king_streak(group)
+        king_streak = group["king"]["streak"]
 
         player["streak"] = streak
         text = 'Another battlefield conquered, well done {}!'.format(player["name"])
 
-        if streak == '0':
+        if streak == '0' and player_is_king(player, group):
             text = "Unlucky {}! The time has come to crown a new King".format(player["name"])
-            remove_current_king(group, player)
-            king = set_new_king(group)
-            group["king"] = king
+            
+            group["king"] = set_new_king(group)
+        elif streak == '0':
+            text = "Unlucky {}! Your kingdom must rebuild!".format(player["name"])
+            
         if int(king_streak) < int(streak):
             text = "Vive Rex! The WaffleCrown now rests on your head {}".format(player["name"])
-            king = player["name"]
-            group["king"] = king
+            king_streak = player["streak"]
+            group["king"] = player
 
         redis.set_complex(group["name"], group)
         message = build_message(text)
@@ -97,6 +99,9 @@ def handle_message(event):
 
     return Response(status=200)
 
+def player_is_king(player, group):
+    king = group["king"]
+    return player["name"] == king["name"]
 
 def is_waffle_event(event):
     event_string = str(event)
@@ -119,18 +124,28 @@ def get_player(event, group):
     try:
         result = requests.get(slack_api.format("users.info?user="+user_id), headers={'Authorization': slack_auth})
         user = result.json().get("user").get("real_name").split()[0]
-        filtered_players = [p for p in group["players"] if p["name"] == user]
-        if len(filtered_players) == 0:
-            player = Player()
-            player.name = user
-            group["players"].append(player)
-            redis.set_complex(group["name"], group)
-            return player
+        
+        filtered_player = get_filtered_player(user, group)
+
+        if not filtered_player:
+            print("New player, {}, added to the system".format(user))
+            return new_player(user, group)
         else:
-            return filtered_players[0]
+            return filtered_player[0]
     except SlackApiError as e:
         print("Error fetching user")
 
+def get_filtered_player(user, group):
+    for player in group["players"]:
+        if player["name"] == user:
+            return player
+
+def new_player(user, group):
+    player = Player()
+    player.name = user
+    group["players"].append(player)
+    redis.set_complex(group["name"], group)
+    return player
 
 def get_streak(event):
     blocks = event.get("event").get("blocks")
@@ -141,22 +156,18 @@ def get_streak(event):
     print(streak)
     return streak
 
-
-def get_king_streak(group):
-    king = group["king"]
-    return [p for p in group["players"] if p["name"] == king][0]["streak"]
-
 def remove_current_king(group, player):
     for p in group["players"]:
         if p == player:
             player["streak"] = 0
 
 def set_new_king(group):
+    remove_current_king(group, group["king"])
     new_king = Player()
     for p in group["players"]:
         if p.streak > new_king.streak:
             p = new_king
-    return new_king.name
+    return new_king
 
                 
 
