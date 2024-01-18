@@ -154,7 +154,7 @@ def get_streak(event):
     streak = [elem for elem in elements if ('text' in elem and "streak" in elem.get("text"))][0]
     streak = str(streak.get("text").split(" ")[2]).strip('\n')
     print(streak)
-    return streak
+    return int(streak)
 
 def remove_current_king(group, player):
     for p in group["players"]:
