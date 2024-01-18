@@ -78,18 +78,18 @@ def handle_message(event):
         king_streak = group["king"]["streak"]
 
         player.streak = streak
-        text = 'Another battlefield conquered, well done {}!'.format(player["name"])
+        text = 'Another battlefield conquered, well done {}!'.format(player.name)
 
         if streak == 0 and player_is_king(player, group):
-            text = "Unlucky {}! The time has come to crown a new King".format(player["name"])
+            text = "Unlucky {}! The time has come to crown a new King".format(player.name)
             
             group["king"] = set_new_king(group)
         elif streak == 0:
-            text = "Unlucky {}! Your kingdom must rebuild!".format(player["name"])
+            text = "Unlucky {}! Your kingdom must rebuild!".format(player.name)
             
         if int(king_streak) < int(streak):
-            text = "Vive Rex! The WaffleCrown now rests on your head {}".format(player["name"])
-            king_streak = player["streak"]
+            text = "Vive Rex! The WaffleCrown now rests on your head {}".format(player.name)
+            king_streak = player.streak
             group["king"] = player
 
         redis.set_complex(group["name"], group)
@@ -101,7 +101,7 @@ def handle_message(event):
 
 def player_is_king(player, group):
     king = group["king"]
-    return player["name"] == king["name"]
+    return player.name == king["name"]
 
 def is_waffle_event(event):
     event_string = str(event)
