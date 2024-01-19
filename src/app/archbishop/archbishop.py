@@ -21,14 +21,14 @@ def construct_blueprint(adapter, config, messages, redis):
     @archbishop.route("/group/<group_id>")
     def group(group_id):
         """ Get group information by id """
-        log.debug("[get_group] Retrieving group for id [{}]", group_id)
+        log.debug(f"[get_group] Retrieving group for id [{group_id}]")
         return Response(redis.get_complex(group_id), status=200)
 
     @archbishop.route(config.EVENT_PATH, methods=['POST'])
     def event():
         """ Handle event request from Slack """
         payload = flask_request.get_json()
-        log.debug("[handle_event] New Event from Slack! [{}]", str(payload))
+        log.debug(f"[handle_event] New Event from Slack! [{str(payload)}]")
 
         if payload["token"] != config.VERIFICATION_TOKEN:
             return Response("Invalid Token!", status=403)
@@ -92,14 +92,14 @@ def construct_blueprint(adapter, config, messages, redis):
                 player.name = user
                 group.players.append(player)
                 redis.set_complex(group["name"], group)
-                log.debug("[get_player] [{}] added to the system".format(user))
+                log.debug(f"[get_player] [{user}] added to the system")
                 return player
 
             else:
                 return Player(potential_player[0])
 
         except SlackApiError as e:
-            log.error("Error fetching user! [{}]", str(e))
+            log.error(f"Error fetching user! [{str(e)}]")
 
     def process_result(group, player, king_streak):
         group.update_player(player)
@@ -108,7 +108,7 @@ def construct_blueprint(adapter, config, messages, redis):
         if player.name == group.king.name:
             # ...and loses
             if player.streak == 0:
-                log.info("[process_result] The Reign of King {} is over!", player.name)
+                log.info(f"[process_result] The Reign of King {player.name} is over!")
                 log.info("[process_result] Searching for a new King...")
                 group.dethrone(player)
                 text = messages["result.king.lose"].format(player.name)
@@ -120,7 +120,7 @@ def construct_blueprint(adapter, config, messages, redis):
         else:
             # ...and loses
             if player.streak == 0:
-                log.info("[process_result] The Streak of {} has been broken!", player.name)
+                log.info(f"[process_result] The Streak of {player.name} has been broken!")
                 text = messages["result.common.lose"].format(player.name)
             # ...and wins...
             else:

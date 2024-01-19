@@ -139,6 +139,26 @@
 			"name": "local",
 			"item": [
 				{
+					"name": "Group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/group/{{GROUP_ID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"group",
+								"{{GROUP_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Wake Up",
 					"request": {
 						"method": "GET",
@@ -216,8 +236,29 @@
 			]
 		},
 		{
-			"name": "render",
+			"name": "prod",
 			"item": [
+				{
+					"name": "Group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://waffle-bot.onrender.com/group/{{GROUP_ID}}",
+							"protocol": "https",
+							"host": [
+								"waffle-bot",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"group",
+								"{{GROUP_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Wake Up",
 					"request": {
@@ -297,6 +338,12 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "GROUP_ID",
+			"value": "T06DQBGR53J"
 		}
 	]
 }
