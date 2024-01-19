@@ -26,7 +26,7 @@ slack_events_adapter = SlackEventAdapter(config.SECRET, config.EVENT_PATH, app)
 
 
 # Initialise redis
-redis = RedisClient(config.REDIS_URL, config.REDIS_TOKEN)
+redis = RedisClient(app, config.REDIS_URL, config.REDIS_TOKEN)
 
 
 # Initialise logger
