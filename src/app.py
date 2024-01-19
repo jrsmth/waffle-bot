@@ -2,6 +2,7 @@ import os
 import logging
 
 import requests
+import re
 from flask import Flask, Response
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
@@ -75,10 +76,13 @@ def handle_message(event):
         group = get_group(event)
         player = get_player(event, group)
         streak = get_streak(event)
+        score = get_score(event)
         king_streak = group["king"]["streak"]
 
         player.streak = streak
-        text = 'Another battlefield conquered, well done {}!'.format(player.name)
+        player.score = score + player.score
+        text = 'Another battlefield conquered, well done {}! \n Your score is: {}'.format(player.name, player.score)
+        
 
         if streak == 0 and player_is_king(player, group):
             text = "Unlucky {}! The time has come to crown a new King".format(player.name)
@@ -155,6 +159,20 @@ def get_streak(event):
     streak = str(streak.get("text").split(" ")[2]).strip('\n')
     print(streak)
     return int(streak)
+
+def get_score(event):
+    #get score value in text list
+    blocks = event.get("event").get("blocks")
+    elements = blocks[0].get("elements")
+    elements = elements[0].get("elements")
+    score_text = [elem for elem in elements if ('text' in elem and "/5" in elem.get("text"))][0]
+    score_regex = './\d'
+    #pass RegEx to pull only score
+    score = str(re.findall(score_text, score_regex)[0])
+    if (score == 'X'):
+        score = 0
+    print("Players score is: {}".format(score))
+    return int(score)
 
 def remove_current_king(group, player):
     for p in group["players"]:

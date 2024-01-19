@@ -5,3 +5,4 @@ from src.model.base import Base
 class Player(Base):
     name = ''
     streak = 0
+    score = 0
