@@ -91,7 +91,7 @@ def construct_blueprint(adapter, config, messages, redis):
                 player = Player()
                 player.name = user
                 group.players.append(player)
-                redis.set_complex(group["name"], group)
+                redis.set_complex(group.name, group)
                 log.debug(f"[get_player] [{user}] added to the system")
                 return player
 
