@@ -1,3 +1,4 @@
+# General (Pythonic)
 /workspace.xml
 .DS_Store
 .env
@@ -20,7 +21,7 @@ documentation/_build/
 .vscode
 *.log
 
-# Coverage reports
+# Coverage Reports
 htmlcov/
 .coverage
 .coverage.*
@@ -28,3 +29,9 @@ htmlcov/
 
 # Personal
 todo
+
+# Environment
+*.env
+
+# Sample Data
+/documentation/samples

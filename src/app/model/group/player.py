@@ -1,4 +1,4 @@
-from src.model.base import Base
+from src.app.model.base import Base
 
 
 # Tracked player information

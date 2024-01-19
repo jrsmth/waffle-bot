@@ -11,3 +11,5 @@ slack_sdk>=3.0
 slackeventsapi
 jsons
 upstash_redis
+pyjavaproperties~=0.7
+from_root
