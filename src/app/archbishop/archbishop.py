@@ -43,7 +43,7 @@ def construct_blueprint(adapter, config, messages, redis):
     def handle(new_message):
         """ Process new message according to its content """
         if should_ignore(new_message):
-            return Response(messages["event.request.ignored"], status=200)
+            return Response(messages.load("event.request.ignored"), status=200)
 
         else:
             event = Event(new_message)
@@ -62,10 +62,10 @@ def construct_blueprint(adapter, config, messages, redis):
                 json=build_message(result[1])
             )
 
-            return Response(messages["event.request.handled"], status=200)
+            return Response(messages.load("event.request.handled"), status=200)
 
     def should_ignore(new_message):
-        return messages["event.message.keyword"] not in str(new_message)
+        return messages.load("event.message.keyword") not in str(new_message)
 
     def get_group(event):
         """ Fetch group object from redis """
@@ -111,7 +111,7 @@ def construct_blueprint(adapter, config, messages, redis):
                 log.info(f"[process_result] The Reign of King {player.name} is over!")
                 log.info("[process_result] Searching for a new King...")
                 group.dethrone(player)
-                text = messages["result.king.lose"].format(player.name)
+                text = messages.load_with_params("result.king.lose", [player.name])
             # ...and wins
             else:
                 text = messages["result.king.win"]
@@ -121,15 +121,15 @@ def construct_blueprint(adapter, config, messages, redis):
             # ...and loses
             if player.streak == 0:
                 log.info(f"[process_result] The Streak of {player.name} has been broken!")
-                text = messages["result.common.lose"].format(player.name)
+                text = messages.load_with_params("result.common.lose", [player.name])
             # ...and wins...
             else:
                 # ...and deserves coronation
                 if player.streak > king_streak:
                     group.crown(player)
-                    text = messages["result.common.coronation"].format(player.name)
+                    text = messages.load_with_params("result.common.coronation", [player.name])
                 else:
-                    text = messages["result.common.win"].format(player.name, player.score)
+                    text = messages.load_with_params("result.common.win", [player.name, player.score])
 
         return group, text
 
