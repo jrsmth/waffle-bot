@@ -1,4 +1,5 @@
 import jsons as jsons
+from munch import Munch
 
 
 # Model Base Class
@@ -8,7 +9,10 @@ class Base:
     def __init__(self, d=None):
         if d is not None:
             for key, value in d.items():
-                setattr(self, key, value)
+                if type(value) is dict:
+                    setattr(self, key, Munch().fromDict(value))
+                else:
+                    setattr(self, key, value)
 
     # Converts a complex object into string
     def to_string(self):
