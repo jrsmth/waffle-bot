@@ -48,9 +48,10 @@ def construct_blueprint(adapter, config, messages, redis):
         else:
             event = Event(new_message)
             group = get_group(event)
-            player = get_player(event, group)
-            player.streak = event.get_streak()
             king_streak = group.king.streak
+            player = get_player(event, group)
+            player.score += event.get_score()
+            player.streak = event.get_streak()
 
             result: tuple[Group, str] = process_result(group, player, king_streak)
             redis.set_complex(group.name, result[0])
@@ -128,7 +129,7 @@ def construct_blueprint(adapter, config, messages, redis):
                     group.crown(player)
                     text = messages["result.common.coronation"].format(player.name)
                 else:
-                    text = messages["result.common.win"].format(player.name)
+                    text = messages["result.common.win"].format(player.name, player.score)
 
         return group, text
 
