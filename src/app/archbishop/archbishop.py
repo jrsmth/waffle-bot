@@ -50,7 +50,7 @@ def construct_blueprint(adapter, config, messages, redis):
             group = get_group(event)
             king_streak = group.king.streak
             player = get_player(event, group)
-            player.score += event.get_score()
+            player.score += 0  # event.get_score()
             player.streak = event.get_streak()
 
             result: tuple[Group, str] = process_result(group, player, king_streak)
