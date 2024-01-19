@@ -171,9 +171,12 @@ def get_score(event):
 
     score_regex = './\d'
     #pass RegEx to pull only score
-    score = str(re.findall(str(score_text), score_regex)[0])
-    if (score == 'X'):
+    score = str(re.findall(str(score_text), score_regex))
+    logging.INFO("Score is: {}".format(score))
+    if (score == 'X/5'):
         score = 0
+    else:
+        score = score[0]
     print("Players score is: {}".format(score))
     return int(score)
 
