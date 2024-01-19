@@ -166,9 +166,12 @@ def get_score(event):
     elements = blocks[0].get("elements")
     elements = elements[0].get("elements")
     score_text = [elem for elem in elements if ('text' in elem and "/5" in elem.get("text"))][0]
+
+    print("Score Text is: {}".format(score_text))
+
     score_regex = './\d'
     #pass RegEx to pull only score
-    score = str(re.findall(score_text, score_regex)[0])
+    score = str(re.findall(str(score_text), score_regex)[0])
     if (score == 'X'):
         score = 0
     print("Players score is: {}".format(score))
