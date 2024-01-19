@@ -165,15 +165,16 @@ def get_score(event):
     blocks = event.get("event").get("blocks")
     elements = blocks[0].get("elements")
     elements = elements[0].get("elements")
-    score_text = [elem for elem in elements if ('text' in elem and "/5" in elem.get("text"))][0]
+    score_text = [elem for elem in elements if ('text' in elem and "/5" in elem.get("text"))][0].get('text')
 
     print("Score Text is: {}".format(score_text))
 
     score_regex = './\d'
     #pass RegEx to pull only score
-    score = str(re.findall(str(score_text), score_regex))
+    score = str(re.findall(str(score_text), score_regex))[0]
+
     logging.INFO("Score is: {}".format(score))
-    if (score == 'X/5'):
+    if (score == 'X'):
         score = 0
     else:
         score = score[0]
