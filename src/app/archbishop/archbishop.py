@@ -26,6 +26,8 @@ def construct_blueprint(adapter, config, messages, redis):
 
     @archbishop.route(config.EVENT_PATH, methods=['POST'])
     def event():
+        log.info(str(flask_request.headers))
+
         """ Handle event request from Slack """
         payload = flask_request.get_json()
         log.debug(f"[handle_event] New Event from Slack! [{str(payload)}]")
