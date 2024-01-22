@@ -44,27 +44,29 @@ def construct_blueprint(adapter, config, messages, redis):
     @adapter.on("message")
     def handle(new_message):
         """ Process new message according to its content """
-        if should_ignore(new_message):
+        if True:
             return Response(messages.load("event.request.ignored"), status=200)
+        # if should_ignore(new_message):
+        #     return Response(messages.load("event.request.ignored"), status=200)
 
-        else:
-            event = Event(new_message)
-            group = get_group(event)
-            king_streak = group.king.streak
-            player = get_player(event, group)
-            player.score += 0  # event.get_score()
-            player.streak = event.get_streak()
-
-            result: tuple[Group, str] = process_result(group, player, king_streak)
-            redis.set_complex(group.name, result[0])
-
-            requests.post(
-                config.SLACK_API.format("chat.postMessage"),
-                headers={'Authorization': config.SLACK_TOKEN},
-                json=build_message(result[1])
-            )
-
-            return Response(messages.load("event.request.handled"), status=200)
+        # else:
+        #     event = Event(new_message)
+        #     group = get_group(event)
+        #     king_streak = group.king.streak
+        #     player = get_player(event, group)
+        #     player.score += 0  # event.get_score()
+        #     player.streak = event.get_streak()
+        #
+        #     result: tuple[Group, str] = process_result(group, player, king_streak)
+        #     redis.set_complex(group.name, result[0])
+        #
+        #     requests.post(
+        #         config.SLACK_API.format("chat.postMessage"),
+        #         headers={'Authorization': config.SLACK_TOKEN},
+        #         json=build_message(result[1])
+        #     )
+        #
+        #     return Response(messages.load("event.request.handled"), status=200)
 
     def should_ignore(new_message):
         return messages.load("event.message.keyword") not in str(new_message)
