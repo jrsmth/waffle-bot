@@ -22,7 +22,7 @@ class RedisClient:
         if value is None:
             return None
         else:
-            return self.client.get(key).decode('utf-8')
+            return self.client.get(key)  # .decode('utf-8') Note :: .decode() supported by Flask but not Upstash(?)
 
     def set(self, key, value):
         """ Set a key-value element """
@@ -40,7 +40,7 @@ class RedisClient:
         if json_value is None:
             return None
         else:
-            json_value = json_value.decode('utf-8')
+            json_value = json_value  # .decode('utf-8') Note :: .decode() supported by Flask but not Upstash(?)
         try:
             return jsons.loads(standardise(json_value))
         except JSONDecodeError:
