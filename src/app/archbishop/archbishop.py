@@ -26,11 +26,6 @@ def construct_blueprint(adapter, config, messages, redis):
 
     @archbishop.route(config.EVENT_PATH, methods=['POST'])
     def event():
-        log.info("HIT YOU SON OF A BITCH!")
-        print("HIT YOU SON OF A BITCH!")
-        log.info(str(flask_request.headers))
-        print(str(flask_request.headers))
-
         """ Handle event request from Slack """
         payload = flask_request.get_json()
         log.debug(f"[handle_event] New Event from Slack! [{str(payload)}]")
@@ -47,29 +42,27 @@ def construct_blueprint(adapter, config, messages, redis):
     @adapter.on("message")
     def handle(new_message):
         """ Process new message according to its content """
-        if True:
+        if should_ignore(new_message):
             return Response(messages.load("event.request.ignored"), status=200)
-        # if should_ignore(new_message):
-        #     return Response(messages.load("event.request.ignored"), status=200)
 
-        # else:
-        #     event = Event(new_message)
-        #     group = get_group(event)
-        #     king_streak = group.king.streak
-        #     player = get_player(event, group)
-        #     player.score += 0  # event.get_score()
-        #     player.streak = event.get_streak()
-        #
-        #     result: tuple[Group, str] = process_result(group, player, king_streak)
-        #     redis.set_complex(group.name, result[0])
-        #
-        #     requests.post(
-        #         config.SLACK_API.format("chat.postMessage"),
-        #         headers={'Authorization': config.SLACK_TOKEN},
-        #         json=build_message(result[1])
-        #     )
-        #
-        #     return Response(messages.load("event.request.handled"), status=200)
+        else:
+            event = Event(new_message)
+            group = get_group(event)
+            king_streak = group.king.streak
+            player = get_player(event, group)
+            player.score += 0  # event.get_score()
+            player.streak = event.get_streak()
+
+            result: tuple[Group, str] = process_result(group, player, king_streak)
+            redis.set_complex(group.name, result[0])
+
+            requests.post(
+                config.SLACK_API.format("chat.postMessage"),
+                headers={'Authorization': config.SLACK_TOKEN},
+                json=build_message(result[1])
+            )
+
+            return Response(messages.load("event.request.handled"), status=201)
 
     def should_ignore(new_message):
         return messages.load("event.message.keyword") not in str(new_message)
