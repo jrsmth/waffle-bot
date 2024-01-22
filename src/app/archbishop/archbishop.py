@@ -26,6 +26,8 @@ def construct_blueprint(adapter, config, messages, redis):
 
     @archbishop.route(config.EVENT_PATH, methods=['POST'])
     def event():
+        log.info("HIT YOU SON OF A BITCH!")
+        print("HIT YOU SON OF A BITCH!")
         log.info(str(flask_request.headers))
         print(str(flask_request.headers))
 
