@@ -87,7 +87,7 @@ def construct_blueprint(adapter, config, messages, redis):
         try:
             result = requests.get(slack_user_url, headers={'Authorization': config.SLACK_TOKEN})
             user = result.json().get("user").get("real_name").split()[0]
-            potential_player = [p for p in group.players if p["name"] == user]
+            potential_player = [p for p in group.players if p.name == user]
 
             if not potential_player:
                 player = Player()
