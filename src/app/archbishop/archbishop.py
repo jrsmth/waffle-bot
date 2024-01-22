@@ -54,14 +54,13 @@ def construct_blueprint(adapter, config, messages, redis):
             player.score += 0  # event.get_score()
             player.streak = event.get_streak()
 
-            # namedtuple('result', 'group text')
-            result: tuple[Group, str] = process_result(group, player, king_streak)
-            redis.set_complex(group.name, result[0])
+            result = process_result(group, player, king_streak)
+            redis.set_complex(group.name, result.group)
 
             requests.post(
                 config.SLACK_API.format("chat.postMessage"),
                 headers={'Authorization': config.SLACK_TOKEN},
-                json=build_message(result[1])
+                json=build_message(result.text)
             )
 
             return Response(messages.load("event.request.handled"), status=200)
@@ -88,7 +87,7 @@ def construct_blueprint(adapter, config, messages, redis):
         try:
             result = requests.get(slack_user_url, headers={'Authorization': config.SLACK_TOKEN})
             user = result.json().get("user").get("real_name").split()[0]
-            potential_player = [p for p in group.players if p.name == user]
+            potential_player = [p for p in group.players if p["name"] == user]
 
             if not potential_player:
                 player = Player()
@@ -117,7 +116,7 @@ def construct_blueprint(adapter, config, messages, redis):
                 text = messages.load_with_params("result.king.lose", [player.name])
             # ...and wins
             else:
-                text = messages["result.king.win"]
+                text = messages.load("result.king.win")
 
         # Player is a commoner...
         else:
@@ -134,7 +133,8 @@ def construct_blueprint(adapter, config, messages, redis):
                 else:
                     text = messages.load_with_params("result.common.win", [player.name, player.score])
 
-        return group, text
+        Result = namedtuple("Result", "group text")
+        return Result(group, text)
 
     def build_message(text):
         channel_id = '#bot-tester'

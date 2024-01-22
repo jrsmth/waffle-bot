@@ -32,11 +32,11 @@ class Event(Base):
 
     def get_score(self):
         elements = self.event.blocks[0].elements[0].elements
-        score_text = [elem for elem in elements if ('text' in elem and "/5" in elem.text)][0].text
+        score_text = [elem for elem in elements if (hasattr(elem, "text") and "/5" in elem.text)][0].text
         score = str(re.findall(str(score_text), './\d'))[0]
         return int(0 if score == 'X' else score[0])
 
     def get_streak(self):
         elements: [Element] = self.event.blocks[0].elements[0].elements
-        streak = [elem for elem in elements if "streak" in elem.text][0]
-        return int(streak.text.split(" ")[2].strip("\n"))
+        streak_element: Element = [elem for elem in elements if (hasattr(elem, "text") and "streak" in elem.text)][0]
+        return int(streak_element.text.split(" ")[2].strip("\n"))

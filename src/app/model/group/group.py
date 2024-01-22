@@ -9,9 +9,9 @@ class Group(Base):
     king = Player()
 
     def update_player(self, player):
-        players_without_this_one = [x for x in self.players if x.name != player.name]
-        players_with_this_one = players_without_this_one.append(player)
-        self.players = players_with_this_one
+        for index, p in enumerate(self.players):
+            if hasattr(p, "name") and p.name == player["name"]:
+                self.players[index] = player
 
     def crown(self, player):
         self.king = player
@@ -19,7 +19,7 @@ class Group(Base):
     def dethrone(self):
         self.king = Player({"streak": -1})
 
-        non_zeros = [p for p in self.players if p.streak != 0]
+        non_zeros = [p for p in self.players if p["streak"] != 0]
 
         if non_zeros is not list:
             return
