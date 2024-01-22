@@ -2,11 +2,11 @@ import jsons as jsons
 from munch import Munch
 
 
-# Model Base Class
 class Base:
+    """ Model Base Class """
 
-    # Constructor that optionally converts dict to obj
     def __init__(self, d=None):
+        """ Constructor that optionally converts dict to obj """
         if d is not None:
             for key, value in d.items():
                 if type(value) is dict:
@@ -14,6 +14,6 @@ class Base:
                 else:
                     setattr(self, key, value)
 
-    # Converts a complex object into string
     def to_string(self):
+        """ Converts a complex object into a string """
         return str(jsons.dump(self))

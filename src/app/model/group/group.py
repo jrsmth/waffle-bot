@@ -2,8 +2,8 @@ from src.app.model.base import Base
 from src.app.model.group.player import Player
 
 
-# Collection of players grouped by slack space
 class Group(Base):
+    """ Collection of players grouped by slack space """
     name = ''
     players = []
     king = Player()

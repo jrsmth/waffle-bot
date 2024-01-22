@@ -6,6 +6,7 @@ from slack_sdk.errors import SlackApiError
 from src.app.model.event.event import Event
 from src.app.model.group.group import Group
 from src.app.model.group.player import Player
+from collections import namedtuple
 
 
 # Archbishop Logic
@@ -53,6 +54,7 @@ def construct_blueprint(adapter, config, messages, redis):
             player.score += 0  # event.get_score()
             player.streak = event.get_streak()
 
+            # namedtuple('result', 'group text')
             result: tuple[Group, str] = process_result(group, player, king_streak)
             redis.set_complex(group.name, result[0])
 
@@ -62,7 +64,7 @@ def construct_blueprint(adapter, config, messages, redis):
                 json=build_message(result[1])
             )
 
-            return Response(messages.load("event.request.handled"), status=201)
+            return Response(messages.load("event.request.handled"), status=200)
 
     def should_ignore(new_message):
         return messages.load("event.message.keyword") not in str(new_message)
@@ -71,13 +73,14 @@ def construct_blueprint(adapter, config, messages, redis):
         """ Fetch group object from redis """
         group_id = event.team_id
         group = redis.get_complex(group_id)
-
-        if group is None:
-            group = Group()
-            group.name = group_id
+        if group is not None:
+            log.debug(f"[get_group] Group found with id [{group_id}]")
+            return Group(group)
+        else:
+            log.debug(f"[get_group] Creating new group with id [{group_id}]")
+            group = Group({"name": group_id})
             redis.set_complex(group_id, group)
-
-        return Group(group)
+            return group
 
     def get_player(event, group):
         """ Fetch player object from redis that corresponds to message sender """

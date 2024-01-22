@@ -1,5 +1,4 @@
 import re
-
 from src.app.model.base import Base
 
 
@@ -38,6 +37,6 @@ class Event(Base):
         return int(0 if score == 'X' else score[0])
 
     def get_streak(self):
-        elements = self.event.blocks[0].elements[0].elements
+        elements: [Element] = self.event.blocks[0].elements[0].elements
         streak = [elem for elem in elements if "streak" in elem.text][0]
         return int(streak.text.split(" ")[2].strip("\n"))

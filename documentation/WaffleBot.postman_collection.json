@@ -361,7 +361,6 @@
 					"});",
 					"",
 					"// X-Slack-Signature",
-					"// const secret = \"b'\" + pm.environment.get(\"SLACK_SECRET\") + \"'\";",
 					"const secret = CryptoJS.enc.Utf8.parse(pm.environment.get(\"SLACK_SECRET\"));",
 					"const body = interpolate(pm.request.body.toString());",
 					"request = 'v0:' + timestamp + ':' + body",

@@ -17,8 +17,11 @@ class RedisClient:
 
     # Get an element by its key and decode in utf-8 format
     def get(self, key):
-        # return self.client.get(key).decode('utf-8')
-        return self.client.get(key)
+        value = self.client.get(key)
+        if value is None:
+            return None
+        else:
+            return self.client.get(key).decode('utf-8')
 
     # Set a key-value element
     def set(self, key, value):
@@ -32,13 +35,11 @@ class RedisClient:
 
     # Get a complex key-value element by converting from json string
     def get_complex(self, key):
-        # json_value = self.client.get(key).decode('utf-8')
         json_value = self.client.get(key)
         if json_value is None:
             return None
-
         try:
-            return jsons.loads(standardise(json_value))
+            return jsons.loads(standardise(json_value.decode('utf-8')))
         except JSONDecodeError:
             raise Exception("[get_complex] Error parsing retrieved object: " + str(json_value))
 
