@@ -23,6 +23,7 @@ class RedisClient:
             return None
         else:
             return self.client.get(key)  # .decode('utf-8') Note :: .decode() supported by Flask but not Upstash(?)
+            # Question :: Can utf-8 decode happen at client instantiation?
 
     def set(self, key, value):
         """ Set a key-value element """
@@ -41,6 +42,7 @@ class RedisClient:
             return None
         else:
             json_value = json_value  # .decode('utf-8') Note :: .decode() supported by Flask but not Upstash(?)
+            # Question :: Can utf-8 decode happen at client instantiation?
         try:
             return jsons.loads(standardise(json_value))
         except JSONDecodeError:
