@@ -10,7 +10,7 @@ class Group(Base):
 
     def update_player(self, player):
         for index, p in enumerate(self.players):
-            if hasattr(p, "name") and p.name == player["name"]:
+            if hasattr(p, "name") and p.name == player.name:
                 self.players[index] = player
 
     def crown(self, player):

@@ -10,7 +10,8 @@ class RedisClient:
 
     def __init__(self, app, url, token):
         self.log = logging.getLogger(__name__)
-        self.client = UpstashRedis(url=url, token=token) if "upstash" in url else FlaskRedis(app)
+        self.client = UpstashRedis(url=url, token=token) if "upstash" in url \
+            else FlaskRedis(app, decode_responses=True)
 
     def get_client(self):
         """ Return the redis client object """
@@ -22,8 +23,7 @@ class RedisClient:
         if value is None:
             return None
         else:
-            return self.client.get(key)  # .decode('utf-8') Note :: .decode() supported by Flask but not Upstash(?)
-            # Question :: Can utf-8 decode happen at client instantiation?
+            return self.client.get(key)
 
     def set(self, key, value):
         """ Set a key-value element """
@@ -41,8 +41,7 @@ class RedisClient:
         if json_value is None:
             return None
         else:
-            json_value = json_value  # .decode('utf-8') Note :: .decode() supported by Flask but not Upstash(?)
-            # Question :: Can utf-8 decode happen at client instantiation?
+            json_value = json_value
         try:
             return jsons.loads(standardise(json_value))
         except JSONDecodeError:
