@@ -51,7 +51,7 @@ def construct_blueprint(adapter, config, messages, redis):
             group = get_group(event)
             king_streak = group.king.streak
             player = get_player(event, group)
-            player.score += 0  # event.get_score()
+            player.score += event.get_score()
             player.streak = event.get_streak()
 
             result = process_result(group, player, king_streak)
@@ -116,7 +116,7 @@ def construct_blueprint(adapter, config, messages, redis):
                 text = messages.load_with_params("result.king.lose", [player.name])
             # ...and wins
             else:
-                text = messages.load("result.king.win")
+                text = messages.load("result.king.win", [player.score])
 
         # Player is a commoner...
         else:
