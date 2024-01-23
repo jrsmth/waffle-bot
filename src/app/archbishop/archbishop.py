@@ -112,11 +112,11 @@ def construct_blueprint(adapter, config, messages, redis):
             if player.streak == 0:
                 log.info(f"[process_result] The Reign of King {player.name} is over!")
                 log.info("[process_result] Searching for a new King...")
-                group.dethrone(player)
+                group.dethrone()
                 text = messages.load_with_params("result.king.lose", [player.name])
             # ...and wins
             else:
-                text = messages.load("result.king.win", [player.score])
+                text = messages.load_with_params("result.king.win", [player.score])
 
         # Player is a commoner...
         else:
