@@ -116,7 +116,7 @@ def construct_blueprint(adapter, config, messages, redis):
                 text = messages.load_with_params("result.king.lose", [player.name])
             # ...and wins
             else:
-                text = messages.load_with_params("result.king.win", [player.score])
+                text = messages.load_with_params("result.king.win", [str(player.score)])
 
         # Player is a commoner...
         else:
@@ -131,7 +131,7 @@ def construct_blueprint(adapter, config, messages, redis):
                     group.crown(player)
                     text = messages.load_with_params("result.common.coronation", [player.name])
                 else:
-                    text = messages.load_with_params("result.common.win", [player.name, player.score])
+                    text = messages.load_with_params("result.common.win", [player.name, str(player.score)])
 
         Result = namedtuple("Result", "group text")
         return Result(group, text)
