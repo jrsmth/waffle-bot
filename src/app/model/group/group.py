@@ -19,10 +19,12 @@ class Group(Base):
 
     def update_scroll(self, player):
         # Create new record
-        new_record = Record(name=player.name, streak=player.streak, date=datetime.datetime.today().strftime('%d/%m/%Y'))
-        self.scroll.append(new_record)
+        new_record = Record({"name": player.name, "streak": player.streak,
+                             "date": datetime.datetime.today().strftime('%d/%m/%Y')})
+        scroll = self.scroll
+        scroll.append(new_record)
         # Sort and remove tail Record
-        sorted_scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=True)
+        sorted_scroll = sorted(scroll, key=lambda x: x.streak, reverse=True)
         self.scroll = sorted_scroll.pop()
 
     def crown(self, player):
