@@ -1,4 +1,7 @@
+import datetime
+
 from src.app.model.base import Base
+from src.app.model.group.Record import Record
 from src.app.model.group.player import Player
 
 
@@ -7,11 +10,22 @@ class Group(Base):
     name = ''
     players = []
     king = Player()
+    scroll = [Record(), Record(), Record()]
 
     def update_player(self, player):
         for index, p in enumerate(self.players):
             if hasattr(p, "name") and p.name == player.name:
                 self.players[index] = player
+
+    def update_scroll(self, player):
+        # Create new record
+        new_record = Record({"name": player.name, "streak": player.streak,
+                             "date": datetime.datetime.today().strftime('%d/%m/%Y')})
+        scroll = self.scroll
+        scroll.append(new_record)
+        # Sort and remove tail Record
+        sorted_scroll = sorted(scroll, key=lambda x: x.streak, reverse=True)
+        self.scroll = sorted_scroll.pop()
 
     def crown(self, player):
         self.king = player

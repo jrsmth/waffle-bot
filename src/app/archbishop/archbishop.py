@@ -105,6 +105,7 @@ def construct_blueprint(adapter, config, messages, redis):
 
     def process_result(group, player, king_streak):
         group.update_player(player)
+        group.update_scroll(player)
 
         # Player is the King...
         if player.name == group.king.name:
