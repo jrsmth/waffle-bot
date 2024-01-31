@@ -3,3 +3,6 @@ make install:
 
 make start:
 	docker-compose up -d --build
+
+make test:
+	python -m pytest -s tests
