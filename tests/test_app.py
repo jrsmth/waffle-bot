@@ -13,7 +13,7 @@ def fake_envs(monkeypatch):
 @pytest.fixture()
 def app():
     # required here to avoid premature creation - is create_app being interpreted when imported?
-    from wafflebot.__init__ import create_app
+    from wafflebot import create_app
 
     return create_app()
 
