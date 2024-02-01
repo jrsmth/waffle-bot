@@ -14,3 +14,4 @@ upstash_redis
 pyjavaproperties~=0.7
 from_root
 Munch
+pytest

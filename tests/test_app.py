@@ -10,6 +10,7 @@ def test_hello(monkeypatch):
     from src.app.app import app
 
     test_client = app.test_client()
-    response = test_client.get("/hello")
+    response = test_client.get("/")
+    print(response)
 
     assert response.status_code == 200
