@@ -1,5 +1,5 @@
 import re
-from src.app.model.base import Base
+from wafflebot.model.base import Base
 
 
 class Element(Base):
