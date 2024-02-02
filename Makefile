@@ -4,5 +4,8 @@ make install:
 make start:
 	docker-compose up -d --build
 
+make stop:
+	docker-compose down
+
 make test:
-	python -m pytest -s tests
+	python -m pytest -s -v

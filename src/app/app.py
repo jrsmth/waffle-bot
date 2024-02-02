@@ -4,10 +4,10 @@ from flask import Flask
 from from_root import from_root
 from slack_sdk import WebClient
 from slackeventsapi import SlackEventAdapter
-from wafflebot.config.config import Config
-from wafflebot.util.messages import Messages
-from wafflebot.util.redis import RedisClient
-from wafflebot.archbishop import archbishop
+from src.app.config.config import Config
+from src.app.util.messages import Messages
+from src.app.util.redis import RedisClient
+from src.app.archbishop import archbishop
 
 
 def create_app():
@@ -27,11 +27,11 @@ def create_app():
     redis = RedisClient(app, config.REDIS_URL, config.REDIS_TOKEN)
 
     # Initialise logger
-    dictConfig(json.load(open(from_root('wafflebot', 'config', 'logs.json'))))
+    dictConfig(json.load(open(from_root('src', 'app', 'config', 'logs.json'))))
     app.logger_name = 'waffle-bot'
 
     # Initialise messages
-    messages = Messages(from_root('wafflebot', 'resources', 'messages.properties'))
+    messages = Messages(from_root('src', 'app', 'resources', 'messages.properties'))
 
     # Register blueprint
     app.register_blueprint(archbishop.construct_blueprint(slack_events_adapter, config, messages, redis))
@@ -39,9 +39,9 @@ def create_app():
     return app
 
 
-# Let's go!
+# Create the Flask app
+app = create_app()
+
+# Only get to here when running directly
 if __name__ == "__main__":
-    app = create_app()
     app.run(port=3000)
-else:
-    gunicorn_app = create_app()

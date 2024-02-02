@@ -1,8 +1,8 @@
 import datetime
 
-from wafflebot.model.base import Base
-from wafflebot.model.group.Record import Record
-from wafflebot.model.group.player import Player
+from src.app.model.base import Base
+from src.app.model.group.Record import Record
+from src.app.model.group.player import Player
 
 
 class Group(Base):

@@ -3,9 +3,9 @@ import requests
 from flask import Blueprint, Response
 from flask import request as flask_request
 from slack_sdk.errors import SlackApiError
-from wafflebot.model.event.event import Event
-from wafflebot.model.group.group import Group
-from wafflebot.model.group.player import Player
+from src.app.model.event.event import Event
+from src.app.model.group.group import Group
+from src.app.model.group.player import Player
 from collections import namedtuple
 
 
