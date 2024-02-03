@@ -22,3 +22,11 @@
 
 <h1 align="center">Waffle Bot 🤖</h1>
 <p align="center">Slackbot that crowns a new 🧇👑</p>
+
+## Explanation
+- 🧇 The Archbishop oversees scoring within your Slack group
+- ℹ [More info]()
+
+## Run Locally
+- 🔧 `pip install -r src/app/requirements.txt`
+- 🚀 `make start`
