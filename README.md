@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="400" alt="Waffle King" src="https://github.com/jrsmth/waffle-bot/assets/34093915/462c676c-5a19-4b46-8fe5-8d907e5d7911">
+    <img width="240" alt="Waffle King" src="https://github.com/jrsmth/waffle-bot/assets/34093915/8c52219c-2919-4d3d-851b-985079a2deca">
 </p>
 
 <p align="center">
