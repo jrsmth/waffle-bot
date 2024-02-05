@@ -1,5 +1,5 @@
 make install:
-	pip3 install -r ./src/app/requirements.txt
+	pip3 install -r requirements.txt
 
 make start:
 	docker-compose up -d --build
