@@ -10,7 +10,7 @@ from collections import namedtuple
 
 
 # Archbishop Logic
-def construct_blueprint(adapter, config, messages, redis):
+def construct_blueprint(adapters, config, messages, redis):
     log = logging.getLogger(__name__)
     archbishop = Blueprint('archbishop', __name__)
 
@@ -59,7 +59,7 @@ def construct_blueprint(adapter, config, messages, redis):
 
             requests.post(
                 config.SLACK_API.format("chat.postMessage"),
-                headers={'Authorization': config.SLACK_TOKEN},
+                headers={'Authorization': 'Bearer ' + config.BOT_TOKEN},
                 json=build_message(result.text)
             )
 
@@ -85,7 +85,7 @@ def construct_blueprint(adapter, config, messages, redis):
         """ Fetch player object from redis that corresponds to message sender """
         slack_user_url = config.SLACK_API.format("users.info?user=" + event.event.user)
         try:
-            result = requests.get(slack_user_url, headers={'Authorization': config.SLACK_TOKEN})
+            result = requests.get(slack_user_url, headers={'Authorization': 'Bearer ' + config.BOT_TOKEN})
             user = result.json().get("user").get("real_name").split()[0]
             potential_player = [p for p in group.players if p["name"] == user]
 

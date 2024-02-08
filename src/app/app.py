@@ -20,7 +20,7 @@ def create_app():
     app.app_context().push()
 
     # Initialise slack
-    slack_client = WebClient(token=config.BOT_TOKEN)
+    WebClient(token=config.BOT_TOKEN)
     slack_events_adapter = SlackEventAdapter(config.SECRET, config.EVENT_PATH, app)
 
     # Initialise redis
@@ -34,7 +34,7 @@ def create_app():
     messages = Messages(from_root('src', 'app', 'resources', 'messages.properties'))
 
     # Register blueprint
-    app.register_blueprint(archbishop.construct_blueprint(slack_events_adapter, config, messages, redis))
+    app.register_blueprint(archbishop.construct_blueprint(adapters, config, messages, redis))
 
     return app
 
