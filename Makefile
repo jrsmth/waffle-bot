@@ -8,4 +8,4 @@ make stop:
 	docker-compose down
 
 make test:
-	python -m pytest -s -v
+	python3 -m pytest -s -v
