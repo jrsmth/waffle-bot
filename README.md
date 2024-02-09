@@ -22,12 +22,10 @@
 
 <h1 align="center">Waffle Bot 🤖</h1>
 <p align="center">Slackbot that crowns a new 🧇👑</p>
-<br>
+
 <br>
 
-<p align="center">
-    <img alt="Waffle Demo" width="360" src="https://github.com/jrsmth/waffle-bot/assets/34093915/339b7214-9bb3-45fe-b1c6-d08862a1c0ee">
-</p>
+<img alt="Waffle Demo" src="https://github.com/jrsmth/waffle-bot/assets/34093915/ca19e139-8393-496e-a06c-68059bb36dca">
 
 <br>
 
