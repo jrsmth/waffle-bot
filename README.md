@@ -23,6 +23,10 @@
 <h1 align="center">Waffle Bot 🤖</h1>
 <p align="center">Slackbot that crowns a new 🧇👑</p>
 
+<p align="center">
+    <img alt="Waffle Demo" src="https://github.com/jrsmth/waffle-bot/assets/34093915/a35d804a-e6e4-44b9-b649-7c732b790e02">
+</p>
+
 ## Explanation
 - 🧇 The Archbishop oversees scoring within your Slack group
 - ℹ️ More info...
