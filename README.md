@@ -25,7 +25,7 @@
 
 ## Explanation
 - 🧇 The Archbishop oversees scoring within your Slack group
-- ℹ️ More info
+- ℹ️ More info...
 
 ## Run Locally
 - 🔧 `pip install -r src/app/requirements.txt`
