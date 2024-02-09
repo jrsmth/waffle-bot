@@ -25,7 +25,7 @@
 
 <br>
 
-<img alt="Waffle Demo" src="https://github.com/jrsmth/waffle-bot/assets/34093915/ca19e139-8393-496e-a06c-68059bb36dca">
+<img alt="Waffle Demo" src="https://github.com/jrsmth/waffle-bot/assets/34093915/1ddb2f05-70e5-4574-ac81-6a33df1bfedb">
 
 <br>
 
