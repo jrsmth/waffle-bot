@@ -27,11 +27,11 @@ def create_app():
     redis = RedisClient(app, config.REDIS_URL, config.REDIS_TOKEN)
 
     # Initialise logger
-    dictConfig(json.load(open(from_root('src', 'app', 'config', 'logs.json'))))
+    dictConfig(json.load(open(from_root('app', 'config', 'logs.json'))))
     app.logger_name = 'waffle-bot'
 
     # Initialise messages
-    messages = Messages(from_root('src', 'app', 'resources', 'messages.properties'))
+    messages = Messages(from_root('resources', 'messages.properties'))
 
     # Register blueprint
     app.register_blueprint(archbishop.construct_blueprint(adapters, config, messages, redis))
