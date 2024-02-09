@@ -1,4 +1,4 @@
-# General (Pythonic)
+# Pythonic
 /workspace.xml
 .DS_Store
 .env
@@ -36,3 +36,6 @@ todo
 
 # Sample Data
 /documentation/samples
+
+# App Manifest
+app-manifest.*
