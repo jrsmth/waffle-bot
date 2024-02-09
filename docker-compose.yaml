@@ -14,5 +14,5 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - ./waffle.env
-      - ./waffle-local.env
+      - ./env/token-test-workspace.env
+      - ./env/waffle-local.env
