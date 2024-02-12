@@ -12,7 +12,7 @@
         },
         "file": {
             "class": "logging.FileHandler",
-            "filename": "waffle-bot.log",
+            "filename": "logs/waffle-bot.log",
             "formatter": "default"
         }
     },
