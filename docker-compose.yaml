@@ -1,7 +1,7 @@
 services:
 
   redis:
-    container_name: "redis"
+    container_name: "waffle-redis"
     image: redis:latest
     ports:
       - "6379:6379"
@@ -14,6 +14,5 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - ./env/token-test-workspace.env
-      - ./env/token-tier2-consulting.env
-      - ./env/waffle-local.env
+      - ./waffle-base.env
+      - ./waffle-local.env

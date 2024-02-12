@@ -4,6 +4,9 @@ make install:
 make start:
 	docker-compose up -d --build
 
+make redis:
+	docker run --name waffle-redis -p 6379:6379 -d redis
+
 make stop:
 	docker-compose down
 
