@@ -20,6 +20,7 @@ build/
 documentation/_build/
 .vscode
 *.log
+/logs
 
 # Coverage Reports
 htmlcov/
@@ -34,7 +35,8 @@ todo
 *.env
 *.postman_environment.json
 
-# Sample Data
+# Data
+/data
 /documentation/samples
 
 # App Manifest

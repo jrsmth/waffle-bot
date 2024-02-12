@@ -1,7 +1,10 @@
+import hashlib
+import hmac
 import logging
+
 import requests
 from flask import Blueprint, Response
-from flask import request as flask_request
+from flask import request
 from slack_sdk.errors import SlackApiError
 from src.app.model.event.event import Event
 from src.app.model.group.group import Group
@@ -10,7 +13,7 @@ from collections import namedtuple
 
 
 # Archbishop Logic
-def construct_blueprint(adapters, config, messages, redis):
+def construct_blueprint(bolt, config, messages, redis):
     log = logging.getLogger(__name__)
     archbishop = Blueprint('archbishop', __name__)
 
@@ -28,45 +31,49 @@ def construct_blueprint(adapters, config, messages, redis):
     @archbishop.route(config.EVENT_PATH, methods=['POST'])
     def event():
         """ Handle event request from Slack """
-        payload = flask_request.get_json()
+        payload = request.get_data()
         log.debug(f"[handle_event] New Event from Slack! [{str(payload)}]")
 
-        if payload["token"] != config.VERIFICATION_TOKEN:
-            return Response("Invalid Token!", status=403)
+        slack_signature = request.headers['X-Slack-Signature']
+        slack_timestamp = request.headers['X-Slack-Request-Timestamp']
 
-        if "type" in payload:
-            if payload["type"] == "url_verification":
-                return Response(payload['challenge'], status=200)
+        my_signature = compute_my_signature(slack_timestamp, payload)
+        if not hmac.compare_digest(my_signature, slack_signature):
+            return Response("Invalid Signature!", status=403)
+
+        if "type" in request.json and request.json["type"] == "url_verification":
+            return Response(request.json['challenge'], status=200)
 
         return Response(status=200)
 
-    @adapter.on("message")
-    def handle(new_message):
+    @bolt.message(messages.load("event.message.keyword"))
+    def handle(message, say): # Now naming not so good...
+        # FixMe :: NO TRIGGER
         """ Process new message according to its content """
-        if should_ignore(new_message):
-            return Response(messages.load("event.request.ignored"), status=200)
+        # event = Event(new_message)
+        # group = get_group(event)
+        # king_streak = group.king.streak
+        # player = get_player(event, group)
+        # player.score += event.get_score()
+        # player.streak = event.get_streak()
+        #
+        # result = process_result(group, player, king_streak)
+        # redis.set_complex(group.name, result.group)
 
-        else:
-            event = Event(new_message)
-            group = get_group(event)
-            king_streak = group.king.streak
-            player = get_player(event, group)
-            player.score += event.get_score()
-            player.streak = event.get_streak()
+        # requests.post(
+        #     config.SLACK_API.format("chat.postMessage"),
+        #     headers={'Authorization': 'Bearer ' + config.BOT_TOKEN},
+        #     json=build_message(result.text)
+        # )
 
-            result = process_result(group, player, king_streak)
-            redis.set_complex(group.name, result.group)
+        user = message['user']
+        say(f"Hi there, <@{user}>!")
 
-            requests.post(
-                config.SLACK_API.format("chat.postMessage"),
-                headers={'Authorization': 'Bearer ' + config.BOT_TOKEN},
-                json=build_message(result.text)
-            )
+        # return Response(messages.load("event.request.handled"), status=200)
 
-            return Response(messages.load("event.request.handled"), status=200)
-
-    def should_ignore(new_message):
-        return messages.load("event.message.keyword") not in str(new_message)
+    def compute_my_signature(slack_timestamp, payload):
+        basestring = str.encode('v0:' + str(slack_timestamp) + ':') + payload
+        return 'v0=' + hmac.new(str.encode(config.SIGNING_SECRET),basestring, hashlib.sha256).hexdigest()
 
     def get_group(event):
         """ Fetch group object from redis """

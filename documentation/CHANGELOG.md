@@ -14,6 +14,8 @@
 ## [0.1.0]
 [Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (??/??/????)
 - `#10` Add functionality to handle multiple Slack instances (dynamic config) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+- `#15` Replace python_sdk with bolt [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+- `#16` Implement bolt's OAuth process to allow for direct installation from Slack [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
 
 ## [0.0.0]
 [Waffle-Bot POC](https://github.com/jrsmth/waffle-bot/milestone/1) (09/02/2024)
