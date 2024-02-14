@@ -14,5 +14,4 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - ./waffle-base.env
-      - ./waffle-local.env
+      - ./env/waffle-local.env

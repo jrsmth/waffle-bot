@@ -23,6 +23,7 @@ class Message(Base):
     type = ""
     user = ""
     blocks = [Block()]
+    channel = ""
 
 
 class Event(Base):

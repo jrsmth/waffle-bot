@@ -13,8 +13,8 @@ from slack_bolt.adapter.flask import SlackRequestHandler
 
 # Archbishop Logic
 def construct_blueprint(bolt, config, messages, redis):
-    log = logging.getLogger(__name__)
     archbishop = Blueprint('archbishop', __name__)
+    log = logging.getLogger(__name__)
     handler = SlackRequestHandler(bolt)
 
     @archbishop.route("/")
@@ -35,29 +35,23 @@ def construct_blueprint(bolt, config, messages, redis):
         return handler.handle(request)
 
     @bolt.message(messages.load("event.message.keyword"))
-    def handle(message, say): # Now naming not so good...
-        # FixMe :: NO TRIGGER
-        """ Process new message according to its content """
-        # event = Event(new_message)
-        # group = get_group(event)
-        # king_streak = group.king.streak
-        # player = get_player(event, group)
-        # player.score += event.get_score()
-        # player.streak = event.get_streak()
-        #
-        # result = process_result(group, player, king_streak)
-        # redis.set_complex(group.name, result.group)
+    def process_waffle(message, say):
+        """ Receive and process new waffle score """
+        event = Event(message)
+        group = get_group(event)
+        king_streak = group.king.streak
+        player = get_player(event, group)
+        player.score += event.get_score()
+        player.streak = event.get_streak()
 
-        # requests.post(
-        #     config.SLACK_API.format("chat.postMessage"),
-        #     headers={'Authorization': 'Bearer ' + config.BOT_TOKEN},
-        #     json=build_message(result.text)
-        # )
+        result = process_result(group, player, king_streak)
+        redis.set_complex(group.name, result.group)
 
-        user = message['user']
-        say(f"Hi there, <@{user}>!")
+        to_channel = event.event.channel
+        response = present(result.text, to_channel)
 
-        # return Response(messages.load("event.request.handled"), status=200)
+        say(response)
+        return Response(messages.load("event.request.handled"), status=200)
 
     def get_group(event):
         """ Fetch group object from redis """
@@ -128,11 +122,10 @@ def construct_blueprint(bolt, config, messages, redis):
         Result = namedtuple("Result", "group text")
         return Result(group, text)
 
-    def build_message(text):
-        channel_id = '#bot-tester'
+    def present(result, to_channel):
         message = {
             "ts": '',
-            "channel": channel_id,
+            "channel": to_channel,
             "icon_emoji": ":robot_face:",
             "blocks": [
                 {
@@ -140,7 +133,7 @@ def construct_blueprint(bolt, config, messages, redis):
                     "text": {
                         "type": "mrkdwn",
                         "text": (
-                                text + " :blush:\n\n"
+                                result + " :blush:\n\n"
                                        "*I am under development*"
                         ),
                     },
