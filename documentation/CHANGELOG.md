@@ -6,7 +6,7 @@
 - `0.2.x` Presentation 
 - `0.3.x` Scroll Command
 - `0.4.x` Reactions
-- `1.0.0` ~Distribute to wider-Tier 2 group
+- `1.0.0` App Distribution
 
 # Releases
 <!-- @LatestFirst -->
@@ -15,7 +15,7 @@
 [Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (??/??/????)
 - `#10` Add functionality to handle multiple Slack instances (dynamic config) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
 - `#15` Replace python_sdk with bolt [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
-- `#16` Implement bolt's OAuth process to allow for direct installation from Slack [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+- `#21` Create architecture diagrams (v0 simplified, v0, v1) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
 
 ## [0.0.0]
 [Waffle-Bot POC](https://github.com/jrsmth/waffle-bot/milestone/1) (09/02/2024)
