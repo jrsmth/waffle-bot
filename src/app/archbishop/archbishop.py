@@ -1,5 +1,3 @@
-import hashlib
-import hmac
 import logging
 
 import requests
@@ -10,12 +8,14 @@ from src.app.model.event.event import Event
 from src.app.model.group.group import Group
 from src.app.model.group.player import Player
 from collections import namedtuple
+from slack_bolt.adapter.flask import SlackRequestHandler
 
 
 # Archbishop Logic
 def construct_blueprint(bolt, config, messages, redis):
     log = logging.getLogger(__name__)
     archbishop = Blueprint('archbishop', __name__)
+    handler = SlackRequestHandler(bolt)
 
     @archbishop.route("/")
     def hello():
@@ -31,20 +31,8 @@ def construct_blueprint(bolt, config, messages, redis):
     @archbishop.route(config.EVENT_PATH, methods=['POST'])
     def event():
         """ Handle event request from Slack """
-        payload = request.get_data()
-        log.debug(f"[handle_event] New Event from Slack! [{str(payload)}]")
-
-        slack_signature = request.headers['X-Slack-Signature']
-        slack_timestamp = request.headers['X-Slack-Request-Timestamp']
-
-        my_signature = compute_my_signature(slack_timestamp, payload)
-        if not hmac.compare_digest(my_signature, slack_signature):
-            return Response("Invalid Signature!", status=403)
-
-        if "type" in request.json and request.json["type"] == "url_verification":
-            return Response(request.json['challenge'], status=200)
-
-        return Response(status=200)
+        log.debug(f"[handle_event] New Event from Slack! [{str(request.get_json())}]")
+        return handler.handle(request)
 
     @bolt.message(messages.load("event.message.keyword"))
     def handle(message, say): # Now naming not so good...
@@ -70,10 +58,6 @@ def construct_blueprint(bolt, config, messages, redis):
         say(f"Hi there, <@{user}>!")
 
         # return Response(messages.load("event.request.handled"), status=200)
-
-    def compute_my_signature(slack_timestamp, payload):
-        basestring = str.encode('v0:' + str(slack_timestamp) + ':') + payload
-        return 'v0=' + hmac.new(str.encode(config.SIGNING_SECRET),basestring, hashlib.sha256).hexdigest()
 
     def get_group(event):
         """ Fetch group object from redis """
