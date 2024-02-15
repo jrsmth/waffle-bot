@@ -15,4 +15,4 @@ jobs:
       - name: Install 🔧
         run: pip3 install -r src/app/requirements.txt --no-cache-dir
       - name: Test 📋
-        run: python3 -m pytest -s -v
+        run: python3 -m pytest src
