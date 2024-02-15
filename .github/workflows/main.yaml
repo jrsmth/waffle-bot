@@ -1,35 +1,17 @@
-name: test-and-release
+name: main
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
   test:
-    runs-on: ubuntu-latest
-    env:
-      working-directory: ./src/app
-    steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
-      - name: Install 🔧
-        run: pip3 install -r src/app/requirements.txt --no-cache-dir
-      - name: Test 📋
-        run: python3 -m pytest src
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
-      - name: Set-up User 🐵
-        uses: fregante/setup-git-user@v2
-      - name: Bump and Tag 🏷️
-        run: echo "VERSION=$(python src/version/release_snapshot.py)" >> $GITHUB_ENV
-      - name: Release 📦
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ env.VERSION }}
-      - name: Add -SNAPSHOT 📷
-        run: python src/version/bump_version.py
-      - name: Commit -SNAPSHOT 💾
-        uses: stefanzweifel/git-auto-commit-action@v4
+    uses: ./jobs/test.yaml
+  rekease:
+    needs: test
+    uses: ./jobs/release.yaml
