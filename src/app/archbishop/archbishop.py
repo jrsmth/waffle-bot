@@ -35,7 +35,7 @@ def construct_blueprint(bolt, config, messages, redis):
         return handler.handle(request)
 
     @bolt.message(messages.load("event.message.keyword"))
-    def process_waffle(message, say):
+    def handle_waffle(message, say):
         """ Receive and process new waffle score """
         event = Event(message)
         group = get_group(event)
@@ -47,7 +47,7 @@ def construct_blueprint(bolt, config, messages, redis):
         result = process_result(group, player, king_streak)
         redis.set_complex(group.name, result.group)
 
-        to_channel = event.event.channel
+        to_channel = event.channel
         response = present(result.text, to_channel)
 
         say(response)
@@ -55,7 +55,7 @@ def construct_blueprint(bolt, config, messages, redis):
 
     def get_group(event):
         """ Fetch group object from redis """
-        group_id = event.team_id
+        group_id = event.team
         group = redis.get_complex(group_id)
         if group is not None:
             log.debug(f"[get_group] Group found with id [{group_id}]")
@@ -68,7 +68,7 @@ def construct_blueprint(bolt, config, messages, redis):
 
     def get_player(event, group):
         """ Fetch player object from redis that corresponds to message sender """
-        slack_user_url = config.SLACK_API.format("users.info?user=" + event.event.user)
+        slack_user_url = config.SLACK_API.format("users.info?user=" + event.user)
         try:
             result = requests.get(slack_user_url, headers={'Authorization': 'Bearer ' + config.BOT_TOKEN})
             user = result.json().get("user").get("real_name").split()[0]

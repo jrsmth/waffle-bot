@@ -1,7 +1,9 @@
 import datetime
 
+from munch import Munch
+
 from src.app.model.base import Base
-from src.app.model.group.Record import Record
+from src.app.model.group.record import Record
 from src.app.model.group.player import Player
 
 
@@ -19,9 +21,14 @@ class Group(Base):
 
     def update_scroll(self, player):
         # Create new record
-        new_record = Record({"name": player.name, "streak": player.streak,
-                             "date": datetime.datetime.today().strftime('%d/%m/%Y')})
-        scroll = self.scroll
+        new_record = Record(
+            {
+                "name": player.name,
+                "streak": player.streak,
+                "date": datetime.datetime.today().strftime('%d/%m/%Y')
+            }
+        )
+        scroll = Munch().fromDict(self.scroll)
         scroll.append(new_record)
         # Sort and remove tail Record
         sorted_scroll = sorted(scroll, key=lambda x: x.streak, reverse=True)
