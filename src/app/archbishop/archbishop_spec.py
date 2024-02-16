@@ -8,6 +8,8 @@ def fake_envs(monkeypatch):
     monkeypatch.setenv('BOT_TOKEN', "SOMEBOTTOKEN")
     monkeypatch.setenv('SLACK_SIGNING_SECRET', "SOMESIGNINGSECRET")
     monkeypatch.setenv('VERIFICATION_TOKEN', "SOMEVERIFICATIONTOKEN")
+    monkeypatch.setenv('DEBUG', "False")
+    monkeypatch.setenv('PORT', "3000")
 
 
 @pytest.fixture()
