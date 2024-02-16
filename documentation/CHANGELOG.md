@@ -12,10 +12,9 @@
 <!-- @LatestFirst -->
 
 ## [0.1.0]
-[Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (??/??/????)
+[Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (16/02/2024)
 - `#10` Expand project to handle multiple Slack instances [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
 - `#15` Replace python_sdk with bolt [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
-- `#21` Create architecture diagrams (v0 simplified, v0, v1) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
 - `#23` Create separate DEV and PROD waffle-bot instances [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
 
 ## [0.0.0]
