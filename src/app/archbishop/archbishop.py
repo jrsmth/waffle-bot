@@ -31,22 +31,26 @@ def construct_blueprint(bolt, config, messages, redis):
     @archbishop.route(config.EVENT_PATH, methods=['POST'])
     def event():
         """ Handle event request from Slack """
-        log.debug(f"[handle_event] New Event from Slack! [{str(request.get_json())}]")
+        log.debug(f"[event] New Event from Slack! [{str(request.get_json())}]")
         return handler.handle(request)
 
     @bolt.message(messages.load("event.message.keyword"))
     def handle_waffle(message, say):
         """ Receive and process new waffle score """
+        log.debug(f"[handle_waffle] New Waffle Score received!")
         event = Event(message)
         group = get_group(event)
-        king_streak = group.king.streak
         player = get_player(event, group)
+
+        log.debug(f"[handle_waffle] Updating player information for [{player.name}]")
         player.score += event.get_score()
         player.streak = event.get_streak()
 
-        result = process_result(group, player, king_streak)
+        log.debug(f"[handle_waffle] Processing result for player score [{player.score}]")
+        result = process_result(group, player)
         redis.set_complex(group.name, result.group)
 
+        log.debug(f"[handle_waffle] Building response for group [{result.group.name}]")
         to_channel = event.channel
         response = present(result.text, to_channel)
 
@@ -88,9 +92,9 @@ def construct_blueprint(bolt, config, messages, redis):
         except SlackApiError as e:
             log.error(f"Error fetching user! [{str(e)}]")
 
-    def process_result(group, player, king_streak):
+    def process_result(group, player):
         group.update_player(player)
-        group.update_scroll(player)
+        # group.update_scroll(player) # FixMe :: Issue #24
 
         # Player is the King...
         if player.name == group.king.name:
@@ -113,7 +117,7 @@ def construct_blueprint(bolt, config, messages, redis):
             # ...and wins...
             else:
                 # ...and deserves coronation
-                if player.streak > king_streak:
+                if player.streak > group.king.streak:
                     group.crown(player)
                     text = messages.load_with_params("result.common.coronation", [player.name])
                 else:
