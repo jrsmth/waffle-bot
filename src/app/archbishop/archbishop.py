@@ -1,18 +1,21 @@
 import logging
+
 import requests
 from flask import Blueprint, Response
-from flask import request as flask_request
+from flask import request
 from slack_sdk.errors import SlackApiError
 from src.app.model.event.event import Event
 from src.app.model.group.group import Group
 from src.app.model.group.player import Player
 from collections import namedtuple
+from slack_bolt.adapter.flask import SlackRequestHandler
 
 
 # Archbishop Logic
-def construct_blueprint(adapter, config, messages, redis):
-    log = logging.getLogger(__name__)
+def construct_blueprint(bolt, config, messages, redis):
     archbishop = Blueprint('archbishop', __name__)
+    log = logging.getLogger(__name__)
+    handler = SlackRequestHandler(bolt)
 
     @archbishop.route("/")
     def hello():
@@ -28,49 +31,35 @@ def construct_blueprint(adapter, config, messages, redis):
     @archbishop.route(config.EVENT_PATH, methods=['POST'])
     def event():
         """ Handle event request from Slack """
-        payload = flask_request.get_json()
-        log.debug(f"[handle_event] New Event from Slack! [{str(payload)}]")
+        log.debug(f"[event] New Event from Slack! [{str(request.get_json())}]")
+        return handler.handle(request)
 
-        if payload["token"] != config.VERIFICATION_TOKEN:
-            return Response("Invalid Token!", status=403)
+    @bolt.message(messages.load("event.message.keyword"))
+    def handle_waffle(message, say):
+        """ Receive and process new waffle score """
+        log.debug(f"[handle_waffle] New Waffle Score received!")
+        event = Event(message)
+        group = get_group(event)
+        player = get_player(event, group)
 
-        if "type" in payload:
-            if payload["type"] == "url_verification":
-                return Response(payload['challenge'], status=200)
+        log.debug(f"[handle_waffle] Updating player information for [{player.name}]")
+        player.score += event.get_score()
+        player.streak = event.get_streak()
 
-        return Response(status=200)
+        log.debug(f"[handle_waffle] Processing result for player score [{player.score}]")
+        result = process_result(group, player)
+        redis.set_complex(group.name, result.group)
 
-    @adapter.on("message")
-    def handle(new_message):
-        """ Process new message according to its content """
-        if should_ignore(new_message):
-            return Response(messages.load("event.request.ignored"), status=200)
+        log.debug(f"[handle_waffle] Building response for group [{result.group.name}]")
+        to_channel = event.channel
+        response = present(result.text, to_channel)
 
-        else:
-            event = Event(new_message)
-            group = get_group(event)
-            king_streak = group.king.streak
-            player = get_player(event, group)
-            player.score += event.get_score()
-            player.streak = event.get_streak()
-
-            result = process_result(group, player, king_streak)
-            redis.set_complex(group.name, result.group)
-
-            requests.post(
-                config.SLACK_API.format("chat.postMessage"),
-                headers={'Authorization': config.SLACK_TOKEN},
-                json=build_message(result.text)
-            )
-
-            return Response(messages.load("event.request.handled"), status=200)
-
-    def should_ignore(new_message):
-        return messages.load("event.message.keyword") not in str(new_message)
+        say(response)
+        return Response(messages.load("event.request.handled"), status=200)
 
     def get_group(event):
         """ Fetch group object from redis """
-        group_id = event.team_id
+        group_id = event.team
         group = redis.get_complex(group_id)
         if group is not None:
             log.debug(f"[get_group] Group found with id [{group_id}]")
@@ -83,9 +72,9 @@ def construct_blueprint(adapter, config, messages, redis):
 
     def get_player(event, group):
         """ Fetch player object from redis that corresponds to message sender """
-        slack_user_url = config.SLACK_API.format("users.info?user=" + event.event.user)
+        slack_user_url = config.SLACK_API.format("users.info?user=" + event.user)
         try:
-            result = requests.get(slack_user_url, headers={'Authorization': config.SLACK_TOKEN})
+            result = requests.get(slack_user_url, headers={'Authorization': 'Bearer ' + config.BOT_TOKEN})
             user = result.json().get("user").get("real_name").split()[0]
             potential_player = [p for p in group.players if p["name"] == user]
 
@@ -103,9 +92,9 @@ def construct_blueprint(adapter, config, messages, redis):
         except SlackApiError as e:
             log.error(f"Error fetching user! [{str(e)}]")
 
-    def process_result(group, player, king_streak):
+    def process_result(group, player):
         group.update_player(player)
-        group.update_scroll(player)
+        # group.update_scroll(player) # FixMe :: Issue #24
 
         # Player is the King...
         if player.name == group.king.name:
@@ -128,7 +117,7 @@ def construct_blueprint(adapter, config, messages, redis):
             # ...and wins...
             else:
                 # ...and deserves coronation
-                if player.streak > king_streak:
+                if player.streak > group.king.streak:
                     group.crown(player)
                     text = messages.load_with_params("result.common.coronation", [player.name])
                 else:
@@ -137,11 +126,10 @@ def construct_blueprint(adapter, config, messages, redis):
         Result = namedtuple("Result", "group text")
         return Result(group, text)
 
-    def build_message(text):
-        channel_id = '#bot-tester'
+    def present(result, to_channel):
         message = {
             "ts": '',
-            "channel": channel_id,
+            "channel": to_channel,
             "icon_emoji": ":robot_face:",
             "blocks": [
                 {
@@ -149,7 +137,7 @@ def construct_blueprint(adapter, config, messages, redis):
                     "text": {
                         "type": "mrkdwn",
                         "text": (
-                                text + " :blush:\n\n"
+                                result + " :blush:\n\n"
                                        "*I am under development*"
                         ),
                     },

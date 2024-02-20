@@ -1,7 +1,7 @@
-name: main
+name: develop
 on:
   push:
-    branches: [ main ]
+    branches: [ develop ]
   workflow_dispatch:
 permissions:
   contents: write
@@ -13,7 +13,3 @@ jobs:
   test:
     name: Test
     uses: ./.github/workflows/test.yaml
-  release:
-    needs: test
-    name: Release
-    uses: ./.github/workflows/release.yaml
