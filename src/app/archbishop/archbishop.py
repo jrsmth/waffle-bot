@@ -94,7 +94,7 @@ def construct_blueprint(bolt, config, messages, redis):
 
     def process_result(group, player):
         group.update_player(player)
-        # group.update_scroll(player) # FixMe :: Issue #24
+        group.update_scroll(player, log) # FixMe :: Issue #24
 
         # Player is the King...
         if player.name == group.king.name:
