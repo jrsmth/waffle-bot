@@ -1,7 +1,5 @@
 import datetime
 
-from munch import Munch
-
 from src.app.model.base import Base
 from src.app.model.group.record import Record
 from src.app.model.group.player import Player
@@ -19,7 +17,8 @@ class Group(Base):
             if hasattr(p, "name") and p.name == player.name:
                 self.players[index] = player
 
-    def update_scroll(self, player):
+    def update_scroll(self, player, log):
+        log.debug("[update_scroll] Score received, updating scroll!")
         # Create new record
         new_record = Record(
             {
@@ -28,11 +27,15 @@ class Group(Base):
                 "date": datetime.datetime.today().strftime('%d/%m/%Y')
             }
         )
-        scroll = Munch().fromDict(self.scroll)
+        scroll = self.scroll
         scroll.append(new_record)
         # Sort and remove tail Record
-        sorted_scroll = sorted(scroll, key=lambda x: x.streak, reverse=True)
-        self.scroll = sorted_scroll.pop()
+        log.debug(f"[update_scroll] Added to scroll! Scroll value: {scroll}")
+        sorted_scroll = sorted(scroll, key=lambda x: x["streak"], reverse=True)
+        log.debug(f"[update_scroll] Scroll sorted by streak! Scroll value: {scroll}")
+        if(len(self.scroll) >= 3):
+            self.scroll = sorted_scroll.pop()
+            log.debug(f"[update_scroll] Too many Scroll entries, remove lowest score! Scroll value: {scroll}")
 
     def crown(self, player):
         self.king = player
