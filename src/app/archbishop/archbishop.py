@@ -25,8 +25,17 @@ def construct_blueprint(bolt, config, messages, redis):
     @archbishop.route("/group/<group_id>")
     def group(group_id):
         """ Get group information by id """
-        log.debug(f"[get_group] Retrieving group for id [{group_id}]")
+        log.debug(f"[group] Retrieving group for id [{group_id}]")
         return Response(redis.get_complex(group_id), status=200)
+
+    @archbishop.route("/group/<group_id>/scroll")
+    def scroll(group_id):
+        """ Get scroll information by group id """
+        log.debug(f"[scroll] Retrieving scroll for group id [{group_id}]")
+        group = redis.get_complex(group_id)
+        scroll = group["scroll"]
+        log.debug(f"[scroll] Scroll [{scroll}]")
+        return Response(group["scroll"], status=200)
 
     @archbishop.route(config.EVENT_PATH, methods=['POST'])
     def event():
