@@ -1,5 +1,14 @@
+# Check if OS is Windows
+ifeq ($(OS),Windows_NT)
+	PYTHON := python
+	PIP := pip
+else
+	PYTHON := python3
+	PIP := pip3
+endif
+
 make install:
-	pip3 install -r src/app/requirements.txt
+	$(PIP) install -r src/app/requirements.txt
 
 make start:
 	docker-compose up -d --build
@@ -11,4 +20,4 @@ make stop:
 	docker-compose down
 
 make test:
-	python3 -m pytest src
+	$(PYTHON) -m pytest src
