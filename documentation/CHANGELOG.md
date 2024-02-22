@@ -11,6 +11,11 @@
 # Releases
 <!-- @LatestFirst -->
 
+## [0.1.1]
+[Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (22/02/2024)
+- `#29` Added OS check in Makefile to support differences between Windows and Unix-based OS workflows [![user](https://img.shields.io/badge/haydende-181717.svg?style=flat&logo=github)](https://github.com/haydende)
+- `#31` Add workflow step to merge main back into develop after incremental snapshot bump [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+
 ## [0.1.0]
 [Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (16/02/2024)
 - `#10` Expand project to handle multiple Slack instances [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
@@ -25,3 +30,4 @@
 
 [0.0.0]: https://github.com/jrsmth/waffle-bot/releases/tag/0.0.0
 [0.1.0]: https://github.com/jrsmth/waffle-bot/compare/0.0.0...0.1.0
+[0.1.1]: https://github.com/jrsmth/waffle-bot/compare/0.1.0...0.1.1
