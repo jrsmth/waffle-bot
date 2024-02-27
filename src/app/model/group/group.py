@@ -55,4 +55,4 @@ class Group(Base):
         if non_zeros is not list:
             return
         else:
-            self.king = non_zeros.sort(key=lambda x: x.streak, reverse=True)[0]
+            self.king = sorted(non_zeros, key=lambda x: x.streak, reverse=True)[0]
