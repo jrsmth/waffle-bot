@@ -32,7 +32,7 @@ class Group(Base):
         print(f"[update_scroll] Added to scroll! Scroll value: {scroll}")
         sorted_scroll = sorted(scroll, key=lambda x: x["streak"], reverse=False)
         log.debug(f"[update_scroll] Scroll sorted by streak! Scroll value: {scroll}")
-        if(len(self.scroll) >= 3):
+        if len(self.scroll) >= 3:
             self.scroll = sorted_scroll.pop()
             log.debug(f"[update_scroll] Too many Scroll entries, remove lowest score! Scroll value: {scroll}")
 
@@ -47,4 +47,4 @@ class Group(Base):
         if non_zeros is not list:
             return
         else:
-            self.king = non_zeros.sort(key=lambda x: x.streak, reverse=True)[0]
+            self.king = sorted(non_zeros, key=lambda x: x.streak, reverse=True)[0]
