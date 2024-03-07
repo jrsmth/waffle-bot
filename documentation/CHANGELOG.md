@@ -13,6 +13,7 @@
 
 ## [0.1.2]
 [Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (??/??/????)
+= `#30` Formalise the conversion of objects into dictionaries (and vice versa) when moving to and from redis [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
 - `#35` Player not getting updated (score & streak) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
 
 ## [0.1.1]
