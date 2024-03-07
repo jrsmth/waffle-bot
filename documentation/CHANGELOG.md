@@ -11,6 +11,10 @@
 # Releases
 <!-- @LatestFirst -->
 
+## [0.1.2]
+[Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (??/??/????)
+- `#35` Player not getting updated (score & streak) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
+
 ## [0.1.1]
 [Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (22/02/2024)
 - `#29` Added OS check in Makefile to support differences between Windows and Unix-based OS workflows [![user](https://img.shields.io/badge/haydende-181717.svg?style=flat&logo=github)](https://github.com/haydende)
@@ -31,3 +35,4 @@
 [0.0.0]: https://github.com/jrsmth/waffle-bot/releases/tag/0.0.0
 [0.1.0]: https://github.com/jrsmth/waffle-bot/compare/0.0.0...0.1.0
 [0.1.1]: https://github.com/jrsmth/waffle-bot/compare/0.1.0...0.1.1
+[0.1.2]: https://github.com/jrsmth/waffle-bot/compare/0.1.1...0.1.2

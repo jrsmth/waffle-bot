@@ -16,7 +16,8 @@ class Group(Base):
 
     def update_player(self, player):
         for index, p in enumerate(self.players):
-            if hasattr(p, "name") and p.name == player.name:
+            if p["name"] == player.name:
+            # if hasattr(p, "name") and p["name"] == player.name: # Note :: re-write this fkn data sh!te
                 self.players[index] = player
 
     def update_scroll(self, player):
