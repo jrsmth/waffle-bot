@@ -33,7 +33,7 @@ class Group(Base):
             if p.name == player.name:
                 self.players[index] = player
 
-    def update_scroll(self, player):
+    def update_scroll(self, player): # FixMe
         """ Create new record """
         timestamp = datetime.datetime.today().strftime('%d/%m/%Y')
         new_record = Record(player.name, player.streak, timestamp)
@@ -47,8 +47,8 @@ class Group(Base):
         self.king = player
 
     def dethrone(self):
-        self.king = Player({"streak": -1})
-        non_zeros = [p for p in self.players if p["streak"] != 0]
+        self.king = Player("", -1, 0)
+        non_zeros = [p for p in self.players if p.streak != 0]
         if non_zeros is not list:
             return
         else:
