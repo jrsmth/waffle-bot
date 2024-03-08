@@ -1,32 +1,35 @@
 import re
-
 from munch import Munch
 
-from src.app.model.base import Base
 
-
-class Element(Base):
+class Element:
     type = ""
     text = ""
     unicode = ""
 
 
-class OuterElement(Base):
+class OuterElement:
     type = ""
     elements = [Element()]
 
 
-class Block(Base):
+class Block:
     elements = [OuterElement()]
 
 
-class Event(Base):
+class Event:
     """ Enhanced message event object based on Slack's Event API """
     type = ""
     user = ""
     blocks = [Block()]
     team = ""
     channel = ""
+
+    def __init__(self, d=None):
+        """ Constructor that optionally converts dict to obj """
+        if d is not None:
+            for key, value in d.items():
+                setattr(self, key, value)
 
     def get_score(self):
         block: Block = Munch.fromDict(self.blocks[0])

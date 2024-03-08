@@ -1,19 +1,25 @@
+import json
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
 import jsons as jsons
-from munch import Munch
 
 
-class Base:
+@dataclass
+class Base(ABC):
     """ Model Base Class """
 
-    def __init__(self, d=None):
-        """ Constructor that optionally converts dict to obj """
-        if d is not None:
-            for key, value in d.items():
-                if type(value) is dict:
-                    setattr(self, key, Munch().fromDict(value))
-                else:
-                    setattr(self, key, value)
+    @classmethod
+    @abstractmethod
+    def from_dict(cls, dic):
+        """ Convert a dictionary to a python object """
+        pass
 
-    def to_string(self):
+    @classmethod
+    def from_json(cls, json_str: str):
+        """ Convert a json string to a python object """
+        return cls.from_dict(json.loads(json_str))
+
+    @classmethod
+    def to_string(cls):
         """ Converts a complex object into a string """
-        return str(jsons.dump(self))
+        return str(jsons.dump(cls))

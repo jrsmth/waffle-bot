@@ -1,8 +1,18 @@
+from dataclasses import dataclass
 from src.app.model.base import Base
 
 
+@dataclass
 class Record(Base):
     """ Tracked Record for the Historic Streaks """
-    name = ''
-    streak = 0
-    date = '0/0/0000'
+    name: str
+    streak: int
+    date: str  # TODO :: actual date
+
+    @classmethod
+    def from_dict(cls, dic):
+        return cls(
+            name=dic["name"],
+            streak=dic["streak"],
+            date=dic["date"]
+        )
