@@ -37,7 +37,7 @@ class RedisClient:
         return self.client.set(key, json_value)
 
     def get_complex(self, key, cls: Base):
-        """ Get a complex key-value element and return as dictionary """
+        """ Get a complex key-value element """
         json_value = self.client.get(key)
         if json_value is not None:
             try:
