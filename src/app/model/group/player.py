@@ -1,8 +1,19 @@
+from dataclasses import dataclass
+
 from src.app.model.base import Base
 
 
+@dataclass
 class Player(Base):
     """ Tracked player information """
-    name = ''
-    streak = 0
-    score = 0
+    name: str
+    streak: int
+    score: int
+
+    @classmethod
+    def from_dict(cls, dic):
+        return cls(
+            name=dic["name"],
+            streak=dic["streak"],
+            score=dic["score"]
+        )

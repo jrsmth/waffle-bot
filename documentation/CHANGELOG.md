@@ -3,16 +3,18 @@
 # Version History
 - `0.0.x` Waffle-Bot POC
 - `0.1.x` Multiple Spaces
-- `0.2.x` Presentation 
+- `0.2.x` Data Maturity
 - `0.3.x` Scroll Command
-- `0.4.x` Reactions
+- `0.4.x` Presentation 
+- `0.5.x` Reactions
 - `1.0.0` App Distribution
 
 # Releases
 <!-- @LatestFirst -->
 
-## [0.1.2]
-[Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (??/??/????)
+## [0.2.0]
+[Data Maturity](https://github.com/jrsmth/waffle-bot/milestone/6) (08/03/2024)
+- `#30` Formalise the conversion of objects into dictionaries (and vice versa) when moving to and from redis [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
 - `#35` Player not getting updated (score & streak) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
 
 ## [0.1.1]
@@ -35,4 +37,4 @@
 [0.0.0]: https://github.com/jrsmth/waffle-bot/releases/tag/0.0.0
 [0.1.0]: https://github.com/jrsmth/waffle-bot/compare/0.0.0...0.1.0
 [0.1.1]: https://github.com/jrsmth/waffle-bot/compare/0.1.0...0.1.1
-[0.1.2]: https://github.com/jrsmth/waffle-bot/compare/0.1.1...0.1.2
+[0.2.0]: https://github.com/jrsmth/waffle-bot/compare/0.1.1...0.2.0
