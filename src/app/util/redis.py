@@ -1,8 +1,9 @@
 import logging
 from json import JSONDecodeError
-import jsons
+import jsonpickle
 from flask_redis import FlaskRedis
 from upstash_redis import Redis as UpstashRedis
+from src.app.model.base import Base
 
 
 class RedisClient:
@@ -18,7 +19,7 @@ class RedisClient:
         return self.client
 
     def get(self, key):
-        """ Get an element by its key and decode in utf-8 format """
+        """ Get an element by its key """
         value = self.client.get(key)
         if value is None:
             return None
@@ -31,43 +32,17 @@ class RedisClient:
 
     def set_complex(self, key, complex_value):
         """ Set a complex key-value element by converting to json string """
-        json_value = standardise(jsons.dump(complex_value))
+        json_value = jsonpickle.encode(complex_value, unpicklable=False)
         self.log.debug("[set_complex] Successful conversion to JSON, setting value: " + json_value)
         return self.client.set(key, json_value)
 
-    def get_complex(self, key):
+    def get_complex(self, key, cls: Base):
         """ Get a complex key-value element by converting from json string """
         json_value = self.client.get(key)
-        if json_value is None:
-            return None
+        if json_value is not None:
+            try:
+                return cls.from_json(json_value)
+            except JSONDecodeError:
+                raise Exception("[get_complex] Error parsing retrieved object: " + str(json_value))
         else:
-            json_value = json_value
-        try:
-            return jsons.loads(standardise(json_value))
-        except JSONDecodeError:
-            raise Exception("[get_complex] Error parsing retrieved object: " + str(json_value))
-
-    def clear(self):
-        """ Remove all entries held in Redis """
-        for key in self.client.scan_iter():
-            self.client.delete(key)
-
-
-def standardise(value):  # FixMe :: bit dodgy
-    """ Standardises a JSON string for conversion into a python dict """
-
-    # Convert Python `True/False/None` to JSON-standard `true/false/null`
-    standardised = str(value) \
-                    .replace("False,", "false,") \
-                    .replace("False}", "false}") \
-                    .replace("True,", "true,") \
-                    .replace("True}", "true}") \
-                    .replace("None,", "null,") \
-                    .replace("None}", "null}")
-
-    # Convert single-speech (') marks to the JSON-standard double-speech marks (")
-    return standardised.replace("{\'", "{\"") \
-        .replace("\'}", "\"}") \
-        .replace("\':", "\":") \
-        .replace(" \'", " \"") \
-        .replace("\',", "\",")
+            return None
