@@ -19,6 +19,7 @@ class Player(Base):
             id=dic["id"],
             name=dic["name"],
             streak=dic["streak"],
+            played=dic["played"]
             streak_id=dic["streak_id"],
             score=dic["score"]
         )
