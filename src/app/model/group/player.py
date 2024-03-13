@@ -31,4 +31,3 @@ class Player(Base):
     def get_record(self):
         """ Convert a player into a record """
         return Record(self.name, self.streak, self.streak_id, datetime.today().strftime('%d/%m/%Y'))
-

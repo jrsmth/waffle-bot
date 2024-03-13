@@ -79,10 +79,6 @@ def construct_blueprint(bolt, config, messages, redis):
         say(response)
         return Response(messages.load("event.request.handled"), status=200)
 
-    def get_avg_score(player):
-        # Return average score to 2 decimal places
-        return round(player.score / player.games, 2)
-
     def get_group(event):
         """ Fetch group object from redis """
         group_id = event.team
