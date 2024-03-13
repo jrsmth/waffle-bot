@@ -40,11 +40,11 @@ class Group(Base):
         timestamp = datetime.datetime.today().strftime('%d/%m/%Y')
         new_record = Record(player.name, player.streak, timestamp)
         self.scroll.append(new_record)
-        
+
         # Sort and remove tail Record
-        sorted_scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=True)
+        self.scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=True)
         if len(self.scroll) > 3:
-            sorted_scroll.pop()
+            self.scroll.pop()
 
     def crown(self, player):
         self.king = player
