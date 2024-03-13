@@ -25,17 +25,8 @@ def construct_blueprint(bolt, config, messages, redis):
     @archbishop.route("/group/<group_id>")
     def group(group_id):
         """ Get group information by id """
-        log.debug(f"[group] Retrieving group for id [{group_id}]")
-        return Response(redis.get_complex(group_id), status=200)
-
-    @archbishop.route("/group/<group_id>/scroll")
-    def scroll(group_id):
-        """ Get scroll information by group id """
-        log.debug(f"[scroll] Retrieving scroll for group id [{group_id}]")
-        group = redis.get_complex(group_id)
-        scroll = group["scroll"]
-        log.debug(f"[scroll] Scroll [{scroll}]")
-        return Response(group["scroll"], status=200)
+        log.debug(f"[get_group] Retrieving group for id [{group_id}]")
+        return Response(str(redis.get_complex(group_id, Group)), status=200)
 
     @archbishop.route(config.EVENT_PATH, methods=['POST'])
     def event():
@@ -69,13 +60,14 @@ def construct_blueprint(bolt, config, messages, redis):
     def get_group(event):
         """ Fetch group object from redis """
         group_id = event.team
-        group = redis.get_complex(group_id)
+        group = redis.get_complex(group_id, Group)
         if group is not None:
             log.debug(f"[get_group] Group found with id [{group_id}]")
-            return Group(group)
+            return group
         else:
             log.debug(f"[get_group] Creating new group with id [{group_id}]")
-            group = Group({"name": group_id})
+            dummy_king = Player("", -1, 0)
+            group = Group(group_id, [], dummy_king, [])
             redis.set_complex(group_id, group)
             return group
 
@@ -85,18 +77,17 @@ def construct_blueprint(bolt, config, messages, redis):
         try:
             result = requests.get(slack_user_url, headers={'Authorization': 'Bearer ' + config.BOT_TOKEN})
             user = result.json().get("user").get("real_name").split()[0]
-            potential_player = [p for p in group.players if p["name"] == user]
+            potential_player = [p for p in group.players if p.name == user]
 
             if not potential_player:
-                player = Player()
-                player.name = user
+                player = Player(user, 0, 0)
                 group.players.append(player)
                 redis.set_complex(group.name, group)
                 log.debug(f"[get_player] [{user}] added to the system")
                 return player
 
             else:
-                return Player(potential_player[0])
+                return potential_player[0]
 
         except SlackApiError as e:
             log.error(f"Error fetching user! [{str(e)}]")
@@ -147,7 +138,7 @@ def construct_blueprint(bolt, config, messages, redis):
                         "type": "mrkdwn",
                         "text": (
                                 result + " :blush:\n\n"
-                                       "*I am under development*"
+                                         "*I am under development*"
                         ),
                     },
                 }
