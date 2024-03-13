@@ -165,8 +165,11 @@ def construct_blueprint(bolt, config, messages, redis):
                 {
                     "type": "section",
                     "text": {
+                        "type": "mrkdwn",
+                        "text": {
                             "type": "mrkdwn",
                             "text": f"{result} :blush:\n\n*I am under development*"
+                        },
                     },
                 }
             ],
