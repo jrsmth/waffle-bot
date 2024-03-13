@@ -8,12 +8,14 @@ class Player(Base):
     """ Tracked player information """
     name: str
     streak: int
-    score: int
+    score: float
+    played: int
 
     @classmethod
     def from_dict(cls, dic):
         return cls(
             name=dic["name"],
             streak=dic["streak"],
-            score=dic["score"]
+            score=dic["score"],
+            played=dic["played"]
         )
