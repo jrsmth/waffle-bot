@@ -64,7 +64,7 @@ def construct_blueprint(bolt, config, messages, redis):
         player = get_player(event, group)
 
         log.debug(f"[handle_waffle] Updating player information for [{player.name}]")
-        player.score += event.get_score()
+        player.score = handle_avg_score(event.get_score(), player)
         player.streak = event.get_streak()
 
         log.debug(f"[handle_waffle] Processing result for player score [{player.score}]")
@@ -78,6 +78,13 @@ def construct_blueprint(bolt, config, messages, redis):
         say(response)
         return Response(messages.load("event.request.handled"), status=200)
 
+    def handle_avg_score(event_score, player):
+        player.played += 1
+        player.score = (player.score + event_score) / player.played
+
+        # Return average score to 2 decimal places
+        return round(player.score, 2)
+
     def get_group(event):
         """ Fetch group object from redis """
         group_id = event.team
@@ -87,7 +94,7 @@ def construct_blueprint(bolt, config, messages, redis):
             return group
         else:
             log.debug(f"[get_group] Creating new group with id [{group_id}]")
-            dummy_king = Player("", -1, "", 0)
+            dummy_king = Player("", -1, 0, 0)
             group = Group(group_id, [], dummy_king, [])
             redis.set_complex(group_id, group)
             return group
