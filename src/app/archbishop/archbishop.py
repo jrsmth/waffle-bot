@@ -37,7 +37,7 @@ def construct_blueprint(bolt, config, messages, redis):
     @bolt.message(messages.load("event.message.keyword"))
     def handle_waffle(message, say):
         """ Receive and process new waffle score """
-        log.debug(f"[handle_waffle] New Waffle Score received!")
+        log.debug("[handle_waffle] New Waffle Score received!")
         event = Event(message)
         group = get_group(event)
         player = get_player(event, group)
@@ -94,7 +94,7 @@ def construct_blueprint(bolt, config, messages, redis):
 
     def process_result(group, player):
         group.update_player(player)
-        # group.update_scroll(player) # FixMe :: Issue #24
+        group.update_scroll(player)
 
         # Player is the King...
         if player.name == group.king.name:
@@ -123,8 +123,8 @@ def construct_blueprint(bolt, config, messages, redis):
                 else:
                     text = messages.load_with_params("result.common.win", [player.name, str(player.score)])
 
-        Result = namedtuple("Result", "group text")
-        return Result(group, text)
+        result = namedtuple("Result", "group text")
+        return result(group, text)
 
     def present(result, to_channel):
         message = {
@@ -138,7 +138,7 @@ def construct_blueprint(bolt, config, messages, redis):
                         "type": "mrkdwn",
                         "text": (
                                 result + " :blush:\n\n"
-                                       "*I am under development*"
+                                         "*I am under development*"
                         ),
                     },
                 }
