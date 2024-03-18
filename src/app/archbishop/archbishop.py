@@ -22,13 +22,6 @@ def construct_blueprint(bolt, config, messages, redis):
         """ Test request (useful for spinning server up after inactivity) """
         return Response("Hello, World!", status=200)
 
-    # @archbishop.command("/scroll") 
-    @bolt.command("/scroll")
-    def get_scroll(ack, respond, command):
-        ack()
-        log.debug(f"Getting scroll. Command params for debugging: [{command['text']}] ")
-        respond("Your Scroll command Responds!")
-
     @archbishop.route("/group/<group_id>")
     def group(group_id):
         """ Get group information by id """
@@ -63,6 +56,12 @@ def construct_blueprint(bolt, config, messages, redis):
 
         say(response)
         return Response(messages.load("event.request.handled"), status=200)
+
+    @bolt.command("/scroll")
+    def unroll(ack, respond, command):
+        ack()
+        log.debug(f"Getting scroll. Command params for debugging: [{command['text']}] ")
+        respond("Your Scroll command Responds!")
 
     def get_group(event):
         """ Fetch group object from redis """
