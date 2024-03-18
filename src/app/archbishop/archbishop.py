@@ -33,10 +33,7 @@ def construct_blueprint(bolt, config, messages, redis):
             scroll_entry = scroll_list[i]
             scroll_entry_message += messages.load_with_params("command.scroll.entry", [str(i+1), scroll_entry.name, str(scroll_entry.streak), str(scroll_entry.date)])
 
-        data = {}
-        data['response_type'] = 'in_channel'
-        data['text'] = scroll_entry_message
-        return Response(str(data), status=200)
+        return Response(scroll_entry_message, status=200)
 
     @archbishop.route("/group/<group_id>")
     def group(group_id):

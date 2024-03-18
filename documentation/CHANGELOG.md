@@ -12,7 +12,7 @@
 # Releases
 <!-- @LatestFirst -->
 ## [0.3.0]
-[Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (future)
+[Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (18/03/2024)
 - `#12` Add a slack /command to access scroll information [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
 - `#24` Issues with update_scroll (conflicting data types Record vs Munch dict) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
 
