@@ -27,7 +27,7 @@ def construct_blueprint(bolt, config, messages, redis):
     def get_scroll(ack, respond, command):
         ack()
         log.debug(f"Getting scroll. Command params for debugging: [{command['text']}] ")
-        return respond("Your Scroll command Responds!")
+        respond("Your Scroll command Responds!")
 
     @archbishop.route("/group/<group_id>")
     def group(group_id):
