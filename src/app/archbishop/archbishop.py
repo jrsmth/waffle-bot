@@ -57,8 +57,9 @@ def construct_blueprint(bolt, config, messages, redis):
         player = get_player(event, group)
 
         log.debug(f"[handle_waffle] Updating player information for [{player.name}]")
-        player.score = handle_avg_score(event.get_score(), player)
+        player.score += event.get_score()
         player.streak = event.get_streak()
+        player.games += 1
 
         log.debug(f"[handle_waffle] Processing result for player score [{player.score}]")
         result = process_result(group, player)
@@ -71,12 +72,9 @@ def construct_blueprint(bolt, config, messages, redis):
         say(response)
         return Response(messages.load("event.request.handled"), status=200)
 
-    def handle_avg_score(event_score, player):
-        player.played += 1
-        player.score = (player.score + event_score) / player.played
-
+    def get_avg_score(player):
         # Return average score to 2 decimal places
-        return round(player.score, 2)
+        return round(player.score / player.games, 2)
 
     def get_group(event):
         """ Fetch group object from redis """
@@ -127,7 +125,7 @@ def construct_blueprint(bolt, config, messages, redis):
                 text = messages.load_with_params("result.king.lose", [player.name])
             # ...and wins
             else:
-                text = messages.load_with_params("result.king.win", [str(player.score)])
+                text = messages.load_with_params("result.king.win", [str(get_avg_score(player))])
 
         # Player is a commoner...
         else:
@@ -142,7 +140,7 @@ def construct_blueprint(bolt, config, messages, redis):
                     group.crown(player)
                     text = messages.load_with_params("result.common.coronation", [player.name])
                 else:
-                    text = messages.load_with_params("result.common.win", [player.name, str(player.score)])
+                    text = messages.load_with_params("result.common.win", [player.name, str(get_avg_score(player))])
 
         result = namedtuple("Result", "group text")
         return result(group, text)
