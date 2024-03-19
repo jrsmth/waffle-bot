@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, timedelta
 from dataclasses import dataclass
 from src.app.model.base import Base
 from src.app.model.group.record import Record
@@ -12,6 +12,8 @@ class Group(Base):
     players: [Player]
     king: Player
     scroll: [Record]
+
+    DATE_FORMAT = '%d/%m/%Y'
 
     @classmethod
     def from_dict(cls, dic):
@@ -37,10 +39,27 @@ class Group(Base):
 
     def update_scroll(self, player):
         """ Create new record """
-        timestamp = datetime.datetime.today().strftime('%d/%m/%Y')
+        scroll_entry_replaced = False
+        timestamp = datetime.today().strftime(self.DATE_FORMAT)
         new_record = Record(player.name, player.streak, timestamp)
-        self.scroll.append(new_record)
 
+        for index in range(len(self.scroll)):
+            if self.scroll_same_streak(index, player):
+                self.scroll[index] = Record(player.name, player.streak, timestamp)
+                scroll_entry_replaced = True
+
+        if not scroll_entry_replaced:
+            self.add_new_scroll(new_record)
+
+    def scroll_same_streak(self, index, player):
+        """ Compares current date and previous date """
+        timestamp = datetime.today().strftime(self.DATE_FORMAT)
+        timestamp_yesterday = (datetime.today() - timedelta(days=1)).strftime(self.DATE_FORMAT)
+        return (self.scroll[index] == player.name and self.scroll[index] == player.streak - 1 or
+                (self.scroll[index].date == timestamp_yesterday or self.scroll[index].date == timestamp))
+
+    def add_new_scroll(self, new_record):
+        self.scroll.append(new_record)
         # Sort and remove tail Record
         self.scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=True)
         if len(self.scroll) > 3:
