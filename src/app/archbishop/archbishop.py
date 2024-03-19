@@ -23,17 +23,18 @@ def construct_blueprint(bolt, config, messages, redis):
         return Response("Hello, World!", status=200)
 
     @archbishop.route("/scroll", methods=['POST'])
-    def get_scroll():
-        group_id = request.form["team_id"]
-        scroll_list = redis.get_complex(group_id, Group).scroll
-
-        # Append list of Scroll entries
-        scroll_entry_message = ""
-        for i in range(len(scroll_list)):
-            scroll_entry = scroll_list[i]
-            scroll_entry_message += messages.load_with_params("command.scroll.entry", [str(i+1), scroll_entry.name, str(scroll_entry.streak), str(scroll_entry.date)])
-
-        return Response(scroll_entry_message, status=200)
+    def unroll():
+        """ Handle slack command for scroll information """
+        group = redis.get_complex(request.form["team_id"], Group)
+        formatted_scroll = ""
+        position = 0
+        for record in group.scroll:
+            position += 1
+            formatted_scroll += messages.load_with_params(
+                "command.scroll.entry",
+                [str(position), record.name, str(record.streak), str(record.date)]
+            )
+        return Response(formatted_scroll, status=200)
 
     @archbishop.route("/group/<group_id>")
     def group(group_id):
