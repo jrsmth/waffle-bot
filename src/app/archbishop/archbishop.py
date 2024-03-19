@@ -79,10 +79,6 @@ def construct_blueprint(bolt, config, messages, redis):
         say(response)
         return Response(messages.load("event.request.handled"), status=200)
 
-    def get_avg_score(player):
-        # Return average score to 2 decimal places
-        return round(player.score / player.games, 2)
-
     def get_group(event):
         """ Fetch group object from redis """
         group_id = event.team
@@ -133,7 +129,7 @@ def construct_blueprint(bolt, config, messages, redis):
                 text = messages.load_with_params("result.king.lose", [player.name])
             # ...and wins
             else:
-                text = messages.load_with_params("result.king.win", [str(get_avg_score(player))])
+                text = messages.load_with_params("result.king.win", [str(player.get_average())])
 
         # Player is a commoner...
         else:
@@ -148,7 +144,7 @@ def construct_blueprint(bolt, config, messages, redis):
                     group.crown(player)
                     text = messages.load_with_params("result.common.coronation", [player.name])
                 else:
-                    text = messages.load_with_params("result.common.win", [player.name, str(get_avg_score(player))])
+                    text = messages.load_with_params("result.common.win", [player.name, str(player.get_average())])
 
         result = namedtuple("Result", "group text")
         return result(group, text)
