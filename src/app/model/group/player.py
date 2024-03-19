@@ -11,7 +11,7 @@ class Player(Base):
     name: str
     streak: int
     streak_id: str
-    score: int
+    score: float
     games: int
 
     @classmethod
