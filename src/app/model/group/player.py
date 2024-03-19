@@ -19,3 +19,6 @@ class Player(Base):
             score=dic["score"],
             games=dic["games"]
         )
+    def get_average(self):
+        # Return average score to 2 decimal places
+        return round(self.score / self.games, 2)
