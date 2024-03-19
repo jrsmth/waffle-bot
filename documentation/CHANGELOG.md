@@ -13,8 +13,14 @@
 # Releases
 <!-- @LatestFirst -->
 
-## [0.3.1] [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/haydende-181717.svg?style=flat&logo=github)](https://github.com/haydende)
-[Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (25/04/2024)
+## [0.4.0]
+[Player Extension](https://github.com/jrsmth/waffle-bot/milestone/9) (future)
+- `#39` Generate Player Average Score [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
+- `#42` Give User Unique ID on redis
+- `#43` Store King with ID
+
+## [0.3.1] [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+[Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (11/04/2024)
 - `#44` Prevent duplicate records for the same streak
 - `#46` Add README Badges (Code Coverage, Workflow, Deployment)
 - `#48` Newline (`\n`) characters are now rendered properly
