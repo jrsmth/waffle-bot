@@ -7,6 +7,7 @@ from src.app.model.group.record import Record
 @dataclass
 class Player(Base):
     """ Tracked player information """
+    id: str
     name: str
     streak: int
     streak_id: str
@@ -15,6 +16,7 @@ class Player(Base):
     @classmethod
     def from_dict(cls, dic):
         return cls(
+            id=dic["id"],
             name=dic["name"],
             streak=dic["streak"],
             streak_id=dic["streak_id"],

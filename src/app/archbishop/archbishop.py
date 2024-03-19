@@ -97,14 +97,15 @@ def construct_blueprint(bolt, config, messages, redis):
         slack_user_url = config.SLACK_API.format("users.info?user=" + event.user)
         try:
             result = requests.get(slack_user_url, headers={'Authorization': 'Bearer ' + config.BOT_TOKEN})
-            user = result.json().get("user").get("real_name").split()[0]
-            potential_player = [p for p in group.players if p.name == user]
+            user_name = result.json().get("user").get("real_name").split()[0]
+            user_id = result.json().get("user").get("id").split()[0]
+            potential_player = [p for p in group.players if p.id == user_id]
 
             if not potential_player:
-                player = Player(user, 0, shortuuid.uuid(), 0)
+                player = Player(user_id, 0, shortuuid.uuid(), 0)
                 group.players.append(player)
                 redis.set_complex(group.name, group)
-                log.debug(f"[get_player] [{user}] added to the system")
+                log.debug(f"[get_player] [{user_name}] added to the system with id [{user_id}]")
                 return player
 
             else:
