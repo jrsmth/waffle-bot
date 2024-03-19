@@ -6,7 +6,8 @@
 - `0.2.x` Data Maturity
 - `0.3.x` Scroll Command
 - `0.4.x` Player Extension 
-- `0.5.x` Reactions
+- `0.5.x` Presentation
+- `0.6.x` Reactions
 - `1.0.x` App Distribution
 
 # Releases
@@ -50,3 +51,4 @@
 [0.1.1]: https://github.com/jrsmth/waffle-bot/compare/0.1.0...0.1.1
 [0.2.0]: https://github.com/jrsmth/waffle-bot/compare/0.1.1...0.2.0
 [0.3.0]: https://github.com/jrsmth/waffle-bot/compare/0.2.0...0.3.0
+[0.4.0]: https://github.com/jrsmth/waffle-bot/compare/0.3.0...0.4.0
