@@ -8,7 +8,7 @@ class Player(Base):
     """ Tracked player information """
     name: str
     streak: int
-    score: float
+    score: int
     games: int
 
     @classmethod
