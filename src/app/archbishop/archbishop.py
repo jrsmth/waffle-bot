@@ -88,7 +88,7 @@ def construct_blueprint(bolt, config, messages, redis):
             return group
         else:
             log.debug(f"[get_group] Creating new group with id [{group_id}]")
-            dummy_king = Player("", -1, 0, 0)
+            dummy_king = Player("","", -1, 0, 0)
             group = Group(group_id, [], dummy_king, [])
             redis.set_complex(group_id, group)
             return group
@@ -103,7 +103,7 @@ def construct_blueprint(bolt, config, messages, redis):
             potential_player = [p for p in group.players if p.id == user_id]
 
             if not potential_player:
-                player = Player(user_id, 0, shortuuid.uuid(), 0)
+                player = Player(user_id, user_name, 0, shortuuid.uuid(), 0)
                 group.players.append(player)
                 redis.set_complex(group.name, group)
                 log.debug(f"[get_player] [{user_name}] added to the system with id [{user_id}]")

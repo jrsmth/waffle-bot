@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-import shortuuid
 from src.app.model.base import Base
 from src.app.model.group.record import Record
 from src.app.model.group.player import Player
