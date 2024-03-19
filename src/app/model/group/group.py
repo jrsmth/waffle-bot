@@ -37,6 +37,7 @@ class Group(Base):
             if p.name == player.name:
                 if player.streak == 0:
                     player.streak_id = shortuuid.uuid()
+            if p.id == player.id:
                 self.players[index] = player
 
     def update_scroll(self, player):
