@@ -9,7 +9,7 @@ class Player(Base):
     name: str
     streak: int
     score: float
-    played: int
+    games: int
 
     @classmethod
     def from_dict(cls, dic):
@@ -17,5 +17,5 @@ class Player(Base):
             name=dic["name"],
             streak=dic["streak"],
             score=dic["score"],
-            played=dic["played"]
+            games=dic["games"]
         )
