@@ -59,6 +59,7 @@ def construct_blueprint(bolt, config, messages, redis):
         log.debug(f"[handle_waffle] Updating player information for [{player.name}]")
         player.score += event.get_score()
         player.streak = event.get_streak()
+        player.games += 1
 
         log.debug(f"[handle_waffle] Processing result for player score [{player.score}]")
         result = process_result(group, player)
@@ -80,7 +81,7 @@ def construct_blueprint(bolt, config, messages, redis):
             return group
         else:
             log.debug(f"[get_group] Creating new group with id [{group_id}]")
-            dummy_king = Player("", -1, 0)
+            dummy_king = Player("", -1, 0, 0)
             group = Group(group_id, [], dummy_king, [])
             redis.set_complex(group_id, group)
             return group
@@ -94,7 +95,7 @@ def construct_blueprint(bolt, config, messages, redis):
             potential_player = [p for p in group.players if p.name == user]
 
             if not potential_player:
-                player = Player(user, 0, 0)
+                player = Player(user, 0, 0, 0)
                 group.players.append(player)
                 redis.set_complex(group.name, group)
                 log.debug(f"[get_player] [{user}] added to the system")
@@ -120,7 +121,7 @@ def construct_blueprint(bolt, config, messages, redis):
                 text = messages.load_with_params("result.king.lose", [player.name])
             # ...and wins
             else:
-                text = messages.load_with_params("result.king.win", [str(player.score)])
+                text = messages.load_with_params("result.king.win", [str(player.get_average())])
 
         # Player is a commoner...
         else:
@@ -135,7 +136,7 @@ def construct_blueprint(bolt, config, messages, redis):
                     group.crown(player)
                     text = messages.load_with_params("result.common.coronation", [player.name])
                 else:
-                    text = messages.load_with_params("result.common.win", [player.name, str(player.score)])
+                    text = messages.load_with_params("result.common.win", [player.name, str(player.get_average())])
 
         result = namedtuple("Result", "group text")
         return result(group, text)

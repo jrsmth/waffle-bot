@@ -5,12 +5,20 @@
 - `0.1.x` Multiple Spaces
 - `0.2.x` Data Maturity
 - `0.3.x` Scroll Command
-- `0.4.x` Presentation 
-- `0.5.x` Reactions
+- `0.4.x` Player Extension 
+- `0.5.x` Presentation
+- `0.6.x` Reactions
 - `1.0.x` App Distribution
 
 # Releases
 <!-- @LatestFirst -->
+
+## [0.4.0]
+[Player Extension](https://github.com/jrsmth/waffle-bot/milestone/9) (future)
+- `#39` Generate Player Average Score [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
+- `#42` Give User Unique ID on redis
+- `#43` Store King with ID
+
 ## [0.3.0]
 [Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (18/03/2024)
 - `#12` Add a slack /command to access scroll information [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
@@ -43,3 +51,4 @@
 [0.1.1]: https://github.com/jrsmth/waffle-bot/compare/0.1.0...0.1.1
 [0.2.0]: https://github.com/jrsmth/waffle-bot/compare/0.1.1...0.2.0
 [0.3.0]: https://github.com/jrsmth/waffle-bot/compare/0.2.0...0.3.0
+[0.4.0]: https://github.com/jrsmth/waffle-bot/compare/0.3.0...0.4.0
