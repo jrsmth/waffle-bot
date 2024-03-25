@@ -21,7 +21,7 @@ def create_app():
     # Initialise bolt
     bolt = App(
         token=config.BOT_TOKEN,
-        signing_secret=config.SIGNING_SECRET
+        signing_secret=config.SIGNING_SECRET,
     )
 
     # Initialise redis

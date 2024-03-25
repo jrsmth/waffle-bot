@@ -1,0 +1,217 @@
+{
+  "token": "3kpLX55KTj2qc4XTcFqyoQ8c",
+  "team_id": "T06DQBGR53J",
+  "context_team_id": "T06DQBGR53J",
+  "context_enterprise_id": null,
+  "api_app_id": "A06DE7M6U01",
+  "event": {
+    "client_msg_id": "0ecfb0a6-f4d9-40cc-a2a6-1c1fe22a8475",
+    "type": "message",
+    "text": "#waffle721 X/5\n\n:large_green_square::large_green_square::large_green_square::large_green_square::large_green_square:\n:large_green_square::star::large_green_square::star::large_green_square:\n:large_green_square::large_green_square::large_green_square::large_green_square::large_green_square:\n:large_green_square::star::large_green_square::star::large_green_square:\n:large_green_square::large_green_square::large_green_square::large_green_square::large_green_square:\n\n:fire: streak: 0\n:second_place_medal: #wafflesilverteam\n<http://wafflegame.net|wafflegame.net>",
+    "user": "U06E4E1NDRS",
+    "ts": "1705089735.179499",
+    "blocks": [
+      {
+        "type": "rich_text",
+        "block_id": "s/X0C",
+        "elements": [
+          {
+            "type": "rich_text_section",
+            "elements": [
+              {
+                "type": "text",
+                "text": "#waffle721 4/5\n\n"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "text",
+                "text": "\n"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "star",
+                "unicode": "2b50"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "star",
+                "unicode": "2b50"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "text",
+                "text": "\n"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "text",
+                "text": "\n"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "star",
+                "unicode": "2b50"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "star",
+                "unicode": "2b50"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "text",
+                "text": "\n"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "emoji",
+                "name": "large_green_square",
+                "unicode": "1f7e9"
+              },
+              {
+                "type": "text",
+                "text": "\n\n"
+              },
+              {
+                "type": "emoji",
+                "name": "fire",
+                "unicode": "1f525"
+              },
+              {
+                "type": "text",
+                "text": " streak: 10\n"
+              },
+              {
+                "type": "emoji",
+                "name": "second_place_medal",
+                "unicode": "1f948"
+              },
+              {
+                "type": "text",
+                "text": " #wafflesilverteam\n"
+              },
+              {
+                "type": "link",
+                "url": "http://wafflegame.net",
+                "text": "wafflegame.net"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "team": "T06DQBGR53J",
+    "channel": "C06D1J4T54J",
+    "event_ts": "1705089735.179499",
+    "channel_type": "channel"
+  },
+  "type": "event_callback",
+  "event_id": "Ev06E3CGMFG9",
+  "event_time": 1705089735,
+  "authorizations": [
+    {
+      "enterprise_id": null,
+      "team_id": "T06DQBGR53J",
+      "user_id": "U06DEEW9FED",
+      "is_bot": true,
+      "is_enterprise_install": false
+    }
+  ],
+  "is_ext_shared_channel": false,
+  "event_context": "4-eyJldCI6Im1lc3NhZ2UiLCJ0aWQiOiJUMDZEUUJHUjUzSiIsImFpZCI6IkEwNkRFN002VTAxIiwiY2lkIjoiQzA2RDFKNFQ1NEoifQ"
+}

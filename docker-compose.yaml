@@ -1,6 +1,6 @@
 services:
 
-  redis:
+  waffle-redis:
     container_name: "waffle-redis"
     image: redis:latest
     ports:
