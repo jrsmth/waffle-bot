@@ -16,5 +16,6 @@ jobs:
           python3 -m coverage run --source=src/app --omit="*_spec.py" -m pytest src
           python3 -m coverage xml -o ./documentation/coverage/coverage.xml
           genbadge coverage -i ./documentation/coverage/coverage.xml -o ./documentation/coverage/coverage.svg
+          mv ../../README.md ../../README.md
       - name: Commit Results 💾
         uses: stefanzweifel/git-auto-commit-action@v4

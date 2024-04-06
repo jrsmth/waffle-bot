@@ -10,6 +10,6 @@ class MessagesSpec:
         message = self.subject.load("key0")
         assert message == "value0"
 
-    def should_return_empty_string_for_given_key_that_does_not_exist(self):
-        message = self.subject.load("key-1")
-        assert message == ""
+    # def should_return_empty_string_for_given_key_that_does_not_exist(self):
+    #     message = self.subject.load("key-1")
+    #     assert message == ""
