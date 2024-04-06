@@ -18,10 +18,9 @@
   <a href="https://render.com/">
     <img src="https://img.shields.io/badge/Render-%231f1f1f.svg?logo=render&logoColor=greeen">
   </a>
-</p>
-<p align="center">
-        <img src="./documentation/coverage/coverage.svg">
-        <img src="https://github.com/jrsmth/waffle-bot/actions/workflows/main.yaml/badge.svg">
+  <br>
+  <img src="https://github.com/jrsmth/waffle-bot/actions/workflows/main.yaml/badge.svg">
+  <img src="./documentation/coverage/coverage.svg">
 </p>
 
 <h1 align="center">Waffle Bot 🤖</h1>
@@ -34,7 +33,7 @@
 
 ## Explanation
 - 🧇 The Archbishop oversees scoring within your Slack group
-- ℹ️ More info...
+- ℹ️ [More info]()
 
 ## Run Locally
 - 🔧 `pip install -r src/app/requirements.txt`
