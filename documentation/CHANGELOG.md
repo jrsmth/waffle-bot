@@ -37,7 +37,7 @@
 - `#15` Replace python_sdk with bolt
 - `#23` Create separate DEV and PROD waffle-bot instances
 
-## [0.0.0] [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+## [0.0.0] [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335) [![user](https://img.shields.io/badge/haydende-181717.svg?style=flat&logo=github)](https://github.com/haydende)
 [Waffle-Bot POC](https://github.com/jrsmth/waffle-bot/milestone/1) (09/02/2024)
 - `#4` Define Workflow: versioning, release, CICD, Change Log
 - `#5` Establish test base
