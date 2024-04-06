@@ -11,6 +11,11 @@
 
 # Releases
 <!-- @LatestFirst -->
+
+## [0.3.1]
+[Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (08/04/2024)
+- `#46` Add README Badges (Code Coverage, Workflow, Deployment) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+
 ## [0.3.0]
 [Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (18/03/2024)
 - `#12` Add a slack /command to access scroll information [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
@@ -43,3 +48,4 @@
 [0.1.1]: https://github.com/jrsmth/waffle-bot/compare/0.1.0...0.1.1
 [0.2.0]: https://github.com/jrsmth/waffle-bot/compare/0.1.1...0.2.0
 [0.3.0]: https://github.com/jrsmth/waffle-bot/compare/0.2.0...0.3.0
+[0.3.1]: https://github.com/jrsmth/waffle-bot/compare/0.3.0...0.3.1
