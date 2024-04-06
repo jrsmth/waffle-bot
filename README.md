@@ -21,6 +21,7 @@
 </p>
 <p align="center">
         <img src="./documentation/coverage/coverage.svg">
+        <img src="https://github.com/jrsmth/waffle-bot/actions/workflows/main.yaml/badge.svg">
 </p>
 
 <h1 align="center">Waffle Bot 🤖</h1>
