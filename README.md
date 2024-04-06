@@ -13,6 +13,7 @@ Slackbot that crowns a new 🧇👑
     <a href="https://github.com/features/actions"><img src="https://img.shields.io/badge/github%20actions-%23131386.svg?logo=githubactions&logoColor=blue"></a>
     <a href="https://render.com/"><img src="https://img.shields.io/badge/Render-%231ea71e.svg?logo=render&logoColor=greeen"></a>
 </p>
+<br>
 
 ## Explanation
 - 🧇 The Archbishop oversees scoring within your Slack group
