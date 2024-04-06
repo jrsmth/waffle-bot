@@ -25,15 +25,10 @@
 
 <h1 align="center">Waffle Bot 🤖</h1>
 <p align="center">Slackbot that crowns a new 🧇👑</p>
-<br>
-
-<p align="center">
-    <img alt="Waffle Demo" width="800" src="https://github.com/jrsmth/waffle-bot/assets/34093915/1784d2ff-81dc-472c-8411-d29f850d4ab0">
-</p>
 
 ## Explanation
 - 🧇 The Archbishop oversees scoring within your Slack group
-- ℹ️ [More info]()
+- ℹ️ [Demo?]()
 
 ## Run Locally
 - 🔧 `pip install -r src/app/requirements.txt`
