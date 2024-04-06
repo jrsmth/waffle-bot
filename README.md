@@ -19,6 +19,9 @@
     <img src="https://img.shields.io/badge/Render-%231f1f1f.svg?logo=render&logoColor=greeen">
   </a>
 </p>
+<p align="center">
+        <img src="./documentation/coverage/coverage.svg">
+</p>
 
 <h1 align="center">Waffle Bot 🤖</h1>
 <p align="center">Slackbot that crowns a new 🧇👑</p>
