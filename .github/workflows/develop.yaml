@@ -1,7 +1,7 @@
 name: develop
 on:
   push:
-    branches: [ develop, feature/readme-badges ]
+    branches: [ develop ]
   workflow_dispatch:
 permissions:
   contents: write
