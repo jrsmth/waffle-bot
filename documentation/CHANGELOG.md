@@ -12,33 +12,33 @@
 # Releases
 <!-- @LatestFirst -->
 
-## [0.3.1]
-[Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (08/04/2024) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+## [0.3.1] [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+[Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (08/04/2024)
 - `#46` Add README Badges (Code Coverage, Workflow, Deployment)
 
-## [0.3.0]
-[Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (18/03/2024) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
+## [0.3.0] [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
+[Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (18/03/2024)
 - `#12` Add a slack /command to access scroll information
 - `#24` Issues with update_scroll (conflicting data types Record vs Munch dict)
 
-## [0.2.0]
-[Data Maturity](https://github.com/jrsmth/waffle-bot/milestone/8) (08/03/2024) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
+## [0.2.0] [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
+[Data Maturity](https://github.com/jrsmth/waffle-bot/milestone/8) (08/03/2024)
 - `#30` Formalise the conversion of objects into dictionaries (and vice versa) when moving to and from redis
 - `#35` Player not getting updated (score & streak)
 
-## [0.1.1]
-[Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (22/02/2024) [![user](https://img.shields.io/badge/haydende-181717.svg?style=flat&logo=github)](https://github.com/haydende) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+## [0.1.1] [![user](https://img.shields.io/badge/haydende-181717.svg?style=flat&logo=github)](https://github.com/haydende) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+[Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (22/02/2024)
 - `#29` Added OS check in Makefile to support differences between Windows and Unix-based OS workflows 
 - `#31` Add workflow step to merge main back into develop after incremental snapshot bump
 
-## [0.1.0]
-[Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (16/02/2024) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+## [0.1.0] [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+[Multiple Spaces](https://github.com/jrsmth/waffle-bot/milestone/2) (16/02/2024)
 - `#10` Expand project to handle multiple Slack instances
 - `#15` Replace python_sdk with bolt
 - `#23` Create separate DEV and PROD waffle-bot instances
 
-## [0.0.0]
-[Waffle-Bot POC](https://github.com/jrsmth/waffle-bot/milestone/1) (09/02/2024) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+## [0.0.0] [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+[Waffle-Bot POC](https://github.com/jrsmth/waffle-bot/milestone/1) (09/02/2024)
 - `#4` Define Workflow: versioning, release, CICD, Change Log
 - `#5` Establish test base
 - `#7` Generate Streak History object
