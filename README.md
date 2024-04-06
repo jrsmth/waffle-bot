@@ -1,11 +1,11 @@
 <a><img src="https://github.com/jrsmth/waffle-bot/actions/workflows/main.yaml/badge.svg"></a>
 <a><img src="./documentation/coverage/coverage.svg"></a>
 <br>
-<a href="https://slack.com/intl/en-gb"><img src="https://img.shields.io/badge/Slack-4A154B?logo=slack&logoColor=white"></a>
-<a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3670A0?logo=python&logoColor=ffdd54"></a>
-<a href="https://redis.io/"><img src="https://img.shields.io/badge/redis-%23DD0031.svg?logo=redis&logoColor=white"></a>
-<a href="https://github.com/features/actions"><img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?logo=githubactions&logoColor=white"></a>
-<a href="https://render.com/"><img src="https://img.shields.io/badge/Render-%231f1f1f.svg?logo=render&logoColor=greeen"></a>
+<a href="https://slack.com/intl/en-gb"><img src="https://img.shields.io/badge/Slack-343b42?logo=slack&logoColor=bb2e9b"></a>
+<a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-343b42?logo=python&logoColor=ffdd54"></a>
+<a href="https://redis.io/"><img src="https://img.shields.io/badge/redis-%23343b42.svg?logo=redis&logoColor=red"></a>
+<a href="https://github.com/features/actions"><img src="https://img.shields.io/badge/github%20actions-%23343b42.svg?logo=githubactions&logoColor=blue"></a>
+<a href="https://render.com/"><img src="https://img.shields.io/badge/Render-%23343b42.svg?logo=render&logoColor=greeen"></a>
 
 # Waffle Bot 🤖
 Slackbot that crowns a new 🧇👑
