@@ -4,8 +4,8 @@ from flask import Flask, current_app
 from from_root import from_root
 from slack_bolt import App
 from src.app.config.config import Config
-from src.app.util.messages import Messages
-from src.app.util.redis import RedisClient
+from src.app.util.messages.messages import Messages
+from src.app.util.redis.redis import RedisClient
 from src.app.archbishop import archbishop
 
 
