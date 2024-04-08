@@ -20,4 +20,8 @@ make stop:
 	docker-compose down
 
 make test:
-	$(PYTHON) -m pytest src
+	$(PYTHON) -m coverage run --source=src/app --omit="*_spec.py" -m pytest src
+
+make coverage:
+	make test && $(PYTHON) -m coverage html && open htmlcov/index.html
+
