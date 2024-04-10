@@ -30,7 +30,8 @@ class GroupSpec:
         scroll = [Record('Adam', 4, '1', 'today'), Record('Hayden', 3, '2', 'today')]
         subject = Group(self.group_name, players, Player('Adam', 4, '1', 1000), scroll)
 
-        test = Player('Maciej', 1, '4', 1000)
+        test = Player('Maciej', 2, '4', 1000)
+        # Note :: streaks are defined as being >= 2
 
         # When
         subject.update_scroll(test)
