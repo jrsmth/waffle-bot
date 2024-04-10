@@ -1,5 +1,8 @@
-from datetime import datetime, timedelta
 from dataclasses import dataclass
+from datetime import datetime
+
+import shortuuid
+
 from src.app.model.base import Base
 from src.app.model.group.record import Record
 from src.app.model.group.player import Player
@@ -12,8 +15,6 @@ class Group(Base):
     players: [Player]
     king: Player
     scroll: [Record]
-
-    DATE_FORMAT = '%d/%m/%Y'
 
     @classmethod
     def from_dict(cls, dic):
@@ -35,43 +36,46 @@ class Group(Base):
     def update_player(self, player):
         for index, p in enumerate(self.players):
             if p.name == player.name:
+                if player.streak == 0:
+                    player.streak_id = shortuuid.uuid()
                 self.players[index] = player
 
     def update_scroll(self, player):
-        """ Create new record """
-        scroll_entry_replaced = False
-        timestamp = datetime.today().strftime(self.DATE_FORMAT)
-        new_record = Record(player.name, player.streak, timestamp)
+        """ Update scroll if new streak is worthy """
+        if self.__is_unworthy(player.streak):
+            return
 
-        for index in range(len(self.scroll)):
-            if self.scroll_same_streak(index, player):
-                self.scroll[index] = Record(player.name, player.streak, timestamp)
-                scroll_entry_replaced = True
+        if self.__is_active(player.streak_id):
+            existing_record = [x for x in self.scroll if x.streak_id == player.streak_id][0]
+            existing_record.streak = player.streak
+            existing_record.date = datetime.today().strftime('%d/%m/%Y')
+            unsorted_scroll = [existing_record if x.streak_id == player.streak_id else x for x in self.scroll]
+            self.scroll = sorted(unsorted_scroll, key=lambda x: x.streak, reverse=True)
 
-        if not scroll_entry_replaced:
-            self.add_new_scroll(new_record)
-
-    def scroll_same_streak(self, index, player):
-        """ Compares current date and previous date """
-        timestamp = datetime.today().strftime(self.DATE_FORMAT)
-        timestamp_yesterday = (datetime.today() - timedelta(days=1)).strftime(self.DATE_FORMAT)
-        return (self.scroll[index] == player.name and self.scroll[index] == player.streak - 1 or
-                (self.scroll[index].date == timestamp_yesterday or self.scroll[index].date == timestamp))
-
-    def add_new_scroll(self, new_record):
-        self.scroll.append(new_record)
-        # Sort and remove tail Record
-        self.scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=True)
-        if len(self.scroll) > 3:
-            self.scroll.pop()
+        else:
+            new_record = Record(player.name, player.streak, player.streak_id, datetime.today().strftime('%d/%m/%Y'))
+            self.scroll.append(new_record)
+            self.scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=True)
+            if len(self.scroll) > 3:
+                self.scroll.pop()
 
     def crown(self, player):
         self.king = player
 
     def dethrone(self):
-        self.king = Player("", -1, 0)
+        self.king = Player("", -1, "", 0)
         non_zeros = [p for p in self.players if p.streak != 0]
-        if non_zeros is not list:
+        if len(non_zeros) == 0:
             return
         else:
             self.king = sorted(non_zeros, key=lambda x: x.streak, reverse=True)[0]
+
+    def __is_unworthy(self, new_streak):
+        """ Determine if streak is unworthy of scroll update by comparison to the lowest record """
+        sorted_scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=False)
+        return new_streak < sorted_scroll[0].streak
+
+    def __is_active(self, streak_id):
+        """ Determine if player streak is active in scroll by comparison with recorded streak ids """
+        matching_ids = [x for x in self.scroll if x.streak_id == streak_id]
+        return len(matching_ids) != 0

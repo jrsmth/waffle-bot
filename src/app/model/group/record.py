@@ -7,6 +7,7 @@ class Record(Base):
     """ Tracked Record for the Historic Streaks """
     name: str
     streak: int
+    streak_id: str
     date: str  # TODO :: actual date
 
     @classmethod
@@ -14,5 +15,6 @@ class Record(Base):
         return cls(
             name=dic["name"],
             streak=dic["streak"],
+            streak_id=dic["streak_id"],
             date=dic["date"]
         )
