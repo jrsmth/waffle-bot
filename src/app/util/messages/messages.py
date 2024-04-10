@@ -12,21 +12,19 @@ class Messages:
         self.log = logging.getLogger(__name__)
 
     def load(self, key):
-        message = self.bundle[key]
-        if message is None:
-            self.log.debug(f"[load] Unable to find message for key [{key}]")
-            return ''
-        else:
-            return message
+        message = self.load_with_params(key, None)
+        return message
 
-    def load_with_params(self, key, parameters: list):
+    def load_with_params(self, key, parameters):
         message = self.bundle[key]
         if message is None:
             self.log.debug(f"[load_with_params] Unable to find message for key [{key}]")
             return ''
         else:
-            for index in range(len(parameters)):
-                message = message.replace('{' + str(index) + '}', parameters[index])
+            if isinstance(parameters, list):
+                for index in range(len(parameters)):
+                    message = message.replace('{' + str(index) + '}', parameters[index])
+            message = message.replace("\\n", "\n")
             return message
 
     def load_all(self):
