@@ -20,3 +20,4 @@ coverage-badge
 pytest-cov
 genbadge
 defusedxml
+shortuuid

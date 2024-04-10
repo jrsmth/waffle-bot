@@ -1,6 +1,7 @@
 import logging
 
 import requests
+import shortuuid
 from flask import Blueprint, Response
 from flask import request
 from slack_sdk.errors import SlackApiError
@@ -25,7 +26,10 @@ def construct_blueprint(bolt, config, messages, redis):
     @archbishop.route("/scroll", methods=['POST'])
     def unroll():
         """ Handle slack command for scroll information """
-        group = redis.get_complex(request.form["team_id"], Group)
+        group_id = request.form["team_id"]
+        group = redis.get_complex(group_id, Group)
+        if group is None:
+            return Response("Cannot find group with id " + group_id, status=400)
         formatted_scroll = ""
         position = 0
         for record in group.scroll:
@@ -40,7 +44,10 @@ def construct_blueprint(bolt, config, messages, redis):
     def group(group_id):
         """ Get group information by id """
         log.debug(f"[get_group] Retrieving group for id [{group_id}]")
-        return Response(str(redis.get_complex(group_id, Group)), status=200)
+        group = redis.get_complex(group_id, Group)
+        if group is None:
+            return Response("Cannot find group with id " + group_id, status=400)
+        return Response(str(group), status=200)
 
     @archbishop.route(config.EVENT_PATH, methods=['POST'])
     def event():
@@ -80,7 +87,7 @@ def construct_blueprint(bolt, config, messages, redis):
             return group
         else:
             log.debug(f"[get_group] Creating new group with id [{group_id}]")
-            dummy_king = Player("", -1, 0)
+            dummy_king = Player("", -1, "", 0)
             group = Group(group_id, [], dummy_king, [])
             redis.set_complex(group_id, group)
             return group
@@ -94,7 +101,7 @@ def construct_blueprint(bolt, config, messages, redis):
             potential_player = [p for p in group.players if p.name == user]
 
             if not potential_player:
-                player = Player(user, 0, 0)
+                player = Player(user, 0, shortuuid.uuid(), 0)
                 group.players.append(player)
                 redis.set_complex(group.name, group)
                 log.debug(f"[get_player] [{user}] added to the system")
