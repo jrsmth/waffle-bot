@@ -23,6 +23,21 @@ class GroupSpec:
         # Then : scroll is left untouched
         assert subject.scroll is scroll
 
+    def should_update_scroll_if_new_streak_lower_than_the_lowest_record_streak_but_scroll_has_capacity(self):
+        """ Should update scroll if new streak lower than the lowest record streak but scroll has capacity"""
+        # Given
+        players = [Player('Adam', 4, '1', 1000), Player('Hayden', 3, '2', 1000)]
+        scroll = [Record('Adam', 4, '1', 'today'), Record('Hayden', 3, '2', 'today')]
+        subject = Group(self.group_name, players, Player('Adam', 4, '1', 1000), scroll)
+
+        test = Player('Maciej', 1, '4', 1000)
+
+        # When
+        subject.update_scroll(test)
+
+        # Then : test is added to the scroll
+        assert subject.scroll == [Record('Adam', 4, '1', 'today'), Record('Hayden', 3, '2', 'today'), test.get_record()]
+
     def should_update_existing_record_if_player_streak_is_active_on_the_scroll(self):
         """ Should update existing record if worthy player streak is active on the scroll """
         # Given

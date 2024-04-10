@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
-
 import shortuuid
-
 from src.app.model.base import Base
 from src.app.model.group.record import Record
 from src.app.model.group.player import Player
@@ -42,6 +40,10 @@ class Group(Base):
 
     def update_scroll(self, player):
         """ Update scroll if new streak is worthy """
+        if self.__is_empty_scroll():
+            self.scroll.append(player.get_record())
+            return
+
         if self.__is_unworthy(player.streak):
             return
 
@@ -53,8 +55,7 @@ class Group(Base):
             self.scroll = sorted(unsorted_scroll, key=lambda x: x.streak, reverse=True)
 
         else:
-            new_record = Record(player.name, player.streak, player.streak_id, datetime.today().strftime('%d/%m/%Y'))
-            self.scroll.append(new_record)
+            self.scroll.append(player.get_record())
             self.scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=True)
             if len(self.scroll) > 3:
                 self.scroll.pop()
@@ -73,11 +74,13 @@ class Group(Base):
     def __is_unworthy(self, new_streak):
         """ Determine if streak is unworthy of scroll update by comparison to the lowest record """
         sorted_scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=False)
-        return len(sorted_scroll) == 0 or new_streak < sorted_scroll[0].streak
+        return len(self.scroll) == 3 and new_streak < sorted_scroll[0].streak
 
     def __is_active(self, streak_id):
         """ Determine if player streak is active in scroll by comparison with recorded streak ids """
-        if len(self.scroll) != 0:
-            matching_ids = [x for x in self.scroll if x.streak_id == streak_id]
-            return len(matching_ids) != 0
-        else: return False
+        matching_ids = [x for x in self.scroll if x.streak_id == streak_id]
+        return len(matching_ids) != 0
+
+    def __is_empty_scroll(self):
+        """ Determine if scroll is empty """
+        return len(self.scroll) == 0

@@ -26,7 +26,10 @@ def construct_blueprint(bolt, config, messages, redis):
     @archbishop.route("/scroll", methods=['POST'])
     def unroll():
         """ Handle slack command for scroll information """
-        group = redis.get_complex(request.form["team_id"], Group)
+        group_id = request.form["team_id"]
+        group = redis.get_complex(group_id, Group)
+        if group is None:
+            return Response("Cannot find group with id " + group_id, status=400)
         formatted_scroll = ""
         position = 0
         for record in group.scroll:
