@@ -73,9 +73,11 @@ class Group(Base):
     def __is_unworthy(self, new_streak):
         """ Determine if streak is unworthy of scroll update by comparison to the lowest record """
         sorted_scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=False)
-        return new_streak < sorted_scroll[0].streak
+        return len(sorted_scroll) == 0 or new_streak < sorted_scroll[0].streak
 
     def __is_active(self, streak_id):
         """ Determine if player streak is active in scroll by comparison with recorded streak ids """
-        matching_ids = [x for x in self.scroll if x.streak_id == streak_id]
-        return len(matching_ids) != 0
+        if len(self.scroll) != 0:
+            matching_ids = [x for x in self.scroll if x.streak_id == streak_id]
+            return len(matching_ids) != 0
+        else: return False
