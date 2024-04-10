@@ -44,7 +44,10 @@ def construct_blueprint(bolt, config, messages, redis):
     def group(group_id):
         """ Get group information by id """
         log.debug(f"[get_group] Retrieving group for id [{group_id}]")
-        return Response(str(redis.get_complex(group_id, Group)), status=200)
+        group = redis.get_complex(group_id, Group)
+        if group is None:
+            return Response("Cannot find group with id " + group_id, status=400)
+        return Response(str(group), status=200)
 
     @archbishop.route(config.EVENT_PATH, methods=['POST'])
     def event():

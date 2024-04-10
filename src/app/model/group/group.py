@@ -32,6 +32,7 @@ class Group(Base):
         )
 
     def update_player(self, player):
+        """ Update player and handle streak reset if necessary """
         for index, p in enumerate(self.players):
             if p.name == player.name:
                 if player.streak == 0:
@@ -48,10 +49,7 @@ class Group(Base):
             return
 
         if self.__is_active(player.streak_id):
-            existing_record = [x for x in self.scroll if x.streak_id == player.streak_id][0]
-            existing_record.streak = player.streak
-            existing_record.date = datetime.today().strftime('%d/%m/%Y')
-            unsorted_scroll = [existing_record if x.streak_id == player.streak_id else x for x in self.scroll]
+            unsorted_scroll = [player.get_record() if x.streak_id == player.streak_id else x for x in self.scroll]
             self.scroll = sorted(unsorted_scroll, key=lambda x: x.streak, reverse=True)
 
         else:
@@ -72,9 +70,12 @@ class Group(Base):
             self.king = sorted(non_zeros, key=lambda x: x.streak, reverse=True)[0]
 
     def __is_unworthy(self, new_streak):
-        """ Determine if streak is unworthy of scroll update by comparison to the lowest record """
+        """ Determine if streak is unworthy of scroll update """
         sorted_scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=False)
-        return len(self.scroll) == 3 and new_streak < sorted_scroll[0].streak
+        if new_streak < 2:
+            return True
+        else:
+            return len(self.scroll) == 3 and new_streak < sorted_scroll[0].streak
 
     def __is_active(self, streak_id):
         """ Determine if player streak is active in scroll by comparison with recorded streak ids """
