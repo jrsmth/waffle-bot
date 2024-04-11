@@ -21,3 +21,7 @@ class MessagesSpec:
     def should_replace_placeholders_for_key_loaded_with_params(self):
         message = self.subject.load_with_params("key1", ["Hello there!"])
         assert message == "value1 Hello there!"
+
+    def should_replace_newline_chars(self):
+        message = self.subject.load("key2-newline")
+        assert message == "Watch out for that ledge!\n\n\nAhhhhhhhh!"
