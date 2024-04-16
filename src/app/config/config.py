@@ -17,3 +17,7 @@ class Config(object):
     SCOPES = json.loads(os.environ['SLACK_SCOPES'])
     SLACK_API = 'https://slack.com/api/{}'
     EVENT_PATH = '/event/'
+
+    # Scroll limits
+    SCROLL_MIN_STREAK = os.environ['SCROLL_MIN_STREAK']
+    SCROLL_MAX_LIST = os.environ['SCROLL_MAX_LIST']

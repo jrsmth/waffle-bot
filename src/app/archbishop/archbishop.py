@@ -115,7 +115,8 @@ def construct_blueprint(bolt, config, messages, redis):
 
     def process_result(group, player):
         group.update_player(player)
-        group.update_scroll(player)
+        # ToDo: Investigate ways to instansiate config in group.py
+        group.update_scroll(player, config)
 
         # Player is the King...
         if player.name == group.king.name:
