@@ -32,7 +32,7 @@ class Group(Base):
 
     def update_player(self, player):
         for index, p in enumerate(self.players):
-            if p.name == player.name:
+            if p.id == player.id:
                 self.players[index] = player
 
     def update_scroll(self, player):
