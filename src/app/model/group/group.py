@@ -50,7 +50,7 @@ class Group(Base):
         self.king = player
 
     def dethrone(self):
-        self.king = Player("", -1, 0)
+        self.king = Player("", -1, 0, 0)
         non_zeros = [p for p in self.players if p.streak != 0]
         if non_zeros is not list:
             return

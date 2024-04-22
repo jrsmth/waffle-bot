@@ -10,6 +10,7 @@ class Player(Base):
     name: str
     streak: int
     score: int
+    games: int
 
     @classmethod
     def from_dict(cls, dic):
@@ -17,5 +18,9 @@ class Player(Base):
             id=dic["id"],
             name=dic["name"],
             streak=dic["streak"],
-            score=dic["score"]
+            score=dic["score"],
+            games=dic["games"]
         )
+    def get_average(self):
+        # Return average score to 2 decimal places
+        return round(self.score / self.games, 2)

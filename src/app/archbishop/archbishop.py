@@ -23,17 +23,18 @@ def construct_blueprint(bolt, config, messages, redis):
         return Response("Hello, World!", status=200)
 
     @archbishop.route("/scroll", methods=['POST'])
-    def get_scroll():
-        group_id = request.form["team_id"]
-        scroll_list = redis.get_complex(group_id, Group).scroll
-
-        # Append list of Scroll entries
-        scroll_entry_message = ""
-        for i in range(len(scroll_list)):
-            scroll_entry = scroll_list[i]
-            scroll_entry_message += messages.load_with_params("command.scroll.entry", [str(i+1), scroll_entry.name, str(scroll_entry.streak), str(scroll_entry.date)])
-
-        return Response(scroll_entry_message, status=200)
+    def unroll():
+        """ Handle slack command for scroll information """
+        group = redis.get_complex(request.form["team_id"], Group)
+        formatted_scroll = ""
+        position = 0
+        for record in group.scroll:
+            position += 1
+            formatted_scroll += messages.load_with_params(
+                "command.scroll.entry",
+                [str(position), record.name, str(record.streak), str(record.date)]
+            )
+        return Response(formatted_scroll, status=200)
 
     @archbishop.route("/group/<group_id>")
     def group(group_id):
@@ -58,6 +59,7 @@ def construct_blueprint(bolt, config, messages, redis):
         log.debug(f"[handle_waffle] Updating player information for [{player.name}]")
         player.score += event.get_score()
         player.streak = event.get_streak()
+        player.games += 1
 
         log.debug(f"[handle_waffle] Processing result for player score [{player.score}]")
         result = process_result(group, player)
@@ -120,7 +122,7 @@ def construct_blueprint(bolt, config, messages, redis):
                 text = messages.load_with_params("result.king.lose", [player.name])
             # ...and wins
             else:
-                text = messages.load_with_params("result.king.win", [str(player.score)])
+                text = messages.load_with_params("result.king.win", [str(player.get_average())])
 
         # Player is a commoner...
         else:
@@ -135,7 +137,7 @@ def construct_blueprint(bolt, config, messages, redis):
                     group.crown(player)
                     text = messages.load_with_params("result.common.coronation", [player.name])
                 else:
-                    text = messages.load_with_params("result.common.win", [player.name, str(player.score)])
+                    text = messages.load_with_params("result.common.win", [player.name, str(player.get_average())])
 
         result = namedtuple("Result", "group text")
         return result(group, text)
