@@ -120,7 +120,7 @@ def construct_blueprint(bolt, config, messages, redis):
         group.update_scroll(player)
 
         # Player is the King...
-        if player.name == group.king.name:
+        if player.name == group.king:
             # ...and loses
             if player.streak == 0:
                 log.info(f"[process_result] The Reign of King {player.name} is over!")
@@ -140,7 +140,7 @@ def construct_blueprint(bolt, config, messages, redis):
             # ...and wins...
             else:
                 # ...and deserves coronation
-                if player.streak > group.king.streak:
+                if group.get_streak_by_id(player.id) > group.get_streak_by_id(group.king):
                     group.crown(player)
                     text = messages.load_with_params("result.common.coronation", [player.name])
                 else:
