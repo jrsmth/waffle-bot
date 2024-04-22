@@ -11,7 +11,7 @@ class Group(Base):
     """ Collection of players grouped by slack space """
     name: str
     players: [Player]
-    king: Player
+    king: str
     scroll: [Record]
 
     @classmethod
@@ -63,12 +63,15 @@ class Group(Base):
         self.king = player
 
     def dethrone(self):
-        self.king = Player("", -1, 0, 0)
+        self.king = "Dummy User"
         non_zeros = [p for p in self.players if p.streak != 0]
         if len(non_zeros) == 0:
             return
         else:
-            self.king = sorted(non_zeros, key=lambda x: x.streak, reverse=True)[0]
+            self.king = sorted(non_zeros, key=lambda x: x.streak, reverse=True)[0].id
+
+    def get_streak_by_id(self, id_value):
+        return [p.streak for p in self.players if p.id == id_value]
 
     def __is_unworthy(self, new_streak):
         """ Determine if streak is unworthy of scroll update """
