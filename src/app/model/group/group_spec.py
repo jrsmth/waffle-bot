@@ -144,6 +144,25 @@ class GroupSpec:
         # Then : King is Hayden
         assert subject.king == '2'
 
+    def should_dethrone_king_and_king_stays_same_with_other_player_updated(self):
+        players = [Player('1', 'Adam', 5, '1', 1000, 10), Player('2', 'Hayden', 4, '2', 1000, 10)]
+        subject = Group(self.group_name, players, '1', [])
+
+        test = Player('1', 'Adam', 0, '1', 1000, 11)
+
+        # When
+        subject.update_player(test)
+        subject.dethrone()
+        # Then : King is Hayden
+        assert subject.king == '2'
+
+        # And another player goes who is not the king
+        test_adam = Player('1', 'Adam', 1, '3', 1000, 12)
+        subject.update_player(test_adam)
+
+        # Then : King is still Hayden
+        assert subject.king == '2'
+
     def should_reset_streak_id_when_player_has_streak_of_zero(self):
         """ Should reset streak id when player has streak of zero """
         # Given

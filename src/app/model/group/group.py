@@ -33,9 +33,8 @@ class Group(Base):
     def update_player(self, player):
         """ Update player and handle streak reset if necessary """
         for index, p in enumerate(self.players):
-            if p.name == player.name:
-                if player.streak == 0:
-                    player.streak_id = shortuuid.uuid()
+            if p.name == player.name and player.streak == 0:
+                player.streak_id = shortuuid.uuid()
             if p.id == player.id:
                 self.players[index] = player
 
@@ -62,7 +61,7 @@ class Group(Base):
         self.king = player
 
     def dethrone(self):
-        self.king = "Dummy User"
+        self.king = "Nobody"
         non_zeros = [p for p in self.players if p.streak != 0]
         if len(non_zeros) == 0:
             return
