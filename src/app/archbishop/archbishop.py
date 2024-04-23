@@ -88,7 +88,7 @@ def construct_blueprint(bolt, config, messages, redis):
             return group
         else:
             log.debug(f"[get_group] Creating new group with id [{group_id}]")
-            dummy_king = Player("", -1, 0, 0)
+            dummy_king = "Dummy King"
             group = Group(group_id, [], dummy_king, [])
             redis.set_complex(group_id, group)
             return group
@@ -120,7 +120,7 @@ def construct_blueprint(bolt, config, messages, redis):
         group.update_scroll(player)
 
         # Player is the King...
-        if player.name == group.king:
+        if player.id == group.king:
             # ...and loses
             if player.streak == 0:
                 log.info(f"[process_result] The Reign of King {player.name} is over!")
