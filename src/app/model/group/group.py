@@ -1,9 +1,9 @@
 from dataclasses import dataclass
-from datetime import datetime
 import shortuuid
 from src.app.model.base import Base
 from src.app.model.group.record import Record
 from src.app.model.group.player import Player
+from src.app.config.config import Config
 
 
 @dataclass
@@ -55,7 +55,7 @@ class Group(Base):
         else:
             self.scroll.append(player.get_record())
             self.scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=True)
-            if len(self.scroll) > 3:
+            if len(self.scroll) > int(Config.SCROLL_MAX_LIST):
                 self.scroll.pop()
 
     def crown(self, player):
@@ -72,10 +72,10 @@ class Group(Base):
     def __is_unworthy(self, new_streak):
         """ Determine if streak is unworthy of scroll update """
         sorted_scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=False)
-        if new_streak < 2:
+        if new_streak < int(Config.SCROLL_MIN_STREAK):
             return True
         else:
-            return len(self.scroll) == 3 and new_streak < sorted_scroll[0].streak
+            return len(self.scroll) == int(Config.SCROLL_MAX_LIST) and new_streak < sorted_scroll[0].streak
 
     def __is_active(self, streak_id):
         """ Determine if player streak is active in scroll by comparison with recorded streak ids """
