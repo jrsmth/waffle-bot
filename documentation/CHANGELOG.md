@@ -5,15 +5,16 @@
 - `0.1.x` Multiple Spaces
 - `0.2.x` Data Maturity
 - `0.3.x` Scroll Command
-- `0.4.x` Presentation 
-- `0.5.x` Reactions
+- `0.4.x` Player Extension
+- `0.5.x` Presentation 
+- `0.6.x` Reactions
 - `1.0.x` App Distribution
 
 # Releases
 <!-- @LatestFirst -->
 
 ## [0.3.1] [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/haydende-181717.svg?style=flat&logo=github)](https://github.com/haydende)
-[Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (11/04/2024)
+[Scroll Command](https://github.com/jrsmth/waffle-bot/milestone/4) (25/04/2024)
 - `#44` Prevent duplicate records for the same streak
 - `#46` Add README Badges (Code Coverage, Workflow, Deployment)
 - `#48` Newline (`\n`) characters are now rendered properly
