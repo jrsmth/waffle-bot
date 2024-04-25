@@ -1,4 +1,5 @@
 from datetime import datetime
+import pytest
 
 from src.app.model.group.group import Group
 from src.app.model.group.player import Player
@@ -7,6 +8,7 @@ from src.app.model.group.record import Record
 
 class GroupSpec:
     group_name = 'group_name'
+    datetime_format = '%d/%m/%Y'
 
     def should_not_update_scroll_if_new_streak_lower_than_the_lowest_record_streak(self):
         """ Should not update scroll if new streak lower than the lowest record streak """
@@ -55,6 +57,38 @@ class GroupSpec:
         updated_record = [x for x in subject.scroll if x.streak_id == test.streak_id][0]
         assert updated_record.streak is 5
 
+    def should_not_add_score_as_scroll_entry_unworthy_by_min_streak(self):
+        """ Should add no new record as player streak score is not worthy """
+        # Given
+        players = [Player('Adam', 4, '1', 1000), Player('Hayden', 3, '2', 1000)]
+        scroll = [Record('Adam', 4, '1', 'today'), Record('Hayden', 3, '2', 'today')]
+        subject = Group(self.group_name, players, Player('Adam', 4, '1', 1000), scroll)
+
+        test = Player('James', 1, '3', 1005)
+
+        # When
+        subject.update_scroll(test)
+
+        # Then : The scroll is not updated. Subject scroll should equal the defined scroll.
+        assert scroll == subject.scroll
+
+    def should_add_record_but_not_exceed_scroll_size(self):
+        """ Should add the new record but remove the lowest scoring record to stick to scroll size """
+        # Given
+        players = [Player('Adam', 4, '1', 1000), Player('Hayden', 3, '2', 1000)]
+        scroll = [Record('Adam', 4, '1', 'today'), Record('Hayden', 3, '2', 'today'), Record('Maciej', 2, '2', 'today')]
+        subject = Group(self.group_name, players, Player('Adam', 4, '1', 1000), scroll)
+
+        test = Player('James', 5, '3', 1005)
+
+        # When
+        subject.update_scroll(test)
+
+        expected_scroll = [Record('James', 5, '3', datetime.today().strftime(self.datetime_format)),
+                           Record('Adam', 4, '1', 'today'), Record('Hayden', 3, '2', 'today')]
+
+        assert expected_scroll == subject.scroll
+
     def should_add_new_record_if_worthy_streak_is_not_active_on_the_scroll_and_scroll_below_capacity(self):
         """ Should add new record if worthy streak is not active on the scroll and scroll below capacity """
         # Given
@@ -69,7 +103,7 @@ class GroupSpec:
 
         # Then : 'Adam' Record w/streak id '1' should be preserved; second 'Adam' Record added w/streak id '2'
         # Note : also expect scroll to be sorted upon update
-        expected_record = Record('Adam', 5, '3', datetime.today().strftime('%d/%m/%Y'))
+        expected_record = Record('Adam', 5, '3', datetime.today().strftime(self.datetime_format))
         expected_scroll = [expected_record, Record('Adam', 4, '1', 'today'), Record('Hayden', 3, '2', 'today')]
         difference = [x for x in subject.scroll if x not in expected_scroll]
         assert len(difference) is 0
@@ -88,7 +122,7 @@ class GroupSpec:
 
         # Then : 'Adam' Record w/streak id '1' should be preserved; second 'Adam' Record added w/streak id '2'
         # Note : also expect scroll to be sorted upon update
-        expected_record = Record('Adam', 5, '4', datetime.today().strftime('%d/%m/%Y'))
+        expected_record = Record('Adam', 5, '4', datetime.today().strftime(self.datetime_format))
         expected_scroll = [expected_record, Record('Adam', 4, '1', 'today'), Record('Hayden', 3, '2', 'today')]
         difference = [x for x in subject.scroll if x not in expected_scroll]
         assert len(difference) is 0
