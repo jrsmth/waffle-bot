@@ -2,7 +2,7 @@ name: coverage
 on:
   workflow_call:
 jobs:
-  test:
+  coverage:
     runs-on: ubuntu-latest
     env:
       working-directory: ./src/app
@@ -12,4 +12,9 @@ jobs:
       - name: Install 🔧
         run: pip3 install -r src/app/requirements.txt --no-cache-dir
       - name: Test 📋
-        run: python3 -m pytest src
+        run: |
+          python3 -m coverage run --source=src/app --omit="*_spec.py" -m pytest src
+          python3 -m coverage xml -o ./documentation/coverage/coverage.xml
+          genbadge coverage -i ./documentation/coverage/coverage.xml -o ./documentation/coverage/coverage.svg
+      - name: Commit Results 💾
+        uses: stefanzweifel/git-auto-commit-action@v4
