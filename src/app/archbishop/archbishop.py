@@ -10,6 +10,7 @@ from src.app.model.group.player import Player
 from collections import namedtuple
 from slack_bolt.adapter.flask import SlackRequestHandler
 
+import shortuuid
 
 # Archbishop Logic
 def construct_blueprint(bolt, config, messages, redis):
@@ -102,7 +103,7 @@ def construct_blueprint(bolt, config, messages, redis):
             potential_player = [p for p in group.players if p.id == user_id]
 
             if not potential_player:
-                player = Player(user_id, user_name, 0, 0)
+                player = Player(user_id, user_name, 0, shortuuid.uuid(), 0, 0)
                 group.players.append(player)
                 redis.set_complex(group.name, group)
                 log.debug(f"[get_player] [{user_name}] added to the system with id [{user_id}]")
@@ -158,10 +159,7 @@ def construct_blueprint(bolt, config, messages, redis):
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": {
-                            "type": "mrkdwn",
-                            "text": f"{result} :blush:\n\n*I am under development*"
-                        },
+                        "text": f"{result} :blush:\n\n*I am under development*"
                     },
                 }
             ],

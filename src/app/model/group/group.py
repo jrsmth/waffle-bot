@@ -16,7 +16,6 @@ class Group(Base):
 
     @classmethod
     def from_dict(cls, dic):
-        king = Player.from_dict(dic["king"])
         players = []
         for p in dic["players"]:
             players.append(Player.from_dict(p))
@@ -27,7 +26,7 @@ class Group(Base):
         return cls(
             name=dic["name"],
             players=players,
-            king=king,
+            king=dic["king"],
             scroll=scroll
         )
 
@@ -59,7 +58,7 @@ class Group(Base):
                 self.scroll.pop()
 
     def crown(self, player):
-        self.king = player
+        self.king = player.id
 
     def dethrone(self):
         self.king = "Nobody"
