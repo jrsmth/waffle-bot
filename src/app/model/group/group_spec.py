@@ -61,9 +61,9 @@ class GroupSpec:
     def should_not_add_score_as_scroll_entry_unworthy_by_min_streak(self):
         """ Should add no new record as player streak score is not worthy """
         # Given
-        players = [Player('Adam', 4, '1', 1000), Player('Hayden', 3, '2', 1000)]
+        players = [Player('1', 'Adam', 4, '1', 1000, 10), Player('2', 'Hayden', 3, '2', 1000, 10)]
         scroll = [Record('Adam', 4, '1', 'today'), Record('Hayden', 3, '2', 'today')]
-        subject = Group(self.group_name, players, Player('Adam', 4, '1', 1000), scroll)
+        subject = Group(self.group_name, players, '1', scroll)
 
         test = Player('James', 1, '3', 1005)
 
@@ -141,6 +141,16 @@ class GroupSpec:
         subject.update_player(test)
         subject.dethrone()
 
+        # Then : King is Hayden
+        assert subject.king == '2'
+        players = [Player('1', 'Adam', 4, '1', 1000, 10), Player('2', 'Hayden', 3, '2', 1000, 10), Player('3', 'James', 2, '3', 1000, 10)]
+        subject = Group(self.group_name, players, '1', [])
+
+        test = Player('1', 'Adam', 0, '1', 1000, 10)
+
+        # When
+        subject.update_player(test)
+        subject.dethrone()
         # Then : King is Hayden
         assert subject.king == '2'
 
