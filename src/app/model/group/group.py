@@ -4,6 +4,7 @@ from src.app.model.group.record import Record
 from src.app.model.group.player import Player
 from src.app.config.config import Config
 
+import shortuuid
 
 @dataclass
 class Group(Base):

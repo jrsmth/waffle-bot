@@ -1,7 +1,6 @@
 import logging
 
 import requests
-import shortuuid
 from flask import Blueprint, Response
 from flask import request
 from slack_sdk.errors import SlackApiError
