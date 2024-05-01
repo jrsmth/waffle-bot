@@ -1,22 +1,21 @@
 from dataclasses import dataclass
-import shortuuid
 from src.app.model.base import Base
 from src.app.model.group.record import Record
 from src.app.model.group.player import Player
 from src.app.config.config import Config
 
+import shortuuid
 
 @dataclass
 class Group(Base):
     """ Collection of players grouped by slack space """
     name: str
     players: [Player]
-    king: Player
+    king: str
     scroll: [Record]
 
     @classmethod
     def from_dict(cls, dic):
-        king = Player.from_dict(dic["king"])
         players = []
         for p in dic["players"]:
             players.append(Player.from_dict(p))
@@ -27,16 +26,16 @@ class Group(Base):
         return cls(
             name=dic["name"],
             players=players,
-            king=king,
+            king=dic["king"],
             scroll=scroll
         )
 
     def update_player(self, player):
         """ Update player and handle streak reset if necessary """
         for index, p in enumerate(self.players):
-            if p.name == player.name:
-                if player.streak == 0:
-                    player.streak_id = shortuuid.uuid()
+            if p.name == player.name and player.streak == 0:
+                player.streak_id = shortuuid.uuid()
+            if p.id == player.id:
                 self.players[index] = player
 
     def update_scroll(self, player):
@@ -59,15 +58,18 @@ class Group(Base):
                 self.scroll.pop()
 
     def crown(self, player):
-        self.king = player
+        self.king = player.id
 
     def dethrone(self):
-        self.king = Player("", -1, "", 0)
+        self.king = "Nobody"
         non_zeros = [p for p in self.players if p.streak != 0]
         if len(non_zeros) == 0:
             return
         else:
-            self.king = sorted(non_zeros, key=lambda x: x.streak, reverse=True)[0]
+            self.king = sorted(non_zeros, key=lambda x: x.streak, reverse=True)[0].id
+
+    def get_streak_by_id(self, id_value):
+        return [p.streak for p in self.players if p.id == id_value]
 
     def __is_unworthy(self, new_streak):
         """ Determine if streak is unworthy of scroll update """
