@@ -98,8 +98,9 @@ def construct_blueprint(bolt, config, messages, redis):
         slack_user_url = config.SLACK_API.format("users.info?user=" + event.user)
         try:
             result = requests.get(slack_user_url, headers={'Authorization': 'Bearer ' + config.BOT_TOKEN})
-            user_name = result.json().get("user").get("real_name").split()[0]
-            user_id = result.json().get("user").get("id").split()[0]
+            user = result.json().get("user")
+            user_name = user.get("real_name")
+            user_id = user.get("id")
             potential_player = [p for p in group.players if p.id == user_id]
 
             if not potential_player:
