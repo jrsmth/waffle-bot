@@ -60,23 +60,31 @@ def construct_blueprint(bolt, config, messages, redis):
         """ Receive and process new waffle score """
         log.debug("[handle_waffle] New Waffle Score received!")
         event = Event(message)
-        group = get_group(event)
-        player = get_player(event, group)
+        event_score = event.get_score()
+        event_streak = event.get_streak()
 
-        log.debug(f"[handle_waffle] Updating player information for [{player.name}]")
-        player.score += event.get_score()
-        player.streak = event.get_streak()
-        player.games += 1
+        if event_score is not None and event_streak is not None:
+            group = get_group(event)
+            player = get_player(event, group)
 
-        log.debug(f"[handle_waffle] Processing result for player score [{player.score}]")
-        result = process_result(group, player)
-        redis.set_complex(group.name, result.group)
+            log.debug(f"[handle_waffle] Updating player information for [{player.name}]")
+            player.score += event_score
+            player.streak = event_streak
+            player.games += 1
 
-        log.debug(f"[handle_waffle] Building response for group [{result.group.name}]")
-        to_channel = event.channel
-        response = present(result.text, to_channel)
+            log.debug(f"[handle_waffle] Processing result for player score [{player.score}]")
+            result = process_result(group, player)
+            redis.set_complex(group.name, result.group)
 
-        say(response)
+            log.debug(f"[handle_waffle] Building response for group [{result.group.name}]")
+            to_channel = event.channel
+            response = present(result.text, to_channel)
+
+            say(response)
+
+        else:
+            log.debug("[handle_waffle] Could not extract data from received event. Disregarding.")
+
         return Response(messages.load("event.request.handled"), status=200)
 
     def get_group(event):
