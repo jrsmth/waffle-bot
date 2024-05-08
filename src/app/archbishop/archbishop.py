@@ -3,6 +3,7 @@ import logging
 import requests
 from flask import Blueprint, Response
 from flask import request
+from slack_bolt import BoltResponse
 from slack_sdk.errors import SlackApiError
 from src.app.model.event.event import Event
 from src.app.model.group.group import Group
@@ -60,12 +61,19 @@ def construct_blueprint(bolt, config, messages, redis):
         """ Receive and process new waffle score """
         log.debug("[handle_waffle] New Waffle Score received!")
         event = Event(message)
+        event_score = event.get_score()
+        event_streak = event.get_streak()
+
+        if (event_score is None or event_streak is None):
+            log.debug("[handle_waffle] Disregarding event, could not extract waffle data")
+            return
+
         group = get_group(event)
         player = get_player(event, group)
 
         log.debug(f"[handle_waffle] Updating player information for [{player.name}]")
-        player.score += event.get_score()
-        player.streak = event.get_streak()
+        player.score += event_score
+        player.streak = event_streak
         player.games += 1
 
         log.debug(f"[handle_waffle] Processing result for player score [{player.score}]")
@@ -77,7 +85,6 @@ def construct_blueprint(bolt, config, messages, redis):
         response = present(result.text, to_channel)
 
         say(response)
-        return Response(messages.load("event.request.handled"), status=200)
 
     def get_group(event):
         """ Fetch group object from redis """
