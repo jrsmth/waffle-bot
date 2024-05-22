@@ -1,6 +1,6 @@
 <a><img src="https://github.com/jrsmth/waffle-bot/actions/workflows/main.yaml/badge.svg"></a>
+<a>[![sonarcloud](https://sonarcloud.io/api/project_badges/measure?project=jrsmth_waffle-bot&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jrsmth_waffle-bot)</a>
 <a><img src="./documentation/coverage/coverage.svg"></a>
-<a>[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=jrsmth_waffle-bot)](https://sonarcloud.io/summary/new_code?id=jrsmth_waffle-bot)</a>
 
 # Waffle Bot 🤖
 <a href="https://slack.com/intl/en-gb"><img src="https://img.shields.io/badge/Slack-b53ec4?logo=slack&logoColor=e65ee5"></a>
