@@ -13,10 +13,11 @@
 # Releases
 <!-- @LatestFirst -->
 
-## [0.4.1] [![user](https://img.shields.io/badge/haydende-181717.svg?style=flat&logo=github)](https://github.com/haydende) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+## [0.4.1] [![user](https://img.shields.io/badge/haydende-181717.svg?style=flat&logo=github)](https://github.com/haydende) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
 [Player Extension](https://github.com/jrsmth/waffle-bot/milestone/9) (??/??/????)
 - `#34` Add Sonar Qube Support
 - `#57` Archbishop does not respond when 'top-text' is included in slack message
+- `#61` Archbishop unable to process broken streak
 
 ## [0.4.0] [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
 [Player Extension](https://github.com/jrsmth/waffle-bot/milestone/9) (03/05/2024)
