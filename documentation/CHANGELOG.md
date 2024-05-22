@@ -12,6 +12,9 @@
 
 # Releases
 <!-- @LatestFirst -->
+## [0.5.0] [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
+[Presentation](https://github.com/jrsmth/waffle-bot/milestone/3) (??/??/????)
+- `#52` Update dethrone Message to announce new King
 
 ## [0.4.1] [![user](https://img.shields.io/badge/haydende-181717.svg?style=flat&logo=github)](https://github.com/haydende) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
 [Player Extension](https://github.com/jrsmth/waffle-bot/milestone/9) (22/05/2024)
