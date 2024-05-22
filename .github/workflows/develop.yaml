@@ -6,10 +6,6 @@ on:
 permissions:
   contents: write
 jobs:
-  scan:
-    name: Scan
-    uses: ./.github/workflows/scan.yaml
   coverage:
-    needs: scan
     name: Coverage
     uses: ./.github/workflows/coverage.yaml
