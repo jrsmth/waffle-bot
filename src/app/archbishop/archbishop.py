@@ -133,8 +133,11 @@ def construct_blueprint(bolt, config, messages, redis):
             if player.streak == 0:
                 log.info(f"[process_result] The Reign of King {player.name} is over!")
                 log.info("[process_result] Searching for a new King...")
+                temp_streak = group.get_streak_by_id(group.king)
                 group.dethrone()
-                text = messages.load_with_params("result.king.lose", [player.name])
+                new_king = group.get_player_by_id(group.king)
+                text = messages.load_with_params("result.king.lose", [player.name, temp_streak])
+                text += messages.load_with_params("result.king.new", [new_king])
             # ...and wins
             else:
                 text = messages.load_with_params("result.king.win", [str(player.get_average())])
@@ -144,7 +147,8 @@ def construct_blueprint(bolt, config, messages, redis):
             # ...and loses
             if player.streak == 0:
                 log.info(f"[process_result] The Streak of {player.name} has been broken!")
-                text = messages.load_with_params("result.common.lose", [player.name])
+                temp_streak = group.get_streak_by_id(player.id)
+                text = messages.load_with_params("result.common.lose", [player.name, temp_streak])
             # ...and wins...
             else:
                 # ...and deserves coronation

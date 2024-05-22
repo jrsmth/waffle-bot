@@ -35,7 +35,7 @@ class Event:
     def get_score(self):
         block: Block = Munch.fromDict(self.blocks[0])
         elements: [Element] = block.elements[0].elements
-        score_text = self._search_elements_for_expr(elements, "#waffle[0-9]+ [0-5]/[0-5]")
+        score_text = self._search_elements_for_expr(elements, "#waffle[0-9]+ [0-5X]/[0-5]")
         if score_text is not None:
             score = re.split(' ', score_text, 1)[1][0]
             return int(0 if score == 'X' else score[0])
