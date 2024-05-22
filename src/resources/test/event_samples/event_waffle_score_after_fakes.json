@@ -1,0 +1,187 @@
+{
+  "user": "{{USER_INFO}}",
+  "type": "message",
+  "ts": "1714382813.712429",
+  "client_msg_id": "eb5e22c3-0657-4879-bc5c-0c093248cad4",
+  "text": "#waffle #waffle #waffle #waffle! #waffle828 0/5\n\n:large_green_square::large_green_square::large_green_square::large_green_square::large_green_square:\n:large_green_square::white_large_square::large_green_square::white_large_square::large_green_square:\n:large_green_square::large_green_square::large_green_square::large_green_square::large_green_square:\n:large_green_square::white_large_square::large_green_square::white_large_square::large_green_square:\n:large_green_square::large_green_square::large_green_square::large_green_square::large_green_square:\n\n:fire: streak: 4\n<http://wafflegame.net|wafflegame.net>",
+  "team": "T06DQBGR53J",
+  "blocks": [
+    {
+      "type": "rich_text",
+      "block_id": "YC/lV",
+      "elements": [
+        {
+          "type": "rich_text_section",
+          "elements": [
+            {
+              "type": "text",
+              "text": "#waffle #waffle #waffle #waffle! #waffle828 0/5\n\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "text",
+              "text": "\n\n"
+            },
+            {
+              "type": "emoji",
+              "name": "fire",
+              "unicode": "1f525"
+            },
+            {
+              "type": "text",
+              "text": " streak: 4\n"
+            },
+            {
+              "type": "link",
+              "url": "http://wafflegame.net",
+              "text": "wafflegame.net"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "channel": "C06D1J4T54J",
+  "event_ts": "1714382813.712429",
+  "channel_type": "channel"
+}

@@ -1,3 +1,4 @@
+import logging
 import re
 from munch import Munch
 
@@ -34,12 +35,21 @@ class Event:
     def get_score(self):
         block: Block = Munch.fromDict(self.blocks[0])
         elements: [Element] = block.elements[0].elements
-        score_text = [elem for elem in elements if (hasattr(elem, "text") and "/5" in elem.text)][0].text
-        score = re.split(' ', score_text, 1)[1][0]
-        return int(0 if score == 'X' else score[0])
+        score_text = self._search_elements_for_expr(elements, "#waffle[0-9]+ [X0-5]/[0-5]")
+        if score_text is not None:
+            score = re.split(' ', score_text, 1)[1][0]
+            return int(0 if score == 'X' else score[0])
 
     def get_streak(self):
         block: Block = Munch.fromDict(self.blocks[0])
         elements: [Element] = block.elements[0].elements
-        streak_element: Element = [elem for elem in elements if (hasattr(elem, "text") and "streak" in elem.text)][0]
-        return int(streak_element.text.split(" ")[2].strip("\n"))
+        streak_text = self._search_elements_for_expr(elements, "streak: [0-9]*\n")
+        if streak_text is not None:
+            return int(streak_text.split(" ")[1].strip("\n"))
+
+    @staticmethod
+    def _search_elements_for_expr(elements, expr):
+        for elem in elements:
+            if hasattr(elem, "text") and re.search(expr, elem.text) is not None:
+                return re.findall(expr, elem.text)[0]
+
