@@ -1,0 +1,870 @@
+{
+  "user": "{{USER_INFO}}",
+  "type": "message",
+  "ts": "1714382813.712429",
+  "client_msg_id": "eb5e22c3-0657-4879-bc5c-0c093248cad4",
+  "text": "sp a c e ?\n\n#waffle828 X/5\n\n:large_green_square::large_green_square::large_green_square::large_green_square::large_green_square:\n:large_green_square::white_large_square::large_green_square::white_large_square::large_green_square:\n:large_green_square::large_green_square::large_green_square::large_green_square::large_green_square:\n:large_green_square::white_large_square::large_green_square::white_large_square::large_green_square:\n:large_green_square::large_green_square::large_green_square::large_green_square::large_green_square:\n\n:fire: streak: 0\n<http://wafflegame.net|wafflegame.net>",
+  "team": "T06DQBGR53J",
+  "blocks": [
+    {
+      "type": "rich_text",
+      "block_id": "RN7Xk",
+      "elements": [
+        {
+          "type": "rich_text_section",
+          "elements": [
+            {
+              "type": "text",
+              "text": "\n\n#waffle832 X/5\n\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "text",
+              "text": "\n\n"
+            },
+            {
+              "type": "emoji",
+              "name": "fire",
+              "unicode": "1f525"
+            },
+            {
+              "type": "text",
+              "text": " streak: 0\n"
+            },
+            {
+              "type": "link",
+              "url": "http://wafflegame.net",
+              "text": "wafflegame.net"
+            },
+            {
+              "type": "text",
+              "text": "#Worldle #832 (02.05.2024) X/6 (97%)\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "arrow_left",
+              "unicode": "2b05-fe0f"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "arrow_right",
+              "unicode": "27a1-fe0f"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "arrow_right",
+              "unicode": "27a1-fe0f"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "arrow_lower_left",
+              "unicode": "2199-fe0f"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_yellow_square",
+              "unicode": "1f7e8"
+            },
+            {
+              "type": "emoji",
+              "name": "black_large_square",
+              "unicode": "2b1b"
+            },
+            {
+              "type": "emoji",
+              "name": "arrow_up",
+              "unicode": "2b06-fe0f"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "emoji",
+              "name": "large_yellow_square",
+              "unicode": "1f7e8"
+            },
+            {
+              "type": "emoji",
+              "name": "arrow_up",
+              "unicode": "2b06-fe0f"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "coin",
+              "unicode": "1fa99"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "link",
+              "url": "https://worldle.teuteuf.fr"
+            },
+            {
+              "type": "text",
+              "text": "\n\n"
+            },
+            {
+              "type": "emoji",
+              "name": "camera",
+              "unicode": "1f4f7"
+            },
+            {
+              "type": "text",
+              "text": " #WhereTaken"
+            },
+            {
+              "type": "emoji",
+              "name": "earth_americas",
+              "unicode": "1f30e"
+            },
+            {
+              "type": "text",
+              "text": " #431 (02.05.2024) 4/6\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "large_yellow_square",
+              "unicode": "1f7e8"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "arrow_lower_left",
+              "unicode": "2199-fe0f"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "arrow_upper_left",
+              "unicode": "2196-fe0f"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "white_large_square",
+              "unicode": "2b1c"
+            },
+            {
+              "type": "emoji",
+              "name": "arrow_down",
+              "unicode": "2b07-fe0f"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "large_blue_square",
+              "unicode": "1f7e6"
+            },
+            {
+              "type": "emoji",
+              "name": "tada",
+              "unicode": "1f389"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "emoji",
+              "name": "star",
+              "unicode": "2b50"
+            },
+            {
+              "type": "emoji",
+              "name": "star",
+              "unicode": "2b50"
+            },
+            {
+              "type": "text",
+              "text": "\n\n"
+            },
+            {
+              "type": "link",
+              "url": "http://wheretaken.teuteuf.fr",
+              "text": "wheretaken.teuteuf.fr"
+            },
+            {
+              "type": "text",
+              "text": "\n\n#WhenTaken #65 (02.05.2024)\n\nI scored 811/1000 "
+            },
+            {
+              "type": "emoji",
+              "name": "tada",
+              "unicode": "1f389"
+            },
+            {
+              "type": "text",
+              "text": "\n\n"
+            },
+            {
+              "type": "emoji",
+              "name": "one",
+              "unicode": "0031-fe0f-20e3"
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "emoji",
+              "name": "round_pushpin",
+              "unicode": "1f4cd"
+            },
+            {
+              "type": "text",
+              "text": " 758 km - "
+            },
+            {
+              "type": "emoji",
+              "name": "spiral_calendar_pad",
+              "unicode": "1f5d3-fe0f"
+            },
+            {
+              "type": "text",
+              "text": " 2 yrs - "
+            },
+            {
+              "type": "emoji",
+              "name": "zap",
+              "unicode": "26a1"
+            },
+            {
+              "type": "text",
+              "text": " 175 / 200\n"
+            },
+            {
+              "type": "emoji",
+              "name": "two",
+              "unicode": "0032-fe0f-20e3"
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "emoji",
+              "name": "round_pushpin",
+              "unicode": "1f4cd"
+            },
+            {
+              "type": "text",
+              "text": " 5 km - "
+            },
+            {
+              "type": "emoji",
+              "name": "spiral_calendar_pad",
+              "unicode": "1f5d3-fe0f"
+            },
+            {
+              "type": "text",
+              "text": " 10 yrs - "
+            },
+            {
+              "type": "emoji",
+              "name": "zap",
+              "unicode": "26a1"
+            },
+            {
+              "type": "text",
+              "text": " 185 / 200\n"
+            },
+            {
+              "type": "emoji",
+              "name": "three",
+              "unicode": "0033-fe0f-20e3"
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "emoji",
+              "name": "round_pushpin",
+              "unicode": "1f4cd"
+            },
+            {
+              "type": "text",
+              "text": " 2800 km - "
+            },
+            {
+              "type": "emoji",
+              "name": "spiral_calendar_pad",
+              "unicode": "1f5d3-fe0f"
+            },
+            {
+              "type": "text",
+              "text": " 2 yrs - "
+            },
+            {
+              "type": "emoji",
+              "name": "zap",
+              "unicode": "26a1"
+            },
+            {
+              "type": "text",
+              "text": " 140 / 200\n"
+            },
+            {
+              "type": "emoji",
+              "name": "four",
+              "unicode": "0034-fe0f-20e3"
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "emoji",
+              "name": "round_pushpin",
+              "unicode": "1f4cd"
+            },
+            {
+              "type": "text",
+              "text": " 62 km - "
+            },
+            {
+              "type": "emoji",
+              "name": "spiral_calendar_pad",
+              "unicode": "1f5d3-fe0f"
+            },
+            {
+              "type": "text",
+              "text": " 9 yrs - "
+            },
+            {
+              "type": "emoji",
+              "name": "zap",
+              "unicode": "26a1"
+            },
+            {
+              "type": "text",
+              "text": " 184 / 200\n"
+            },
+            {
+              "type": "emoji",
+              "name": "five",
+              "unicode": "0035-fe0f-20e3"
+            },
+            {
+              "type": "text",
+              "text": " "
+            },
+            {
+              "type": "emoji",
+              "name": "round_pushpin",
+              "unicode": "1f4cd"
+            },
+            {
+              "type": "text",
+              "text": " 3570 km - "
+            },
+            {
+              "type": "emoji",
+              "name": "spiral_calendar_pad",
+              "unicode": "1f5d3-fe0f"
+            },
+            {
+              "type": "text",
+              "text": " 6 yrs - "
+            },
+            {
+              "type": "emoji",
+              "name": "zap",
+              "unicode": "26a1"
+            },
+            {
+              "type": "text",
+              "text": " 127 / 200\n\n"
+            },
+            {
+              "type": "link",
+              "url": "https://whentaken.com"
+            },
+            {
+              "type": "text",
+              "text": "\n\nBandle #624 6/6\n"
+            },
+            {
+              "type": "emoji",
+              "name": "large_red_square",
+              "unicode": "1f7e5"
+            },
+            {
+              "type": "emoji",
+              "name": "large_red_square",
+              "unicode": "1f7e5"
+            },
+            {
+              "type": "emoji",
+              "name": "large_red_square",
+              "unicode": "1f7e5"
+            },
+            {
+              "type": "emoji",
+              "name": "large_red_square",
+              "unicode": "1f7e5"
+            },
+            {
+              "type": "emoji",
+              "name": "large_red_square",
+              "unicode": "1f7e5"
+            },
+            {
+              "type": "emoji",
+              "name": "large_green_square",
+              "unicode": "1f7e9"
+            },
+            {
+              "type": "text",
+              "text": "\nFound: 8/9 (88.9%)\nCurrent Streak: 0 (max 4)\n#Bandle #Heardle #Wordle\n\n"
+            },
+            {
+              "type": "link",
+              "url": "https://bandle.app/"
+            },
+            {
+              "type": "text",
+              "text": "\n\n#ows72 "
+            },
+            {
+              "type": "emoji",
+              "name": "mag_right",
+              "unicode": "1f50e"
+            },
+            {
+              "type": "text",
+              "text": " X/5 (02:08)\n"
+            },
+            {
+              "type": "emoji",
+              "name": "star",
+              "unicode": "2b50"
+            },
+            {
+              "type": "emoji",
+              "name": "star",
+              "unicode": "2b50"
+            },
+            {
+              "type": "emoji",
+              "name": "star",
+              "unicode": "2b50"
+            },
+            {
+              "type": "text",
+              "text": "\nstreak: 0 "
+            },
+            {
+              "type": "emoji",
+              "name": "fire",
+              "unicode": "1f525"
+            },
+            {
+              "type": "text",
+              "text": "\n"
+            },
+            {
+              "type": "link",
+              "url": "http://onewordsearch.com",
+              "text": "onewordsearch.com"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "channel": "C06D1J4T54J",
+  "event_ts": "1714382813.712429",
+  "channel_type": "channel"
+}
