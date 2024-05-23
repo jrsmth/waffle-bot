@@ -136,10 +136,10 @@ def construct_blueprint(bolt, config, messages, redis):
                 log.info(f"[process_result] The Reign of King {player.name} is over!")
                 log.info("[process_result] Searching for a new King...")
                 group.dethrone()
-                new_king = group.get_player_name_by_id(group.king)[0]
+                new_king = group.get_player_by_id(group.king)[0]
                 if new_king is not None:
                     text = messages.load_with_params("result.king.lose.new",
-                                                     [player.name, str(player.prev_streak), new_king])
+                                                     [player.name, str(player.prev_streak), new_king.name])
                 else:
                     text = messages.load_with_params("result.king.lose", [player.name, str(player.prev_streak)])
             # ...and wins

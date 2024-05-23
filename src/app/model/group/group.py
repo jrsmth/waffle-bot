@@ -74,9 +74,6 @@ class Group(Base):
     def get_player_by_id(self, id_value):
         return [p for p in self.players if p.id == id_value]
 
-    def get_player_name_by_id(self, id_value):
-        return [p.name for p in self.players if p.id == id_value]
-
     def __is_unworthy(self, new_streak):
         """ Determine if streak is unworthy of scroll update """
         sorted_scroll = sorted(self.scroll, key=lambda x: x.streak, reverse=False)
