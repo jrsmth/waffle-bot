@@ -11,6 +11,7 @@ class Player(Base):
     name: str
     streak: int
     streak_id: str
+    prev_streak: int
     score: int
     games: int
 
@@ -21,6 +22,7 @@ class Player(Base):
             name=dic["name"],
             streak=dic["streak"],
             streak_id=dic["streak_id"],
+            prev_streak=dic["prev_streak"],
             score=dic["score"],
             games=dic["games"]
         )

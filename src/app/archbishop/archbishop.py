@@ -73,6 +73,8 @@ def construct_blueprint(bolt, config, messages, redis):
 
         log.debug(f"[handle_waffle] Updating player information for [{player.name}]")
         player.score += event_score
+        if event_streak == 0:
+            player.prev_streak = player.streak
         player.streak = event_streak
         player.games += 1
 
@@ -111,7 +113,7 @@ def construct_blueprint(bolt, config, messages, redis):
             potential_player = [p for p in group.players if p.id == user_id]
 
             if not potential_player:
-                player = Player(user_id, user_name, 0, shortuuid.uuid(), 0, 0)
+                player = Player(user_id, user_name, 0, shortuuid.uuid(), 0, 0, 0)
                 group.players.append(player)
                 redis.set_complex(group.name, group)
                 log.debug(f"[get_player] [{user_name}] added to the system with id [{user_id}]")
@@ -134,7 +136,12 @@ def construct_blueprint(bolt, config, messages, redis):
                 log.info(f"[process_result] The Reign of King {player.name} is over!")
                 log.info("[process_result] Searching for a new King...")
                 group.dethrone()
-                text = messages.load_with_params("result.king.lose", [player.name])
+                new_king = group.get_player_by_id(group.king)[0]
+                if new_king is not None:
+                    text = messages.load_with_params("result.king.lose.new",
+                                                     [player.name, str(player.prev_streak), new_king.name])
+                else:
+                    text = messages.load_with_params("result.king.lose", [player.name, str(player.prev_streak)])
             # ...and wins
             else:
                 text = messages.load_with_params("result.king.win", [str(player.get_average())])
@@ -144,7 +151,7 @@ def construct_blueprint(bolt, config, messages, redis):
             # ...and loses
             if player.streak == 0:
                 log.info(f"[process_result] The Streak of {player.name} has been broken!")
-                text = messages.load_with_params("result.common.lose", [player.name])
+                text = messages.load_with_params("result.common.lose", [player.name, str(player.prev_streak)])
             # ...and wins...
             else:
                 # ...and deserves coronation
@@ -167,7 +174,7 @@ def construct_blueprint(bolt, config, messages, redis):
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": f"{result} :blush:\n\n*I am under development*"
+                        "text": f"{result}\n\n*I am under development*"
                     },
                 }
             ],
