@@ -27,4 +27,20 @@ def handle_commoner(log, messages, group, player):
             group.crown(player)
             return messages.load_with_params("result.common.coronation", [player.name])
         else:
+
+            player.title = update_title(player)
             return messages.load_with_params("result.common.win", [player.name, str(player.get_average())])
+
+
+def update_title(player):
+    score = player.get_average()
+    if score > 4.0:
+        return 'Knight'
+    if score > 3.0:
+        return 'Master'
+    if score > 2.0:
+        return 'Freemen'
+    if score > 1.0:
+        return 'Commoner'
+    else:
+        return 'Peasant'
