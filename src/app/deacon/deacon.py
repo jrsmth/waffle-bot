@@ -25,8 +25,7 @@ def handle_commoner(log, messages, group, player):
     # ...and begins
     elif player.streak == 1:
         log.info(f"[handle_commoner] Player {player.name} has begun their kingdom!")
-        random_message = secrets.SystemRandom().randrange(1,2)
-        print(random_message)
+        random_message = secrets.SystemRandom().randrange(1,2) #NOSONAR
         return messages.load_with_params("result.player.start."+str(random_message), [player.name])
     # ...and wins...
     else:
