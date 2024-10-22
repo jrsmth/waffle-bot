@@ -7,8 +7,7 @@ from slack_sdk.errors import SlackApiError
 from src.app.model.event.event import Event
 from src.app.model.group.group import Group
 from src.app.model.group.player import Player
-from src.app.deacon.deacon import handle_king
-from src.app.deacon.deacon import handle_commoner
+from src.app.deacon.deacon import handle_king, handle_commoner
 from collections import namedtuple
 from slack_bolt.adapter.flask import SlackRequestHandler
 
@@ -153,7 +152,7 @@ def construct_blueprint(bolt, config, messages, redis):
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": f"{result}\n\n*I am under development*"
+                        "text": f"{result}"
                     },
                 }
             ],

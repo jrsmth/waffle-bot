@@ -1,3 +1,6 @@
+import random
+
+
 def handle_king(log, messages, group, player):
     # King lost
     if player.streak == 0:
@@ -14,12 +17,17 @@ def handle_king(log, messages, group, player):
     else:
         return messages.load_with_params("result.king.win", [str(player.get_average())])
 
-
 def handle_commoner(log, messages, group, player):
     # ...and loses
     if player.streak == 0:
         log.info(f"[handle_commoner] The Streak of {player.name} has been broken!")
         return messages.load_with_params("result.common.lose", [player.name, str(player.prev_streak)])
+    # ...and begins
+    elif player.streak == 1:
+        log.info(f"[handle_commoner] Player {player.name} has begun their kingdom!")
+        random_message = random.randint(1,2)
+        print(random_message)
+        return messages.load_with_params("result.player.start."+str(random_message), [player.name])
     # ...and wins...
     else:
         # ...and deserves coronation
