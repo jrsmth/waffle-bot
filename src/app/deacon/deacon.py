@@ -1,4 +1,4 @@
-import random
+import secrets
 
 
 def handle_king(log, messages, group, player):
@@ -25,7 +25,7 @@ def handle_commoner(log, messages, group, player):
     # ...and begins
     elif player.streak == 1:
         log.info(f"[handle_commoner] Player {player.name} has begun their kingdom!")
-        random_message = random.randint(1,2)
+        random_message = secrets.SystemRandom().randrange(1,2)
         print(random_message)
         return messages.load_with_params("result.player.start."+str(random_message), [player.name])
     # ...and wins...
