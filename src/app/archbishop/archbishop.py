@@ -3,15 +3,16 @@ import logging
 import requests
 from flask import Blueprint, Response
 from flask import request
-from slack_bolt import BoltResponse
 from slack_sdk.errors import SlackApiError
 from src.app.model.event.event import Event
 from src.app.model.group.group import Group
 from src.app.model.group.player import Player
+from src.app.deacon.deacon import handle_king, handle_commoner
 from collections import namedtuple
 from slack_bolt.adapter.flask import SlackRequestHandler
 
 import shortuuid
+
 
 # Archbishop Logic
 def construct_blueprint(bolt, config, messages, redis):
@@ -64,7 +65,7 @@ def construct_blueprint(bolt, config, messages, redis):
         event_score = event.get_score()
         event_streak = event.get_streak()
 
-        if (event_score is None or event_streak is None):
+        if event.has_no_waffle_data():
             log.debug("[handle_waffle] Disregarding event, could not extract waffle data")
             return
 
@@ -73,6 +74,8 @@ def construct_blueprint(bolt, config, messages, redis):
 
         log.debug(f"[handle_waffle] Updating player information for [{player.name}]")
         player.score += event_score
+        if event_streak == 0:
+            player.prev_streak = player.streak
         player.streak = event_streak
         player.games += 1
 
@@ -111,7 +114,7 @@ def construct_blueprint(bolt, config, messages, redis):
             potential_player = [p for p in group.players if p.id == user_id]
 
             if not potential_player:
-                player = Player(user_id, user_name, 0, shortuuid.uuid(), 0, 0)
+                player = Player(user_id, user_name, 'Newbie', 0, shortuuid.uuid(), 0, 0, 0)
                 group.players.append(player)
                 redis.set_complex(group.name, group)
                 log.debug(f"[get_player] [{user_name}] added to the system with id [{user_id}]")
@@ -129,30 +132,12 @@ def construct_blueprint(bolt, config, messages, redis):
 
         # Player is the King...
         if player.id == group.king:
-            # ...and loses
-            if player.streak == 0:
-                log.info(f"[process_result] The Reign of King {player.name} is over!")
-                log.info("[process_result] Searching for a new King...")
-                group.dethrone()
-                text = messages.load_with_params("result.king.lose", [player.name])
-            # ...and wins
-            else:
-                text = messages.load_with_params("result.king.win", [str(player.get_average())])
-
+            log.debug(f"[process_result] Consulting Deacon to handle King with Id [{group.king}")
+            text = handle_king(log, messages, group, player)
         # Player is a commoner...
         else:
-            # ...and loses
-            if player.streak == 0:
-                log.info(f"[process_result] The Streak of {player.name} has been broken!")
-                text = messages.load_with_params("result.common.lose", [player.name])
-            # ...and wins...
-            else:
-                # ...and deserves coronation
-                if group.get_streak_by_id(player.id) > group.get_streak_by_id(group.king):
-                    group.crown(player)
-                    text = messages.load_with_params("result.common.coronation", [player.name])
-                else:
-                    text = messages.load_with_params("result.common.win", [player.name, str(player.get_average())])
+            log.debug(f"[process_result] Consulting Deacon to handle Player with Id [{player.id}")
+            text = handle_commoner(log, messages, group, player)
 
         result = namedtuple("Result", "group text")
         return result(group, text)
@@ -167,7 +152,7 @@ def construct_blueprint(bolt, config, messages, redis):
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": f"{result} :blush:\n\n*I am under development*"
+                        "text": f"{result}"
                     },
                 }
             ],

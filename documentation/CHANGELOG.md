@@ -13,6 +13,13 @@
 # Releases
 <!-- @LatestFirst -->
 
+## [0.5.0] [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
+[Presentation](https://github.com/jrsmth/waffle-bot/milestone/3) (??/??/????)
+- `#52` Update dethrone Message to announce new King
+- `#69` Add rank-based titles to messaging
+- `#67` Create 'motivational' message for streak of 1
+- `#70` Beautify the interactions the Archbishop has in Slack
+
 ## [0.4.1] [![user](https://img.shields.io/badge/haydende-181717.svg?style=flat&logo=github)](https://github.com/haydende) [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth) [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
 [Player Extension](https://github.com/jrsmth/waffle-bot/milestone/9) (22/05/2024)
 - `#34` Add Sonar Qube Support
@@ -67,3 +74,4 @@
 [0.3.1]: https://github.com/jrsmth/waffle-bot/compare/0.3.0...0.3.1
 [0.4.0]: https://github.com/jrsmth/waffle-bot/compare/0.3.1...0.4.0
 [0.4.1]: https://github.com/jrsmth/waffle-bot/compare/0.4.0...0.4.1
+[0.5.0]: https://github.com/jrsmth/waffle-bot/compare/0.4.1...0.5.0

@@ -9,8 +9,10 @@ class Player(Base):
     """ Tracked player information """
     id: str
     name: str
+    title: str
     streak: int
     streak_id: str
+    prev_streak: int
     score: int
     games: int
 
@@ -19,8 +21,10 @@ class Player(Base):
         return cls(
             id=dic["id"],
             name=dic["name"],
+            title=dic["title"],
             streak=dic["streak"],
             streak_id=dic["streak_id"],
+            prev_streak=dic["prev_streak"],
             score=dic["score"],
             games=dic["games"]
         )

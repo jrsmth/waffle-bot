@@ -47,6 +47,9 @@ class Event:
         if streak_text is not None:
             return int(streak_text.split(" ")[1].strip("\n"))
 
+    def has_no_waffle_data(self):
+        return self.get_score() is None or self.get_streak() is None
+
     @staticmethod
     def _search_elements_for_expr(elements, expr):
         for elem in elements:
