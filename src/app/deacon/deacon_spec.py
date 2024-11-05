@@ -1,7 +1,6 @@
 import logging
 
 from from_root import from_root
-from numpy.ma.testutils import assert_equal
 
 from src.app.util.messages.messages import Messages
 from src.app.deacon.deacon import handle_king, handle_commoner, update_title
@@ -135,12 +134,12 @@ class DeaconSpec:
         test.games = 1
 
         test.score = 5
-        assert_equal(update_title(test), 'Knight')
+        assert update_title(test) =='Knight'
         test.score = 4
-        assert_equal(update_title(test), 'Master')
+        assert update_title(test) == 'Master'
         test.score = 3
-        assert_equal(update_title(test), 'Freemen')
+        assert update_title(test) == 'Freemen'
         test.score = 2
-        assert_equal(update_title(test), 'Commoner')
+        assert update_title(test) == 'Commoner'
         test.score = 1
-        assert_equal(update_title(test), 'Peasant')
+        assert update_title(test) == 'Peasant'
