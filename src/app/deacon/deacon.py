@@ -30,11 +30,10 @@ def handle_commoner(log, messages, group, player):
     # ...and wins...
     else:
         # ...and deserves coronation
-        if group.get_streak_by_id(player.id) > group.get_streak_by_id(group.king):
+        if player.streak > group.get_streak_by_id(group.king)[0]:
             group.crown(player)
             return messages.load_with_params("result.common.coronation", [player.name])
         else:
-
             player.title = update_title(player)
             return messages.load_with_params("result.common.win", [player.name, str(player.get_average())])
 
