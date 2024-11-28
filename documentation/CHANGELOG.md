@@ -14,7 +14,7 @@
 <!-- @LatestFirst -->
 
 ## [0.5.0] [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
-[Presentation](https://github.com/jrsmth/waffle-bot/milestone/3) (??/??/????)
+[Presentation](https://github.com/jrsmth/waffle-bot/milestone/3) (28/11/2024)
 - `#52` Update dethrone Message to announce new King
 - `#69` Add rank-based titles to messaging
 - `#67` Create 'motivational' message for streak of 1
