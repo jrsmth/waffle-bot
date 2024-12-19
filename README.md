@@ -13,7 +13,7 @@
 
 ## Explanation
 - 🧇 The Archbishop oversees scoring within your Slack group
-- ℹ️ [Demo?]()
+- ℹ️ [Wiki](https://github.com/jrsmth/waffle-bot/wiki)
 
 ## Run Locally
 - 🔧 `pip install -r src/app/requirements.txt`

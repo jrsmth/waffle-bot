@@ -7,11 +7,13 @@
 - `0.3.x` Scroll Command
 - `0.4.x` Player Extension 
 - `0.5.x` Presentation
-- `0.6.x` Reactions
-- `1.0.x` App Distribution
 
 # Releases
 <!-- @LatestFirst -->
+
+## [0.5.1] [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+[Presentation](https://github.com/jrsmth/waffle-bot/milestone/3) (19/12/2024)
+- `#75` Archbishop not processing requests following 0.5.0 release
 
 ## [0.5.0] [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/adamj335)
 [Presentation](https://github.com/jrsmth/waffle-bot/milestone/3) (28/11/2024)
@@ -75,3 +77,4 @@
 [0.4.0]: https://github.com/jrsmth/waffle-bot/compare/0.3.1...0.4.0
 [0.4.1]: https://github.com/jrsmth/waffle-bot/compare/0.4.0...0.4.1
 [0.5.0]: https://github.com/jrsmth/waffle-bot/compare/0.4.1...0.5.0
+[0.5.1]: https://github.com/jrsmth/waffle-bot/compare/0.5.0...0.5.1

@@ -69,10 +69,12 @@ class Group(Base):
             self.king = sorted(non_zeros, key=lambda x: x.streak, reverse=True)[0].id
 
     def get_streak_by_id(self, id_value):
-        return [p.streak for p in self.players if p.id == id_value]
+        streak = [p.streak for p in self.players if p.id == id_value]
+        return streak[0] if len(streak) != 0 else 0
 
     def get_player_by_id(self, id_value):
-        return [p for p in self.players if p.id == id_value]
+        player = [p for p in self.players if p.id == id_value]
+        return player[0] if len(player) != 0 else None
 
     def __is_unworthy(self, new_streak):
         """ Determine if streak is unworthy of scroll update """
