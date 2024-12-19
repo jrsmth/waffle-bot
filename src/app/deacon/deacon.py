@@ -7,10 +7,9 @@ def handle_king(log, messages, group, player):
         log.info(f"[handle_king] The Reign of King {player.name} is over!")
         log.info("[handle_king] Searching for a new King...")
         group.dethrone()
-        new_king = group.get_player_by_id(group.king)[0]
+        new_king = group.get_player_by_id(group.king)
         if new_king is not None:
-            return messages.load_with_params("result.king.lose.new",
-                                             [player.name, str(player.prev_streak), new_king.name])
+            return messages.load_with_params("result.king.lose.new",[player.name, str(player.prev_streak), new_king.name])
         else:
             return messages.load_with_params("result.king.lose", [player.name, str(player.prev_streak)])
     # King Wins
@@ -30,7 +29,7 @@ def handle_commoner(log, messages, group, player):
     # ...and wins...
     else:
         # ...and deserves coronation
-        if player.streak > group.get_streak_by_id(group.king)[0]:
+        if player.streak > group.get_streak_by_id(group.king):
             group.crown(player)
             return messages.load_with_params("result.common.coronation", [player.name])
         else:
