@@ -11,7 +11,7 @@
 # Releases
 <!-- @LatestFirst -->
 
-## [0.5.1] [![user](https://img.shields.io/badge/adamj335-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
+## [0.5.1] [![user](https://img.shields.io/badge/jrsmth-181717.svg?style=flat&logo=github)](https://github.com/jrsmth)
 [Presentation](https://github.com/jrsmth/waffle-bot/milestone/3) (19/12/2024)
 - `#75` Archbishop not processing requests following 0.5.0 release
 
