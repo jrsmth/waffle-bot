@@ -34,7 +34,7 @@ def handle_commoner(log, messages, group, player):
             return messages.load_with_params("result.common.coronation", [player.name])
         else:
             player.title = update_title(player)
-            return messages.load_with_params("result.common.win", [player.name, str(player.get_average())])
+            return messages.load_with_params("result.common.win", [player.title, player.name, str(player.get_average())])
 
 
 def update_title(player):
